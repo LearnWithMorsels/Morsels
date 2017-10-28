@@ -1,0 +1,35 @@
+.stack {
+  display: inline-block;
+
+  .cards {
+    width: $card-width;
+    min-width: $card-min-width;
+    max-width: calc(100% - 24px);
+    height: $card-height;
+    min-height: $card-min-height;
+    max-height: calc(100% - 48px);
+
+    position: relative;
+
+    white-space: normal;
+
+    z-index: 2;
+
+    > .material-icons {
+      height: 180px;
+      margin-top: -90px;
+
+      position: absolute;
+      top: 50%;
+      right: 0;
+      left: 0;
+
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 8rem;
+      line-height: 180px;
+      text-align: center;
+
+      z-index: -1;
+    }
+  }
+}

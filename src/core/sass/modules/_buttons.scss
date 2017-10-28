@@ -1,0 +1,9 @@
+button {
+  @include flexbox;
+  align-items: center;
+  justify-content: center;
+
+  outline: none;
+
+  cursor: pointer;
+}

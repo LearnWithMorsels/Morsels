@@ -1,0 +1,32 @@
+{
+	"title": "Bienvenue à Morsels",
+	"_content": {
+		"title": "Mon Premier Cours",
+		"description": "Un cours d'essai en utilisant le cadre Morsels"
+	},
+	"_segments": [
+		{
+			"_content": {
+			"title": "Introduction"
+			},
+			"_stacks": [
+				{
+					"_cards": [
+						{
+							"_content": {
+								"title": "Morceaux",
+								"subtitle": "Une explication rapide..."
+							}
+						},
+						{
+							"_content": {
+								"title": "Ce sera vraiment rapide...",
+								"body": "<p>...et facile!</p>"
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

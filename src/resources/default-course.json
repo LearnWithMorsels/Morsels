@@ -1,0 +1,24 @@
+{
+	"title": "New course",
+	"description": "A new Morsels course",
+	"_sections": [
+		{
+			"title": "Introduction",
+			"_stacks": [
+				{
+					"title": "Empty stack",
+					"_classes": "",
+					"_cards": [
+						{
+							"_card": "title",
+							"_content": {
+								"title": "Morsels",
+								"subtitle": "Go go go!"
+							}
+						},
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,20 @@
+.activity {
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  -webkit-transition: height $activity-transition-in $activity-transition-out, opacity $activity-transition-out;
+  transition: height $activity-transition-in $activity-transition-out, opacity $activity-transition-out;
+
+  opacity: 1;
+
+  &.complete {
+    height: 0;
+
+    opacity: 0;
+  }
+
+  .activity-contents {
+  }
+}

@@ -1,0 +1,22 @@
+.segment {
+  width: 100%;
+  height: 100%;
+
+  transition: transform $stack-transition $card-dismiss;
+
+  .stacks {
+    width: 100%;
+    height: 100%;
+
+    white-space: nowrap;
+
+    .stack {
+      width: 100%;
+      height: 100%;
+
+      @include inline-flexbox;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
