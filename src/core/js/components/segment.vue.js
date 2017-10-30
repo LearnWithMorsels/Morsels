@@ -25,9 +25,7 @@ Vue.component( 'segment', {
 		goToNextStack: function() {
 			if( this.currentStack + 1 < this.segment._stacks.length ) {
 				this.currentStack++;
-				console.log( 'More stacks to do' );
 			} else {
-				console.log( 'Stacks done' );
 				this.$emit( 'complete' );
 			}
 		}

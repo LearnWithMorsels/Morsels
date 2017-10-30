@@ -54,7 +54,6 @@ Vue.component( 'course', {
 		goToNextSegment: function() {
 			if( this.currentSegment + 1 < this.content._segments.length - 1 ) {
 				this.currentSegment++;
-				console.log( 'More segments to do' );
 			} else {
 				console.log( 'EVERYTHING DONE' );
 			}

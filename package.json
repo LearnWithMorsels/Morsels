@@ -31,18 +31,16 @@
     "gulp-better-rollup": "^1.1.1",
     "gulp-concat": "^2.6.1",
     "gulp-file-override": "^1.1.0",
+    "gulp-insert": "^0.5.0",
     "gulp-multi-extend": "0.0.2",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.1",
+    "material-design-icons": "^3.0.1",
     "rollup-plugin-babel": "^3.0.2",
     "rollup-plugin-commonjs": "^8.2.1",
     "rollup-plugin-eslint": "^4.0.0",
     "rollup-plugin-uglify": "^2.0.1",
     "vue": "^2.4.4"
-  },
-  "devDependencies": {
-    "gulp-jsdoc3": "^1.0.1",
-    "jsdoc": "^3.4.0"
   }
 }
