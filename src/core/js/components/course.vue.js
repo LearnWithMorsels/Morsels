@@ -1,17 +1,14 @@
 import Vue from '../resources/Vue';
 import './segment.vue';
-// import './sidebar.vue';
+ import './menubar.vue';
+ import './sidebar.vue';
 
 Vue.component( 'course', {
 	props: ['course'],
-	template: '<div class="course" :class="classes">' +
-					//'<sidebar></sidebar>' +
-					//'<h1>{{ content._content.title }}</h1>' +
-					//'<div v-if="content._content.body" v-html="content._content.body"></div>' +
-					//'<select v-if="languages.length > 1" v-model="language">' +
-					//	'<option v-for="language in languages" :value="language">{{ course.config.languages.labels[language] || language }}</option>' +
-					//'</select>' +
-					'<div class="segments" :style="style">' +
+	template: '<div :class="classes">' +
+					'<menubar :content="content" v-on:toggleSidebar="toggleSidebar"></menubar>' +
+					'<sidebar :course="course" :language="language" v-on:changeLanguage="changeLanguage" v-on:close="closeSidebar"></sidebar>' +
+					'<div class="segments" :style="style" v-on:mousedown.capture="closeSidebar" v-on:touchstart.capture="closeSidebar">' +
 						'<segment v-for="(segment, index) in content._segments" :segment="segment" :key="index" v-on:complete="goToNextSegment"></segment>' +
 					'</div>' +
 					//'<button class="toggle-overview" v-on:click.prevent="viewAll = !viewAll">See all</button>' +
@@ -20,6 +17,7 @@ Vue.component( 'course', {
 		return {
 			language: this.course.config.languages.default || this.course.config.languages.primary || this.course.content[Object.keys(this.course.content)[0]] || 'en',
 			currentSegment: 0,
+			showSidebar: false,
 			viewAll: false
 		};
 	},
@@ -27,20 +25,23 @@ Vue.component( 'course', {
 		content: function() {
 			return this.course.content[this.language] || {}
 		},
-		languages: function() {
-			return Object.keys( this.course.content );
-		},
 		courseTitle: function() {
 			return this.course.content[this.language].title;
 		},
 		classes: function() {
 			return {
-				overview: this.viewAll
+				course: true,
+				rtl: this.rtl,
+				overview: this.viewAll,
+				'show-sidebar': this.showSidebar
 			};
+		},
+		rtl: function() {
+			return this.course.config.languages.labels[this.language].rtl;
 		},
 		style: function() {
 			return {
-				transform: 'translateY(-' + ( this.currentSegment * 100 ) + '%)'
+				transform: 'translateX(-' + ( this.currentSegment * 100 ) + '%)'
 			};
 		}
 	},
@@ -55,8 +56,17 @@ Vue.component( 'course', {
 			if( this.currentSegment + 1 < this.content._segments.length - 1 ) {
 				this.currentSegment++;
 			} else {
-				console.log( 'EVERYTHING DONE' );
+				alert( 'EVERYTHING DONE' );
 			}
+		},
+		toggleSidebar: function() {
+			this.showSidebar = !this.showSidebar;
+		},
+		closeSidebar: function() {
+			this.showSidebar = false;
+		},
+		changeLanguage: function( language) {
+			this.language = language;
 		}
 	},
 	watch: {

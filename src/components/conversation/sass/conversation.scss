@@ -1,0 +1,49 @@
+@import "../../../core/sass/modules/functions";
+@import "../../../core/sass/modules/mixins";
+@import "../../../core/sass/variables";
+
+.component-conversation {
+  .component-contents {
+    padding: 48px;
+
+    .conversation-item {
+      margin-right: 48px;
+      margin-bottom: 18px;
+      padding: 18px;
+
+      position: relative;
+
+      background-color: #FFF;
+
+      border-radius: 3px;
+
+      @include shadow-2;
+
+      &::after {
+        position: absolute;
+        top: 10px;
+        left: 100%;
+
+        border: 10px transparent solid;
+        border-left-color: #FFF;
+
+        content: "";
+      }
+
+      &.me {
+        margin-right: 0;
+        margin-left: 48px;
+
+        background-color: lighten($primary, 40);
+
+        &::after {
+          right: 100%;
+          left: auto;
+
+          border-right-color: lighten($primary, 40);
+          border-left-color: transparent;
+        }
+      }
+    }
+  }
+}

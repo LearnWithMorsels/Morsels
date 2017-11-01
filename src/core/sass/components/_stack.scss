@@ -1,5 +1,7 @@
 .stack {
-  display: inline-block;
+  @include flexbox;
+  align-items: center;
+  justify-content: center;
 
   .cards {
     width: $card-width;
@@ -18,6 +20,8 @@
     > .material-icons {
       height: 180px;
       margin-top: -90px;
+
+      display: none;
 
       position: absolute;
       top: 50%;

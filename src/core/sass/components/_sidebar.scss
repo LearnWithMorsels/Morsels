@@ -1,0 +1,92 @@
+.sidebar {
+  width: calc(100% - 60px);
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  //background-color: $sidebar-colour;
+  background-color: #DDD;
+
+  //@include shadow-0;
+  box-shadow:  0 0 0 0 rgba(0, 0, 0, .14), 0 0 0 0 rgba(0, 0, 0, .12), 0 0 0 0 rgba(0, 0, 0, .2), 0 0 0 2000px rgba(0, 0, 0, 0);
+
+  transform: translateX(100%);
+
+  transition: box-shadow $sidebar-transition ease-in, transform $sidebar-transition ease-in;
+
+  z-index: 3;
+
+  .rtl & {
+    right: auto;
+    left: 0;
+
+    transform: translateX(-100%);
+  }
+
+  .show-sidebar & {
+    //@include shadow-16;
+    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, .14),
+    0 6px 30px 5px rgba(0, 0, 0, .12),
+    0 8px 10px -5px rgba(0, 0, 0, .4),
+    0 0 0 2000px rgba(0, 0, 0, .5);
+
+    transform: none;
+
+    transition: box-shadow $sidebar-transition ease-out, transform $sidebar-transition ease-out;
+  }
+
+  .sidebar-header {
+    min-height: 150px;
+    padding: 48px 24px 24px;
+
+    @include flexbox-vertical;
+    justify-content: flex-end;
+
+    position: relative;
+
+    color: #FFF;
+
+    //background-color: rgba(255, 255, 255, 0.25);
+    background: url("https://c2.staticflickr.com/4/3749/9446565753_5a49366847.jpg") center no-repeat;
+    background-size: cover;
+
+    &::after {
+      height: 120px;
+
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,0.65+100 */
+      background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%); /* FF3.6-15 */
+      background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%); /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.65) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
+
+      content: "";
+    }
+
+    .toggle-sidebar {
+      width: auto;
+      min-height: 0;
+
+      position: absolute;
+      top: 12px;
+      right: 12px;
+
+      background-color: transparent;
+
+      .rtl & {
+        right: auto;
+        left: 12px;
+      }
+    }
+  }
+
+  .structure {
+    padding: 24px;
+  }
+}

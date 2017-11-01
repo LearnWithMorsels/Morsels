@@ -93,6 +93,9 @@ Morsels.card( 'video', {
 		},
 		resourceURI: function( videoFile ) {
 			return './resources/' + videoFile;
+		},
+		onDismiss: function() {
+			this.pause();
 		}
 	},
 	beforeDestroy: function() {

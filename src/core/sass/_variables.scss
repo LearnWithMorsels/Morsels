@@ -1,0 +1,36 @@
+$primary: #2196F3;
+$primary-dark: #1976D2;
+$menubar-colour: $primary-dark;
+$sidebar-colour: #212121;
+
+$menubar-height: 48px;
+
+$course-overview-transition: 200ms;
+
+$transition-fade: 300ms;
+
+$sidebar-transition: 300ms;
+
+$activities-transition-in: 600ms;
+$activities-fade-in: 300ms;
+$activities-fade-out: 300ms;
+$activities-transition-out: 600ms;
+
+$activity-transition-out: 300ms;
+$activity-transition-in: 300ms;
+
+$card-width: 400px;
+$card-min-width: 300px;
+$card-height: 600px;
+$card-min-height: 450px;
+$card-border-radius: 3px;
+$card-scale-below: 0.99;
+$card-shift-below: 3px;
+
+$card-pick-up: 200ms;
+$card-place-down: 300ms;
+$card-return: 200ms;
+$card-dismiss: 300ms;
+$card-move-up: 400ms;
+
+$stack-transition: 600ms;

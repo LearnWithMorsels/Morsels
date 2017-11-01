@@ -1,0 +1,32 @@
+.menubar {
+  padding: 0 12px;
+
+  @include flexbox;
+  align-items: center;
+  flex-direction: row-reverse;
+  @include flex(0 0 $menubar-height);
+
+  position: relative;
+
+  background-color: $menubar-colour;
+
+  @include shadow-4;
+
+  z-index: 2;
+
+  h1 {
+    color: #FFF;
+  }
+
+  button {
+    width: auto;
+    min-height: 0;
+
+    color: #FFF;
+
+    background: none;
+
+    border: none;
+    outline: none;
+  }
+}

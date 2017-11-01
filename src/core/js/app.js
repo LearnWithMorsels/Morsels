@@ -28,6 +28,12 @@ let Morsels = {
 		link.rel = 'stylesheet';
 		head.append( link );
 	},
+	addMeta: ( name, content ) => {
+		let meta = document.createElement( 'meta' );
+		meta.name = name;
+		meta.content = content;
+		head.append( meta );
+	},
 	registerComponent: ( name, properties ) => {
 		Vue.component( name, properties );
 	},
@@ -47,17 +53,22 @@ let Morsels = {
 	}
 };
 
-Morsels.card = ( name, properties ) => {
-	Morsels.registerComponent( 'card-' + name, properties );
-};
-
 Morsels.activity = ( name, properties ) => {
 	Morsels.registerComponent( 'activity-' + name, properties );
 };
 
+Morsels.card = ( name, properties ) => {
+	Morsels.registerComponent( 'card-' + name, properties );
+};
+
+Morsels.component = ( name, properties ) => {
+	Morsels.registerComponent( 'component-' + name, properties );
+};
+
 window.Morsels = Morsels;
 
-Morsels.addCSS( './css/course.min.css' );
+//Morsels.addCSS( './css/base.css' );
+Morsels.addCSS( './css/morsels.min.css' );
 
 let fetchFile = file => {
 		return fetch( file )
@@ -76,14 +87,16 @@ let fetchFile = file => {
 
 Promise.all( [
 	fetchJSONFile( './course.json' ),
+	fetchFile( './js/activities.min.js' ),
 	fetchFile( './js/cards.min.js' ),
-	fetchFile( './js/activities.min.js' )
+	fetchFile( './js/components.min.js' )
 ] )
 	.then( returns => {
 		let course = returns[0];
 
 		Morsels.appendJS( returns[1] );
 		Morsels.appendJS( returns[2] );
+		Morsels.appendJS( returns[3] );
 
 		Morsels.Vue = new Vue( {
 			el: '#morsels-course',
@@ -95,8 +108,7 @@ Promise.all( [
 		} );
 	} );
 
-
-// <meta name="theme-color" content="#1A237E">
+Morsels.addMeta( 'theme-color', '#1A237E' );
 // <meta name="msapplication-navbutton-color" content="#3F51B5">
 // <meta name="apple-mobile-web-app-title" content="Smileonthetiles">
 // <meta name="apple-mobile-web-app-capable" content="yes">

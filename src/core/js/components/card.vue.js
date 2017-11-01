@@ -4,7 +4,7 @@ import './activities.vue';
 Vue.component( 'card', {
 	props: ['card', 'zIndex'],
 	template: '<div :class="classes" :data-card="card._card" :style="{ zIndex: zIndex, left: view.offset.x + \'px\', top: view.offset.y + \'px\' }" :data-uid="_uid">' +
-					'<component :is="\'card-\' + card._card" ref="card2" :card="card" v-on:complete="complete"></component>' +
+					'<component :is="\'card-\' + card._card" ref="card" :card="card" v-on:complete="complete"></component>' +
 					'<template v-if="card._activities">' +
 						'<button class="show-activities" v-on:click.prevent.stop="openActivities">' +
 							'<i class="material-icons">more_horiz</i>' +
@@ -13,10 +13,10 @@ Vue.component( 'card', {
 							'<i class="material-icons">close</i>' +
 						'</button>' +
 					'</template>' +
-					'<button class="save-card" v-on:click.prevent.stop="toggleSave">' +
-						'<i v-if="saved" class="material-icons">bookmark</i>' +
-						'<i v-else class="material-icons">bookmark_border</i>' +
-					'</button>' +
+					//'<button class="save-card" v-on:click.prevent.stop="toggleSave">' +
+					//	'<i v-if="saved" class="material-icons">bookmark</i>' +
+					//	'<i v-else class="material-icons">bookmark_border</i>' +
+					//'</button>' +
 					'<activities v-if="card._activities" :activities="card._activities" ref="activities" v-on:complete="completeActivities"></activities>' +
 				'</div>',
 	data: function() {
@@ -129,6 +129,10 @@ Vue.component( 'card', {
 		dismiss: function() {
 			this.closeActivities();
 			this.dismissed = true;
+			if( typeof this.$refs.card.onDismiss === 'function' ) {
+				this.$refs.card.onDismiss();
+			}
+
 			this.$emit( 'dismiss' );
 
 			if( this.isComplete ) {
@@ -180,7 +184,7 @@ Vue.component( 'card', {
 				this.view.pointerdown = false;
 				this.view.dragging = false;
 
-				if( Math.sqrt( Math.pow( this.view.offset.x, 2 ) + Math.pow( this.view.offset.y, 2 ) ) > 200 ) {
+				if( Math.sqrt( Math.pow( this.view.offset.x, 2 ) + Math.pow( this.view.offset.y, 2 ) ) > ( ( this.$el.clientWidth / 2 ) || 200 ) ) {
 					this.view.offset.x *= 3;
 					this.view.offset.y *= 3;
 					this.dismiss();

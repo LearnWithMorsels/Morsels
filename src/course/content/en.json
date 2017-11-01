@@ -1,6 +1,5 @@
 {
 	"title": "Welcome to Morsels",
-	"description": "A test course using the Morsels framework",
 	"_content": {
 		"title": "My First Course",
 		"description": "Come in. Take your shoes off."
@@ -114,6 +113,31 @@
 					]
 				},
 				{
+					"_component": "conversation",
+					"_content": {
+						"title": "Morsels",
+						"subtitle": "A quick explanation...",
+						"body": "<p><i class=\"material-icons\">access_time</i> 2 minutes</p>"
+					},
+					"_items": [
+						{
+							"me": true,
+							"body": "<p>Lorem ipsum 1</p>"
+						},
+						{
+							"body": "<p>Lorem ipsum 2</p>"
+						},
+						{
+							"me": true,
+							"body": "<p>Lorem ipsum 3</p>"
+						},
+						{
+							"body": "<p>Lorem ipsum 4</p>"
+						}
+					]
+				},
+				{
+					"title": "Tests",
 					"_cards": [
 						{
 							"_card": "text",

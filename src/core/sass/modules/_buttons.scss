@@ -1,8 +1,17 @@
 button {
+  width: 100%;
+  min-height: 48px;
+
   @include flexbox;
   align-items: center;
   justify-content: center;
 
+  color: #FFF;
+  font-weight: 900;
+
+  background-color: $primary;
+
+  border: none;
   outline: none;
 
   cursor: pointer;

@@ -1,44 +1,5 @@
-//@import url("//fonts.googleapis.com/icon?family=Material+Icons");
-//@import "../../../node_modules/material-design-icons/iconfont/material-icons";
-
-$primary: #2196F3;
-$primary-dark: #1976D2;
-
-$course-overview-transition: 200ms;
-
-$transition-fade: 400ms;
-
-$activities-transition-in: 800ms;
-$activities-fade-in: 400ms;
-$activities-fade-out: 400ms;
-$activities-transition-out: 800ms;
-
-$activity-transition-out: 400ms;
-$activity-transition-in: 400ms;
-
-$card-width: 400px;
-$card-min-width: 300px;
-$card-height: 600px;
-$card-min-height: 450px;
-$card-border-radius: 3px;
-
-$card-pick-up: 100ms;
-$card-place-down: 400ms;
-$card-return: 200ms;
-$card-dismiss: 300ms;
-$card-move-up: 400ms;
-
-$stack-transition: 800ms;
+@import "modules/functions";
+@import "variables";
 
 @import "modules/reset";
-@import "modules/mixins";
-@import "modules/fonts";
-@import "modules/buttons";
-@import "modules/transitions";
 @import "modules/global";
-
-@import "components/course";
-@import "components/segment";
-@import "components/stack";
-@import "components/card";
-@import "components/activity";

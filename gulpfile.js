@@ -119,15 +119,10 @@ gulp.task( 'data', ['index'], () => {
 	fs.writeFileSync( './build/course.json', JSON.stringify( COURSE ) );
 } );
 
-gulp.task( 'scss', () => {
-	return gulp.src( [
-		'./src/core/sass/base.scss',
-		'./src/activities/**/*.scss',
-		'./src/cards/**/*.scss'
-	] )
-		//.pipe( fileOverride( 'core/sass', 'app/core/sass' ) )
-		//.pipe( fileOverride( 'activities/*/sass', 'app/activities/$1/sass' ) )
-		//.pipe( fileOverride( 'cards/*/sass', 'app/cards/$1/sass' ) )
+gulp.task( 'scss', ['scss:base', 'scss:framework'] );
+
+gulp.task( 'scss:base', () => {
+	return gulp.src( './src/core/sass/base.scss' )
 		.pipe( sourcemaps.init() )
 		.pipe( sass( { outputStyle: 'compressed' } )
 			.on( 'error', err => {
@@ -135,10 +130,32 @@ gulp.task( 'scss', () => {
 				this.emit( 'end' );
 			} )
 		)
-		.pipe( concat( 'course.min.css' ) )
 		.pipe( sourcemaps.write( './' ) )
 		.pipe( gulp.dest( './build/css' ) )
 		.pipe( browserSync.stream( { match: '**/*.css' } ) );
+} );
+
+gulp.task( 'scss:framework', () => {
+	return gulp.src( [
+		'./src/core/sass/morsels.scss',
+		'./src/activities/**/*.scss',
+		'./src/cards/**/*.scss',
+		'./src/components/**/*.scss'
+	] )
+	//.pipe( fileOverride( 'core/sass', 'app/core/sass' ) )
+	//.pipe( fileOverride( 'activities/*/sass', 'app/activities/$1/sass' ) )
+	//.pipe( fileOverride( 'cards/*/sass', 'app/cards/$1/sass' ) )
+			.pipe( sourcemaps.init() )
+			.pipe( sass( { outputStyle: 'compressed' } )
+					.on( 'error', err => {
+						sass.logError( err );
+						this.emit( 'end' );
+					} )
+			)
+			.pipe( concat( 'morsels.min.css' ) )
+			.pipe( sourcemaps.write( './' ) )
+			.pipe( gulp.dest( './build/css' ) )
+			.pipe( browserSync.stream( { match: '**/*.css' } ) );
 } );
 
 gulp.task( 'resources', () => {
@@ -148,15 +165,36 @@ gulp.task( 'resources', () => {
 
 gulp.task( 'fonts', () => {
 	return gulp.src( [
-			//'./node_modules/material-design-icons/iconfont/material-icons.css',
 			'./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.eot',
-			//'./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.ijmap',
-			//'./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.svg',
 			'./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.ttf',
 			'./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.woff',
 			'./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.woff2'
 	] )
 		.pipe( gulp.dest( './build/css/fonts' ) );
+} );
+
+gulp.task( 'activities', () => {
+	return gulp.src( './src/activities/*/js/**/*.js' )
+		.pipe( fileOverride( 'activities/*/js', 'app/activities/$1/js' ) )
+		.pipe( sourcemaps.init() )
+		.pipe( rollup( {
+			plugins: [
+				eslint( eslintOptions ),
+				cjs(),
+				babel( {
+					presets: [['es2015', { 'modules': false }]],
+					sourceMaps: true,
+					exclude: 'node_modules/**',
+					babelrc: false
+				} ),
+				uglify()
+			]
+		}, {
+			format: 'es'
+		} ) )
+		.pipe( concat( 'activities.min.js' ) )
+		.pipe( sourcemaps.write( '' ) )
+		.pipe( gulp.dest( './build/js' ) );
 } );
 
 gulp.task( 'cards', () => {
@@ -183,9 +221,9 @@ gulp.task( 'cards', () => {
 		.pipe( gulp.dest( './build/js' ) );
 } );
 
-gulp.task( 'activities', () => {
-	return gulp.src( './src/activities/*/js/**/*.js' )
-		.pipe( fileOverride( 'activities/*/js', 'app/activities/$1/js' ) )
+gulp.task( 'components', () => {
+	return gulp.src( './src/components/*/js/**/*.js' )
+		.pipe( fileOverride( 'components/*/js', 'app/components/$1/js' ) )
 		.pipe( sourcemaps.init() )
 		.pipe( rollup( {
 			plugins: [
@@ -202,7 +240,7 @@ gulp.task( 'activities', () => {
 		}, {
 			format: 'es'
 		} ) )
-		.pipe( concat( 'activities.min.js' ) )
+		.pipe( concat( 'components.min.js' ) )
 		.pipe( sourcemaps.write( '' ) )
 		.pipe( gulp.dest( './build/js' ) );
 } );
@@ -334,21 +372,23 @@ gulp.task( 'serve', () => {
 				logLevel: 'debug'
 			},
 			ghostMode: false,
-			open: false
+			open: false,
+			notify: false
 		}
 	);
 
 	gulp.watch( './src/core/index.html', ['index'] ).on( 'change', browserSync.reload );
 	gulp.watch( './src/**/*.js', ['js'] ).on( 'change', browserSync.reload );
-	gulp.watch( './src/cards/*/js/**/*.js', ['cards'] ).on( 'change', browserSync.reload );
 	gulp.watch( './src/activities/*/js/**/*.js', ['activities'] ).on( 'change', browserSync.reload );
+	gulp.watch( './src/cards/*/js/**/*.js', ['cards'] ).on( 'change', browserSync.reload );
+	gulp.watch( './src/components/*/js/**/*.js', ['components'] ).on( 'change', browserSync.reload );
 	gulp.watch( './src/**/*.scss', ['scss'] );
 	gulp.watch( './src/core/js/sw.js', ['service-worker'] ).on( 'change', browserSync.reload );
 	gulp.watch( ['./src/course/config.json'], ['data', 'manifest'] ).on( 'change', browserSync.reload );
 	gulp.watch( ['./src/course/content/*.json'], ['data'] ).on( 'change', browserSync.reload );
 } );
 
-gulp.task( 'default', ['index', 'js', 'cards', 'activities', 'scss', 'fonts', 'data', 'resources', 'service-worker', 'manifest'] );
+gulp.task( 'default', ['index', 'js', 'activities', 'cards', 'components', 'scss', 'fonts', 'data', 'resources', 'service-worker', 'manifest'] );
 
 // gulp.task( 'package', ['default'], () => {
 // 	return gulp.src( './build/**/*' )

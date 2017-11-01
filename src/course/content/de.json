@@ -1,5 +1,9 @@
 {
 	"title": "Willkommen bei Morsels",
+	"_content": {
+		"title": "Mein erster Kurs",
+		"description": "Komm rein. Zieh deine Schuhe aus."
+	},
 	"_segments": [
 		{
 			"_stacks": [

@@ -19,12 +19,12 @@
 
   border-radius: $card-border-radius;
 
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  @include shadow-2;
 
-  transform: translate3d(0, 0, 0) scale(0.925) translateY(15px);
+  transform: translate3d(0, 0, 0) scale(pow($card-scale-below, 3)) translateY($card-shift-below * 3);
   transform-origin: 50% 100%;
 
-  transition: top $card-return ease-out, left $card-return ease-out, background-color 1000ms, box-shadow $card-place-down, transform $card-move-up, opacity $card-dismiss, z-index $card-dismiss;
+  transition: top $card-return ease-out, left $card-return ease-out, background-color 1000ms, box-shadow $card-place-down cubic-bezier(.25,.8,.25,1), transform $card-move-up, opacity $card-dismiss, z-index $card-dismiss;
 
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -42,12 +42,12 @@
     opacity: 1;
 
     + .card {
-      transform: scale(0.975) translateY(5px);
+      transform: scale($card-scale-below) translateY($card-shift-below);
 
       opacity: 1;
 
       + .card {
-        transform: scale(0.95) translateY(10px);
+        transform: scale(pow($card-scale-below, 2)) translateY($card-shift-below * 2);
 
         opacity: 1;
       }
@@ -77,13 +77,13 @@
     z-index: 3 !important;
 
     + .card + .card + .card {
-      transform: scale(0.95) translateY(10px);
+      transform: scale(pow($card-scale-below, 2)) translateY($card-shift-below * 2);
 
       opacity: 1;
     }
 
     &.card + .card + .card {
-      transform: scale(0.975) translateY(5px);
+      transform: scale($card-scale-below) translateY($card-shift-below);
 
       opacity: 1;
     }
@@ -96,9 +96,12 @@
   }
 
   &.dragging {
-    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .2);
+    @include shadow-8;
 
-    transition: box-shadow $card-pick-up, transform $card-move-up, opacity $card-dismiss, z-index $card-dismiss;
+    transform: scale(1 / $card-scale-below) !important;
+    transform-origin: 50% 50%;
+
+    transition: box-shadow $card-pick-up cubic-bezier(.25,.8,.25,1), transform $card-move-up, opacity $card-dismiss, z-index $card-dismiss;
 
     cursor: grabbing;
     cursor: -moz-grabbing;
@@ -231,7 +234,7 @@
   .card-contents {
     width: 100%;
     max-height: 100%;
-    padding: 36px;
+    padding: 48px 36px;
 
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
