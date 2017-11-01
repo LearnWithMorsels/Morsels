@@ -34,7 +34,8 @@
       transition: transform $course-overview-transition;
     }
 
-    .stack {}
+    .stack {
+    }
 
     .cards {
       background-color: #F00;
@@ -73,7 +74,9 @@
     z-index: 1;
 
     .segment {
-        @include inline-flexbox;
+      @include inline-flexbox;
+
+      white-space: normal;
     }
   }
 

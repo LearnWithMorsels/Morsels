@@ -108,7 +108,7 @@ Promise.all( [
 		} );
 	} );
 
-Morsels.addMeta( 'theme-color', '#1A237E' );
+Morsels.addMeta( 'theme-color', '#212121' );
 // <meta name="msapplication-navbutton-color" content="#3F51B5">
 // <meta name="apple-mobile-web-app-title" content="Smileonthetiles">
 // <meta name="apple-mobile-web-app-capable" content="yes">

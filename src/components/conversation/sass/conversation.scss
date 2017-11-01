@@ -4,45 +4,87 @@
 
 .component-conversation {
   .component-contents {
-    padding: 48px;
+    max-width: 500px;
+    height: 100%;
+    margin: 0 auto;
 
-    .conversation-item {
-      margin-right: 48px;
-      margin-bottom: 18px;
-      padding: 18px;
+    @include flexbox-vertical;
 
-      position: relative;
+    .conversation-contents {
+      @include flexbox-vertical;
+      //justify-content: flex-end;
+      flex-direction: column-reverse;
+      @include flex(1 0);
 
-      background-color: #FFF;
+      overflow: auto;
 
-      border-radius: 3px;
-
-      @include shadow-2;
-
-      &::after {
-        position: absolute;
-        top: 10px;
-        left: 100%;
-
-        border: 10px transparent solid;
-        border-left-color: #FFF;
-
-        content: "";
+      > div {
+        padding: 0 24px 24px;
       }
 
-      &.me {
-        margin-right: 0;
-        margin-left: 48px;
+      .conversation-item {
+        margin-right: 48px;
+        margin-top: 24px;
+        padding: 18px;
 
-        background-color: lighten($primary, 40);
+        position: relative;
+
+        background-color: #FFF;
+
+        border-radius: 3px;
+
+        @include shadow-2;
+
+        transition: all 200ms;
 
         &::after {
-          right: 100%;
-          left: auto;
+          position: absolute;
+          top: 10px;
+          left: 100%;
 
-          border-right-color: lighten($primary, 40);
-          border-left-color: transparent;
+          border: 10px transparent solid;
+          border-left-color: #FFF;
+
+          content: "";
         }
+
+        &.me {
+          margin-right: 0;
+          margin-left: 48px;
+
+          background-color: lighten($primary, 40);
+
+          &::after {
+            right: 100%;
+            left: auto;
+
+            border-right-color: lighten($primary, 40);
+            border-left-color: transparent;
+          }
+        }
+
+        &.conversation-item-add-enter,
+        &.conversation-item-add-leave-to {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+
+        &.conversation-item-add-enter-to {
+        }
+      }
+    }
+
+    .conversation-options {
+      padding: 12px;
+
+      @include flex(0 1 48px);
+
+      background-color: rgba(255, 255, 255, 0.25);
+
+      button {
+        color: #212121;
+
+        background-color: #FFF;
       }
     }
   }

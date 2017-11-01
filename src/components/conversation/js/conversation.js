@@ -1,10 +1,18 @@
 Morsels.component( 'conversation', {
 	props: ['component'],
 	template: '<div class="component-contents">' +
-					'<template v-for="item in conversationSoFar">' +
-						'<div class="conversation-item" :class="{ me: item.me }" v-html="item.body"></div>' +
-					'</template>' +
-					'<button v-on:click.prevent="nextItem">{{ conversationIndex >= component._items.length ? "Done" : "Next" }}</button>' +
+					'<div class="conversation-contents">' +
+						'<transition-group name="conversation-item-add" tag="div">' +
+							'<div v-for="(item, index) in this.component._items" v-show="index < conversationIndex" class="conversation-item" key="index" :class="{ me: !item.name }">' +
+								'<h6 v-if="item.name">{{ item.name }}</h6>' +
+								'<h6 v-else><em>Me</em></h6>' +
+								'<div v-html="item.body"></div>' +
+							'</div>' +
+						'</transition-group>' +
+					'</div>' +
+					'<div class="conversation-options">' +
+						'<button v-on:click.prevent="nextItem">{{ conversationIndex >= component._items.length ? "Done" : "Next" }}</button>' +
+					'</div>' +
 				'</div>',
 	data: function() {
 		return {

@@ -1,542 +1,550 @@
 {
-	"title": "Welcome to Morsels",
-	"_content": {
-		"title": "My First Course",
-		"description": "Come in. Take your shoes off."
-	},
-	"_segments": [
-		{
-			"title": "Introduction",
-			"_content": {
-				"title": "Introduction"
-			},
-			"_stacks": [
-				{
-					"title": "Morsels",
-					"_classes": "",
-					"_content": {
-						"title": "Morsels"
-					},
-					"_cards": [
-						{
-							"_card": "title",
-							"_content": {
-								"title": "Morsels",
-								"subtitle": "A quick explanation...",
-								"body": "<p><i class=\"material-icons\">access_time</i> 2 minutes</p>"
-							},
-							"_____________activities": {
-								"title": "Thoughts?",
-								"_options": {
-									"_optional": true
-								},
-								"_items": [
-									{
-										"_type": "mcq",
-										"_content": {
-											"title": "Morsels",
-											"body": "<p>Like it?</p>",
-											"instruction": "Select from the list below"
-										},
-										"_items": [
-											{
-												"title": "Yes",
-												"_shouldBeSelected": true
-											},
-											{
-												"title": "No",
-												"_shouldBeSelected": false
-											}
-										],
-										"_options": {
-											"_selectable": 1,
-											"_attempts": 2
-										},
-										"_feedback": {
-											"_correct": {
-												"title": "Well done!",
-												"body": "<p>Nice one</p>"
-											},
-											"_incorrect": {
-												"title": "Incorrect",
-												"body": "<p>It's actually pretty sweet...</p>",
-												"_notes": [
-													"morsels_info"
-												]
-											},
-											"_common": {
-												"body": "<p>Morsels is awesome.</p>"
-											}
-										}
-									},
-									{
-										"_type": "mcq",
-										"_content": {
-											"title": "Age",
-											"body": "<p>How old?</p>",
-											"instruction": "Select from the list below"
-										},
-										"_items": [
-											{
-												"title": "Brand new",
-												"_shouldBeSelected": true
-											},
-											{
-												"title": "Well old",
-												"_shouldBeSelected": false
-											}
-										],
-										"_options": {
-											"_selectable": 1,
-											"_attempts": 0
-										},
-										"_feedback": {
-											"_correct": {
-												"title": "Well done!",
-												"body": "<p>Nice one</p>"
-											},
-											"_incorrect": {
-												"title": "Incorrect",
-												"body": "<p>It's actually pretty new...</p>",
-												"_notes": [
-													"morsels_info"
-												]
-											},
-											"_common": {
-												"body": "<p>Morsels is new.</p>"
-											}
-										}
-									}
-								]
-							}
-						}
-					]
-				},
-				{
-					"_component": "conversation",
-					"_content": {
-						"title": "Morsels",
-						"subtitle": "A quick explanation...",
-						"body": "<p><i class=\"material-icons\">access_time</i> 2 minutes</p>"
-					},
-					"_items": [
-						{
-							"me": true,
-							"body": "<p>Lorem ipsum 1</p>"
-						},
-						{
-							"body": "<p>Lorem ipsum 2</p>"
-						},
-						{
-							"me": true,
-							"body": "<p>Lorem ipsum 3</p>"
-						},
-						{
-							"body": "<p>Lorem ipsum 4</p>"
-						}
-					]
-				},
-				{
-					"title": "Tests",
-					"_cards": [
-						{
-							"_card": "text",
-							"_content": {
-								"title": "It'll be really quick...",
-								"body": "<p>...and easy!</p>"
-							}
-						},
-						{
-							"_card": "mcq",
-							"_content": {
-								"title": "Maths",
-								"body": "<p>What is 5 x 3?</p>"
-							},
-							"_items": [
-								{
-									"title": "2",
-									"_shouldBeSelected": false
-								},
-								{
-									"title": "5",
-									"_shouldBeSelected": false
-								},
-								{
-									"title": "15",
-									"_shouldBeSelected": true
-								},
-								{
-									"title": "25",
-									"_shouldBeSelected": false
-								}
-							],
-							"_feedback": {
-								"_correct": {
-									"title": "Well done!",
-									"body": "<p>It is</p>"
-								},
-								"_incorrect": {
-									"title": "Incorrect",
-									"body": "<p>Not quite</p>"
-								},
-								"_common": {
-									"body": "<p>You can also do 5 + 5 + 5</p>"
-								}
-							},
-							"_options": {
-								"_selectable": 1,
-								"_attempts": 2
-							}
-						},
-						{
-							"_card": "mcq",
-							"_content": {
-								"title": "Find the animals",
-								"body": "<p>Select all the animals</p>"
-							},
-							"_items": [
-								{
-									"title": "Dog",
-									"_shouldBeSelected": true
-								},
-								{
-									"title": "Microwave",
-									"_shouldBeSelected": false
-								},
-								{
-									"title": "Playstation",
-									"_shouldBeSelected": false
-								},
-								{
-									"title": "Cat",
-									"_shouldBeSelected": true
-								},
-								{
-									"title": "Cow",
-									"_shouldBeSelected": true
-								}
-							],
-							"_feedback": {
-								"_correct": {
-									"title": "Well done!",
-									"body": "<p>Those are animals</p>"
-								},
-								"_incorrect": {
-									"title": "Incorrect",
-									"body": "<p>Go back to primary school</p>"
-								}
-							},
-							"_options": {
-								"_selectable": 3,
-								"_attempts": 5
-							}
-						},
-						{
-							"_card": "video",
-							"_content": {
-								"_video": {
-									"_local": {
-										"poster": "videos/example.png",
-										"_src": {
-											"wemb": "videos/example.webm",
-											"ogv": "videos/example.ogv",
-											"mp4": "videos/example.mp4"
-										}
-									}
-								}
-							}
-						}
-					]
-				}
-			]
-		},
-		{
-			"title": "Formula 1",
-			"_content": {
-				"title": "Formula 1"
-			},
-			"_stacks": [
-				{
-					"title": "Introduction",
-					"_classes": "",
-					"_content": {
-						"title": "Introduction"
-					},
-					"_cards": [
-						{
-							"_card": "title",
-							"_content": {
-								"image": "//upload.wikimedia.org/wikipedia/en/4/45/F1_logo.svg",
-								"title": "The best F1 drivers",
-								"body": "<p>Explore the top 5 F1 drivers of all time.</p>"
-							}
-						},
-						{
-							"_card": "video",
-							"_content": {
-								"title": "A brief history",
-								"_video": {
-									"_vimeo": {
-										"id": "43233380",
-										"_showTitle": false,
-										"_showByline": false,
-										"_showPortrait": false
-									}
-								}
-							}
-						}
-					]
-				},
-				{
-					"title": "Top 5",
-					"_classes": "",
-					"_content": {
-						"title": "Top 5"
-					},
-					"_cards": [
-						{
-							"_card": "text",
-							"title": "Number 5",
-							"_content": {
-								"headerImage": "images/lauda.jpg",
-								"title": "5. Niki Lauda",
-								"subtitle": "Active: 1971&ndash;1979, 1982&ndash;1985",
-								"body": "<p>Perhaps not the most \"raw talented\" driver of all time but his intellect, determination, technical understanding and and smooth driving style could have won him 2 or 3 more titles. He did not always pick the best teams after leaving Ferrari after 77.</p><p>Schumacher, Prost, Vettel always drove in first rate winning cars, Lauda did not.</p>"
-							}
-						},
-						{
-							"_card": "text",
-							"title": "Number 4",
-							"_content": {
-								"headerImage": "images/alonso.jpg",
-								"title": "4. Fernando Alonso",
-								"subtitle": "Active: 2001&ndash;",
-								"body": "<p>Up there with Ayrton Senna in terms of talent and race-craft, probably not as fast as Senna on a single lap, but I would say he is the most complete race driver ever because he knows how to handle pressure, he know how to get the most out of the shopping trolleys that they build him of late and he is utterly relentless!</p><p>Similarly to Ayrton Senna, he has spent most of his career if not all of it without sitting in the best car. In a nutshell: Give him the second best package on the grid and he'll win you the championship.</p>"
-							}
-						},
-						{
-							"_card": "text",
-							"title": "Number 3",
-							"_content": {
-								"headerImage": "images/fangio.jpg",
-								"title": "3. Juan Manuel Fangio",
-								"subtitle": "Active: 1950&ndash;1951, 1953&ndash;1958",
-								"body": "<p>He should be higher up if overall performance is the rating. But consider that the era these racers were in can not really be fairly compared to other eras with such different equipment, rules, etc. To me anyone of them that were top runners is the best in their era.</p><p>There are so many good pilots, but Fangio is simply the best. When you read about what he did, you understand no one else can do that. And the most important he was a gentleman.</p>"
-							}
-						},
-						{
-							"_card": "text",
-							"title": "Number 2",
-							"_content": {
-								"headerImage": "images/schumacher.jpg",
-								"title": "2. Michael Schumacher",
-								"subtitle": "Active: 1991&ndash;2006, 2010&ndash;2012",
-								"body": "<p>Simply the best and fastest. Surely faster than anybody after him, in his prime. Still in his fourties could come back to have some fun and have decent races, which is pretty spectacular demonstration of his talent and consistency. Especially when you think that many other drivers in their later 30s are called \"non-prime anymore\".</p>"
-							},
-							"_____________activities": {
-								"title": "Already know MSC?",
-								"_icon": "question_answer",
-								"_items": [
-									{
-										"_type": "mcq",
-										"_content": {
-											"title": "WDC",
-											"body": "<p>How many World Drivers Championships has Michael Schumacher won?</p>",
-											"instruction": "Select from the list below"
-										},
-										"_items": [
-											{
-												"title": "1",
-												"_shouldBeSelected": false
-											},
-											{
-												"title": "3",
-												"_shouldBeSelected": false
-											},
-											{
-												"title": "5",
-												"_shouldBeSelected": false
-											},
-											{
-												"title": "7",
-												"_shouldBeSelected": true
-											}
-										],
-										"_options": {
-											"_selectable": 1,
-											"_attempts": 3
-										},
-										"_feedback": {
-											"_correct": {
-												"title": "Well done!",
-												"body": "<p>You clearly know MSC.</p>"
-											},
-											"_incorrect": {
-												"title": "Incorrect",
-												"body": "<p>Michael won 7 World Drivers Championships.</p>",
-												"_notes": [
-													"wdc"
-												]
-											},
-											"_common": {
-												"body": "<p>He won two titles with Benetton in 1994 and 1995 before moving to Ferrari where he drove for eleven years.</p><p>His time with Ferrari yielded five consecutive titles between 2000 and 2004.</p>"
-											}
-										}
-									}
-								]
-							}
-						},
-						{
-							"_card": "text",
-							"title": "Number 1",
-							"_content": {
-								"headerImage": "images/senna.jpg",
-								"title": "1. Ayrton Senna",
-								"subtitle": "Active: 1984&ndash;1994",
-								"body": "<p>Brilliant, ruthless, determined, fast and charismatic. Just some of the superlatives that some up the greatest driver Formula 1 has ever seen.</p><p>Ayrton ushered in a more professional approach to fittness and absolute dedication to the sport. He had to win and be the best... as Jo Ramirez said in the documentary \"Right to Win\", \"For him it was nothing but winning - to him him coming second was to be the first of the losers\".</p>"
-							}
-						},
-						{
-							"_card": "text",
-							"title": "Question",
-							"_content": {
-								"title": "Question Time",
-								"body": "<p>OK, so who do you think was the best?</p>"
-							},
-							"_____________activities": {
-								"title": "Let's find out",
-								"_icon": "chevron_right",
-								"_required": true,
-								"_items": [
-									{
-										"_type": "mcq",
-										"_content": {
-											"title": "The first winner",
-											"body": "<p>Who won the first Formula 1 WDC in 1950?</p>",
-											"instruction": "Select from the list below"
-										},
-										"_items": [
-											{
-												"title": "Senna",
-												"_shouldBeSelected": false
-											},
-											{
-												"title": "Fangio",
-												"_shouldBeSelected": true
-											},
-											{
-												"title": "Alonso",
-												"_shouldBeSelected": false
-											}
-										],
-										"_feedback": {
-											"_correct": {
-												"title": "Well done!"
-											},
-											"_incorrect": {
-												"title": "Incorrect",
-												"body": "<p>It was Juan Manuel Fangio.</p>",
-												"_notes": [
-													"wdc"
-												]
-											},
-											"_common": {
-												"body": "Adding up can be really easy if you just remember to add up."
-											}
-										}
-									}
-								]
-							}
-						}
-					]
-				}
-			]
-		},
-		{
-			"title": "Examples",
-			"_content": {
-				"title": "Examples"
-			},
-			"_stacks": [
-				{
-					"title": "Example cards",
-					"_classes": "",
-					"_content": {
-						"title": "Example cards"
-					},
-					"_cards": [
-						{
-							"_card": "title",
-							"_content": {
-								"image": "//static.twistphp.com/logo/square/256.png",
-								"title": "Title card",
-								"body": "<p>This can be used as a &quot;scene setter&quot; for the stack</p>"
-							}
-						},
-						{
-							"_card": "text",
-							"_content": {
-								"headerImage": "//static.twistphp.com/logo/social/twitter.jpg",
-								"title": "Text card",
-								"body": "<p>A basic card for displaying text.</p>"
-							}
-						},
-						{
-							"_card": "video",
-							"_content": {
-								"title": "Video card (local)",
-								"_video": {
-									"_local": {
-										"poster": "videos/example.png",
-										"_src": {
-											"wemb": "videos/example.webm",
-											"ogv": "videos/example.ogv",
-											"mp4": "videos/example.mp4"
-										}
-									}
-								}
-							}
-						},
-						{
-							"_card": "video",
-							"_content": {
-								"title": "Video card (YouTube)",
-								"_video": {
-									"_youtube": {
-										"id": "tabyvQhQSks",
-										"_showTitle": false,
-										"_showControls": false
-									}
-								}
-							}
-						},
-						{
-							"_card": "video",
-							"_content": {
-								"title": "Video card (Vimeo)",
-								"_video": {
-									"_vimeo": {
-										"id": "43233380",
-										"_showTitle": false,
-										"_showByline": false,
-										"_showPortrait": false
-									}
-								}
-							}
-						}
-					]
-				}
-			]
-		}
-	],
-	"_notes": {
-		"wdc": {
-			"title": "World Drivers Championships",
-			"body": "<p>The Formula One World Drivers' Championship (WDC) is the most successful Formula One race car driver of the year. The award is given by the Fédération Internationale de l'Automobile (FIA) to the driver who scores the most points during a season. The WDC was first awarded in 1950, to Giuseppe &quot;Nino&quot; Farina.</p>"
-		},
-		"morsels_info": {
-			"title": "What are Morsels",
-			"body": "<p>Small cards of elearning</p>"
-		}
-	}
+  "title": "Welcome to Morsels",
+  "_content": {
+    "title": "My First Course",
+    "description": "Come in. Take your shoes off."
+  },
+  "_segments": [
+    {
+      "title": "Introduction",
+      "_content": {
+        "title": "Introduction"
+      },
+      "_stacks": [
+        {
+          "title": "Morsels",
+          "_classes": "",
+          "_content": {
+            "title": "Morsels"
+          },
+          "_cards": [
+            {
+              "_card": "title",
+              "_content": {
+                "title": "Morsels",
+                "subtitle": "A quick explanation...",
+                "body": "<p><i class=\"material-icons\">access_time</i> 2 minutes</p>"
+              },
+              "_____________activities": {
+                "title": "Thoughts?",
+                "_options": {
+                  "_optional": true
+                },
+                "_items": [
+                  {
+                    "_type": "mcq",
+                    "_content": {
+                      "title": "Morsels",
+                      "body": "<p>Like it?</p>",
+                      "instruction": "Select from the list below"
+                    },
+                    "_items": [
+                      {
+                        "title": "Yes",
+                        "_shouldBeSelected": true
+                      },
+                      {
+                        "title": "No",
+                        "_shouldBeSelected": false
+                      }
+                    ],
+                    "_options": {
+                      "_selectable": 1,
+                      "_attempts": 2
+                    },
+                    "_feedback": {
+                      "_correct": {
+                        "title": "Well done!",
+                        "body": "<p>Nice one</p>"
+                      },
+                      "_incorrect": {
+                        "title": "Incorrect",
+                        "body": "<p>It's actually pretty sweet...</p>",
+                        "_notes": [
+                          "morsels_info"
+                        ]
+                      },
+                      "_common": {
+                        "body": "<p>Morsels is awesome.</p>"
+                      }
+                    }
+                  },
+                  {
+                    "_type": "mcq",
+                    "_content": {
+                      "title": "Age",
+                      "body": "<p>How old?</p>",
+                      "instruction": "Select from the list below"
+                    },
+                    "_items": [
+                      {
+                        "title": "Brand new",
+                        "_shouldBeSelected": true
+                      },
+                      {
+                        "title": "Well old",
+                        "_shouldBeSelected": false
+                      }
+                    ],
+                    "_options": {
+                      "_selectable": 1,
+                      "_attempts": 0
+                    },
+                    "_feedback": {
+                      "_correct": {
+                        "title": "Well done!",
+                        "body": "<p>Nice one</p>"
+                      },
+                      "_incorrect": {
+                        "title": "Incorrect",
+                        "body": "<p>It's actually pretty new...</p>",
+                        "_notes": [
+                          "morsels_info"
+                        ]
+                      },
+                      "_common": {
+                        "body": "<p>Morsels is new.</p>"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "_component": "conversation",
+          "_content": {
+            "title": "Morsels",
+            "subtitle": "A quick explanation...",
+            "body": "<p><i class=\"material-icons\">access_time</i> 2 minutes</p>"
+          },
+          "_items": [
+            {
+              "body": "<p>Do you want to get together or something?</p>"
+            },
+            {
+              "name": "Sarah",
+              "body": "<p>How about going to see a movie? Cinemax 26 on Carson Boulevard is showing Enchanted.</p>"
+            },
+            {
+              "name": "Laurie",
+              "body": "<p>That sounds like a good idea. Maybe we should go out to eat beforehand.</p>"
+            },
+            {
+              "name": "Sarah",
+              "body": "<p>It is fine with me. Where do you want to meet?</p>"
+            },
+            {
+              "body": "<p>Let’s meet at Summer Pizza House. I have not gone there for a long time.</p>"
+            },
+            {
+              "name": "Laurie",
+              "body": "<p>Good idea again. I heard they just came up with a new pizza. It should be good because Summer Pizza House always has the best pizza in town.</p>"
+            }
+          ]
+        },
+        {
+          "title": "Tests",
+          "_cards": [
+            {
+              "_card": "text",
+              "_content": {
+                "title": "It'll be really quick...",
+                "body": "<p>...and easy!</p>"
+              }
+            },
+            {
+              "_card": "mcq",
+              "_content": {
+                "title": "Maths",
+                "body": "<p>What is 5 x 3?</p>"
+              },
+              "_items": [
+                {
+                  "title": "2",
+                  "_shouldBeSelected": false
+                },
+                {
+                  "title": "5",
+                  "_shouldBeSelected": false
+                },
+                {
+                  "title": "15",
+                  "_shouldBeSelected": true
+                },
+                {
+                  "title": "25",
+                  "_shouldBeSelected": false
+                }
+              ],
+              "_feedback": {
+                "_correct": {
+                  "title": "Well done!",
+                  "body": "<p>It is</p>"
+                },
+                "_incorrect": {
+                  "title": "Incorrect",
+                  "body": "<p>Not quite</p>"
+                },
+                "_common": {
+                  "body": "<p>You can also do 5 + 5 + 5</p>"
+                }
+              },
+              "_options": {
+                "_selectable": 1,
+                "_attempts": 2
+              }
+            },
+            {
+              "_card": "mcq",
+              "_content": {
+                "title": "Find the animals",
+                "body": "<p>Select all the animals</p>"
+              },
+              "_items": [
+                {
+                  "title": "Dog",
+                  "_shouldBeSelected": true
+                },
+                {
+                  "title": "Microwave",
+                  "_shouldBeSelected": false
+                },
+                {
+                  "title": "Playstation",
+                  "_shouldBeSelected": false
+                },
+                {
+                  "title": "Cat",
+                  "_shouldBeSelected": true
+                },
+                {
+                  "title": "Cow",
+                  "_shouldBeSelected": true
+                }
+              ],
+              "_feedback": {
+                "_correct": {
+                  "title": "Well done!",
+                  "body": "<p>Those are animals</p>"
+                },
+                "_incorrect": {
+                  "title": "Incorrect",
+                  "body": "<p>Go back to primary school</p>"
+                }
+              },
+              "_options": {
+                "_selectable": 3,
+                "_attempts": 5
+              }
+            },
+            {
+              "_card": "video",
+              "_content": {
+                "_video": {
+                  "_local": {
+                    "poster": "videos/example.png",
+                    "_src": {
+                      "wemb": "videos/example.webm",
+                      "ogv": "videos/example.ogv",
+                      "mp4": "videos/example.mp4"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Formula 1",
+      "_content": {
+        "title": "Formula 1"
+      },
+      "_stacks": [
+        {
+          "title": "Introduction",
+          "_classes": "",
+          "_content": {
+            "title": "Introduction"
+          },
+          "_cards": [
+            {
+              "_card": "title",
+              "_content": {
+                "image": "//upload.wikimedia.org/wikipedia/en/4/45/F1_logo.svg",
+                "title": "The best F1 drivers",
+                "body": "<p>Explore the top 5 F1 drivers of all time.</p>"
+              }
+            },
+            {
+              "_card": "video",
+              "_content": {
+                "title": "A brief history",
+                "_video": {
+                  "_vimeo": {
+                    "id": "43233380",
+                    "_showTitle": false,
+                    "_showByline": false,
+                    "_showPortrait": false
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "title": "Top 5",
+          "_classes": "",
+          "_content": {
+            "title": "Top 5"
+          },
+          "_cards": [
+            {
+              "_card": "text",
+              "title": "Number 5",
+              "_content": {
+                "headerImage": "images/lauda.jpg",
+                "title": "5. Niki Lauda",
+                "subtitle": "Active: 1971&ndash;1979, 1982&ndash;1985",
+                "body": "<p>Perhaps not the most \"raw talented\" driver of all time but his intellect, determination, technical understanding and and smooth driving style could have won him 2 or 3 more titles. He did not always pick the best teams after leaving Ferrari after 77.</p><p>Schumacher, Prost, Vettel always drove in first rate winning cars, Lauda did not.</p>"
+              }
+            },
+            {
+              "_card": "text",
+              "title": "Number 4",
+              "_content": {
+                "headerImage": "images/alonso.jpg",
+                "title": "4. Fernando Alonso",
+                "subtitle": "Active: 2001&ndash;",
+                "body": "<p>Up there with Ayrton Senna in terms of talent and race-craft, probably not as fast as Senna on a single lap, but I would say he is the most complete race driver ever because he knows how to handle pressure, he know how to get the most out of the shopping trolleys that they build him of late and he is utterly relentless!</p><p>Similarly to Ayrton Senna, he has spent most of his career if not all of it without sitting in the best car. In a nutshell: Give him the second best package on the grid and he'll win you the championship.</p>"
+              }
+            },
+            {
+              "_card": "text",
+              "title": "Number 3",
+              "_content": {
+                "headerImage": "images/fangio.jpg",
+                "title": "3. Juan Manuel Fangio",
+                "subtitle": "Active: 1950&ndash;1951, 1953&ndash;1958",
+                "body": "<p>He should be higher up if overall performance is the rating. But consider that the era these racers were in can not really be fairly compared to other eras with such different equipment, rules, etc. To me anyone of them that were top runners is the best in their era.</p><p>There are so many good pilots, but Fangio is simply the best. When you read about what he did, you understand no one else can do that. And the most important he was a gentleman.</p>"
+              }
+            },
+            {
+              "_card": "text",
+              "title": "Number 2",
+              "_content": {
+                "headerImage": "images/schumacher.jpg",
+                "title": "2. Michael Schumacher",
+                "subtitle": "Active: 1991&ndash;2006, 2010&ndash;2012",
+                "body": "<p>Simply the best and fastest. Surely faster than anybody after him, in his prime. Still in his fourties could come back to have some fun and have decent races, which is pretty spectacular demonstration of his talent and consistency. Especially when you think that many other drivers in their later 30s are called \"non-prime anymore\".</p>"
+              },
+              "_____________activities": {
+                "title": "Already know MSC?",
+                "_icon": "question_answer",
+                "_items": [
+                  {
+                    "_type": "mcq",
+                    "_content": {
+                      "title": "WDC",
+                      "body": "<p>How many World Drivers Championships has Michael Schumacher won?</p>",
+                      "instruction": "Select from the list below"
+                    },
+                    "_items": [
+                      {
+                        "title": "1",
+                        "_shouldBeSelected": false
+                      },
+                      {
+                        "title": "3",
+                        "_shouldBeSelected": false
+                      },
+                      {
+                        "title": "5",
+                        "_shouldBeSelected": false
+                      },
+                      {
+                        "title": "7",
+                        "_shouldBeSelected": true
+                      }
+                    ],
+                    "_options": {
+                      "_selectable": 1,
+                      "_attempts": 3
+                    },
+                    "_feedback": {
+                      "_correct": {
+                        "title": "Well done!",
+                        "body": "<p>You clearly know MSC.</p>"
+                      },
+                      "_incorrect": {
+                        "title": "Incorrect",
+                        "body": "<p>Michael won 7 World Drivers Championships.</p>",
+                        "_notes": [
+                          "wdc"
+                        ]
+                      },
+                      "_common": {
+                        "body": "<p>He won two titles with Benetton in 1994 and 1995 before moving to Ferrari where he drove for eleven years.</p><p>His time with Ferrari yielded five consecutive titles between 2000 and 2004.</p>"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "_card": "text",
+              "title": "Number 1",
+              "_content": {
+                "headerImage": "images/senna.jpg",
+                "title": "1. Ayrton Senna",
+                "subtitle": "Active: 1984&ndash;1994",
+                "body": "<p>Brilliant, ruthless, determined, fast and charismatic. Just some of the superlatives that some up the greatest driver Formula 1 has ever seen.</p><p>Ayrton ushered in a more professional approach to fittness and absolute dedication to the sport. He had to win and be the best... as Jo Ramirez said in the documentary \"Right to Win\", \"For him it was nothing but winning - to him him coming second was to be the first of the losers\".</p>"
+              }
+            },
+            {
+              "_card": "text",
+              "title": "Question",
+              "_content": {
+                "title": "Question Time",
+                "body": "<p>OK, so who do you think was the best?</p>"
+              },
+              "_____________activities": {
+                "title": "Let's find out",
+                "_icon": "chevron_right",
+                "_required": true,
+                "_items": [
+                  {
+                    "_type": "mcq",
+                    "_content": {
+                      "title": "The first winner",
+                      "body": "<p>Who won the first Formula 1 WDC in 1950?</p>",
+                      "instruction": "Select from the list below"
+                    },
+                    "_items": [
+                      {
+                        "title": "Senna",
+                        "_shouldBeSelected": false
+                      },
+                      {
+                        "title": "Fangio",
+                        "_shouldBeSelected": true
+                      },
+                      {
+                        "title": "Alonso",
+                        "_shouldBeSelected": false
+                      }
+                    ],
+                    "_feedback": {
+                      "_correct": {
+                        "title": "Well done!"
+                      },
+                      "_incorrect": {
+                        "title": "Incorrect",
+                        "body": "<p>It was Juan Manuel Fangio.</p>",
+                        "_notes": [
+                          "wdc"
+                        ]
+                      },
+                      "_common": {
+                        "body": "Adding up can be really easy if you just remember to add up."
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Examples",
+      "_content": {
+        "title": "Examples"
+      },
+      "_stacks": [
+        {
+          "title": "Example cards",
+          "_classes": "",
+          "_content": {
+            "title": "Example cards"
+          },
+          "_cards": [
+            {
+              "_card": "title",
+              "_content": {
+                "image": "//static.twistphp.com/logo/square/256.png",
+                "title": "Title card",
+                "body": "<p>This can be used as a &quot;scene setter&quot; for the stack</p>"
+              }
+            },
+            {
+              "_card": "text",
+              "_content": {
+                "headerImage": "//static.twistphp.com/logo/social/twitter.jpg",
+                "title": "Text card",
+                "body": "<p>A basic card for displaying text.</p>"
+              }
+            },
+            {
+              "_card": "video",
+              "_content": {
+                "title": "Video card (local)",
+                "_video": {
+                  "_local": {
+                    "poster": "videos/example.png",
+                    "_src": {
+                      "wemb": "videos/example.webm",
+                      "ogv": "videos/example.ogv",
+                      "mp4": "videos/example.mp4"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "_card": "video",
+              "_content": {
+                "title": "Video card (YouTube)",
+                "_video": {
+                  "_youtube": {
+                    "id": "tabyvQhQSks",
+                    "_showTitle": false,
+                    "_showControls": false
+                  }
+                }
+              }
+            },
+            {
+              "_card": "video",
+              "_content": {
+                "title": "Video card (Vimeo)",
+                "_video": {
+                  "_vimeo": {
+                    "id": "43233380",
+                    "_showTitle": false,
+                    "_showByline": false,
+                    "_showPortrait": false
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "_notes": {
+    "wdc": {
+      "title": "World Drivers Championships",
+      "body": "<p>The Formula One World Drivers' Championship (WDC) is the most successful Formula One race car driver of the year. The award is given by the Fédération Internationale de l'Automobile (FIA) to the driver who scores the most points during a season. The WDC was first awarded in 1950, to Giuseppe &quot;Nino&quot; Farina.</p>"
+    },
+    "morsels_info": {
+      "title": "What are Morsels",
+      "body": "<p>Small cards of elearning</p>"
+    }
+  }
 }
