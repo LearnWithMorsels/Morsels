@@ -11,14 +11,16 @@ self.addEventListener( 'install', event => {
 						'index.html',
 						'course.json',
 						'manifest.json',
-						'css/course.min.css',
+						'css/base.css',
+						'css/morsels.min.css',
+						'css/fonts/MaterialIcons-Regular.eot',
+						'css/fonts/MaterialIcons-Regular.ttf',
+						'css/fonts/MaterialIcons-Regular.woff',
+						'css/fonts/MaterialIcons-Regular.woff2',
 						'js/activities.min.js',
 						'js/cards.min.js',
-						'js/morsels.min.js',
-						'fonts/MaterialIcons-Regular.eot',
-						'fonts/MaterialIcons-Regular.ttf',
-						'fonts/MaterialIcons-Regular.woff',
-						'fonts/MaterialIcons-Regular.woff2'
+						'js/components.min.js',
+						'js/morsels.min.js'
 					] );
 			} )
 			.then( () => {
