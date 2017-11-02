@@ -379,13 +379,17 @@ gulp.task( 'serve', () => {
 
 	gulp.watch( './src/core/index.html', ['index'] ).on( 'change', browserSync.reload );
 	gulp.watch( './src/**/*.js', ['js'] ).on( 'change', browserSync.reload );
+	gulp.watch( './src/core/js/sw.js', ['service-worker'] ).on( 'change', browserSync.reload );
+
 	gulp.watch( './src/activities/*/js/**/*.js', ['activities'] ).on( 'change', browserSync.reload );
 	gulp.watch( './src/cards/*/js/**/*.js', ['cards'] ).on( 'change', browserSync.reload );
 	gulp.watch( './src/components/*/js/**/*.js', ['components'] ).on( 'change', browserSync.reload );
-	gulp.watch( './src/**/*.scss', ['scss'] );
-	gulp.watch( './src/core/js/sw.js', ['service-worker'] ).on( 'change', browserSync.reload );
-	gulp.watch( ['./src/course/config.json'], ['data', 'manifest'] ).on( 'change', browserSync.reload );
-	gulp.watch( ['./src/course/content/*.json'], ['data'] ).on( 'change', browserSync.reload );
+
+	gulp.watch( './src/core/sass/base.scss', ['scss:base'] );
+	gulp.watch( ['./src/core/sass/**/*.scss', './src/activities/**/*.scss', './src/cards/**/*.scss', './src/components/**/*.scss'], ['scss:framework'] );
+
+	gulp.watch( './src/course/config.json', ['data', 'manifest'] ).on( 'change', browserSync.reload );
+	gulp.watch( './src/course/content/*.json', ['data'] ).on( 'change', browserSync.reload );
 } );
 
 gulp.task( 'default', ['index', 'js', 'activities', 'cards', 'components', 'scss', 'fonts', 'data', 'resources', 'service-worker', 'manifest'] );

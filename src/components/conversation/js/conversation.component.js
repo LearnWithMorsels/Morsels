@@ -4,8 +4,8 @@ Morsels.component( 'conversation', {
 					'<div class="conversation-contents">' +
 						'<transition-group name="conversation-item-add" tag="div">' +
 							'<div v-for="(item, index) in this.component._items" v-show="index < conversationIndex" class="conversation-item" key="index" :class="{ me: !item.name }">' +
-								'<h6 v-if="item.name">{{ item.name }}</h6>' +
-								'<h6 v-else><em>Me</em></h6>' +
+								'<h5 v-if="item.name">{{ item.name }}</h5>' +
+								//'<h5 v-else><em>Me</em></h6>' +
 								'<div v-html="item.body"></div>' +
 							'</div>' +
 						'</transition-group>' +
@@ -16,7 +16,7 @@ Morsels.component( 'conversation', {
 				'</div>',
 	data: function() {
 		return {
-			conversationIndex: 0
+			conversationIndex: 1
 		};
 	},
 	computed: {
@@ -31,12 +31,12 @@ Morsels.component( 'conversation', {
 	methods: {
 		nextItem: function() {
 			this.conversationIndex++;
-			console.log( this.conversationIndex, this.component._items.length );
+			//console.log( this.conversationIndex, this.component._items.length );
 			if( this.conversationIndex > this.component._items.length ) {
-				console.log( 'DONE' );
+				//console.log( 'DONE' );
 				this.$emit( 'complete' );
 			} else {
-				console.log( 'Next' );
+				//console.log( 'Next' );
 			}
 		}
 	}

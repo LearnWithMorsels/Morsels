@@ -4,9 +4,7 @@
 
 .component-conversation {
   .component-contents {
-    max-width: 500px;
     height: 100%;
-    margin: 0 auto;
 
     @include flexbox-vertical;
 
@@ -19,6 +17,8 @@
       overflow: auto;
 
       > div {
+        max-width: 500px;
+        margin: 0 auto;
         padding: 0 24px 24px;
       }
 
@@ -52,13 +52,15 @@
           margin-right: 0;
           margin-left: 48px;
 
-          background-color: lighten($primary, 40);
+          color: #FFF;
+
+          background-color: $primary;
 
           &::after {
             right: 100%;
             left: auto;
 
-            border-right-color: lighten($primary, 40);
+            border-right-color: $primary;
             border-left-color: transparent;
           }
         }
@@ -71,15 +73,25 @@
 
         &.conversation-item-add-enter-to {
         }
+
+        h5 {
+          padding-bottom: 1rem;
+        }
+
+        p {
+          &:first-child {
+            padding-top: 0;
+          }
+        }
       }
     }
 
     .conversation-options {
-      padding: 12px;
+      padding: 18px;
 
       @include flex(0 1 48px);
 
-      background-color: rgba(255, 255, 255, 0.25);
+      //background-color: rgba(255, 255, 255, 0.25);
 
       button {
         color: #212121;

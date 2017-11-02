@@ -1,3 +1,5 @@
+//import '../../../core/js/partials/question-response.vue';
+
 Morsels.card( 'mcq', {
 	props: ['card'],
 	template: '<div class="card-contents">' +
@@ -16,35 +18,7 @@ Morsels.card( 'mcq', {
 								'<button v-on:click="submitAnswer" :disabled="canSubmit === false">Submit</button>' +
 							'</template>' +
 						'</div>' +
-						'<div v-else key="response">' +
-							'<template v-if="card._feedback">' +
-			//TODO: FEEDBACK IMAGES
-								'<template v-if="correct">' +
-									'<template v-if="card._feedback._correct">' +
-										'<h4 v-if="card._feedback._correct.title">{{ card._feedback._correct.title }}</h4>' +
-										'<div v-if="card._feedback._correct.body" v-html="card._feedback._correct.body"></div>' +
-										'<div v-if="card._feedback._common && card._feedback._common.body" v-html="card._feedback._common.body"></div>' + //TODO: Notes
-									'</template>' +
-									'<div v-else>' +
-										':D' +
-									'</div>' +
-								'</template>' +
-								'<template v-else>' +
-									'<template v-if="card._feedback._incorrect">' +
-										'<h4 v-if="card._feedback._incorrect.title">{{ card._feedback._incorrect.title }}</h4>' +
-										'<div v-if="card._feedback._incorrect.body" v-html="card._feedback._incorrect.body"></div>' +
-										'<div v-if="card._feedback._common && card._feedback._common.body" v-html="card._feedback._common.body"></div>' + //TODO: Notes
-									'</template>' +
-									'<div v-else>' +
-										':\'(' +
-									'</div>' +
-								'</template>' +
-							'</template>' +
-							'<template v-if="canRetry">' +
-								'<p>{{ attemptsRemaining }} attempts left</p>' +
-								'<button v-on:click.prevent="retry">Retry</button>' +
-							'</template>' +
-						'</div>' +
+						'<question-response v-else key="response" :correct="correct" :feedback="card._feedback" :attemptsRemaining="attemptsRemaining" v-on:retry="retry"></question-response>' +
 					'</transition>' +
 				'</div>',
 	data: function() {
@@ -69,9 +43,6 @@ Morsels.card( 'mcq', {
 			} else {
 				return true;
 			}
-		},
-		canRetry: function() {
-			return ( this.attemptsRemaining > 0 && !this.correct );
 		},
 		attemptsRemaining: function() {
 			if( this.card._options &&

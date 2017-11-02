@@ -1,11 +1,11 @@
 Morsels.activity( 'mcq', {
 	props: ['activity'],
 	template: '<div class="activity-contents">' +
-	'<h4>{{ activity._content.title }}</h4>' +
-	'<h5>{{ activity._content.subtitle }}</h5>' +
+	'<h3>{{ activity._content.title }}</h3>' +
 	'<div v-html="activity._content.body"></div>' +
-	'<button v-on:click="completeMeCorrect">Correct</button>' +
-	'<button v-on:click="completeMeIncorrect">Incorrect</button>' +
+	'<p v-if="activity._content.instruction"><small><strong><em>{{ activity._content.instruction }}</em></strong></small></p>' +
+	'<button v-on:click="completeMeCorrect">Yes, very much</button>' +
+	'<button v-on:click="completeMeIncorrect">Not really</button>' +
 	'</div>',
 	data: function() {
 		return {

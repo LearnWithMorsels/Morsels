@@ -7,8 +7,6 @@
   bottom: 0;
   left: 0;
 
-  transform-origin: 0 0;
-
   transition: transform 400ms;
 
   &.rtl {
@@ -16,48 +14,34 @@
   }
 
   &.overview {
-    transform: scale(0.25);
-
-    .segments {
+    .chapters {
       width: 460px;
       height: 660px;
       padding: 30px;
 
-      transform: none !important;
+      transform: scale(0.25) !important;
 
       transition: width $course-overview-transition, height $course-overview-transition, padding $course-overview-transition, transform $course-overview-transition;
-    }
 
-    .segment {
-      transform: none !important;
+      .chapter {
+        transform: none !important;
 
-      transition: transform $course-overview-transition;
-    }
+        transition: transform $course-overview-transition;
 
-    .stack {
-    }
+        .stack,
+        .component {
+          background-color: #C00;
+        }
 
-    .cards {
-      background-color: #F00;
-
-      .card {
-        opacity: 0 !important;
+        .cards,
+        .component-contents {
+          display: none;
+        }
       }
     }
-
-    /*.card {
-      top: 0 !important;
-      left: 0 !important;
-
-      visibility: visible;
-
-      opacity: 1;
-
-      transition: top $course-overview-transition, left $course-overview-transition, visibility $course-overview-transition, opacity $course-overview-transition;
-    }*/
   }
 
-  .segments {
+  .chapters {
     //width: 100%;
     height: calc(100% - #{$menubar-height});
 
@@ -70,19 +54,16 @@
     white-space: nowrap;
 
     transition: transform $stack-transition $card-dismiss;
+    transform-origin: 0 0;
 
     z-index: 1;
 
-    .segment {
-      @include inline-flexbox;
+    .chapter {
+      //@include inline-flexbox;
+      display: inline-block;
 
+      vertical-align: top;
       white-space: normal;
     }
-  }
-
-  .toggle-overview {
-    position: absolute;
-    top: 0;
-    left: 0;
   }
 }

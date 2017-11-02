@@ -1,4 +1,5 @@
 .sidebar {
+  max-width: 480px;
   width: calc(100% - 60px);
 
   position: fixed;
@@ -6,11 +7,9 @@
   right: 0;
   bottom: 0;
 
-  //background-color: $sidebar-colour;
-  background-color: #DDD;
+  background-color: #FFF;
 
-  //@include shadow-0;
-  box-shadow:  0 0 0 0 rgba(0, 0, 0, .14), 0 0 0 0 rgba(0, 0, 0, .12), 0 0 0 0 rgba(0, 0, 0, .2), 0 0 0 2000px rgba(0, 0, 0, 0);
+  box-shadow:  0 0 0 0 rgba(0, 0, 0, .14), 0 0 0 0 rgba(0, 0, 0, .12), 0 0 0 0 rgba(0, 0, 0, .2), 0 0 0 9999px rgba(0, 0, 0, 0);
 
   transform: translateX(100%);
 
@@ -26,11 +25,10 @@
   }
 
   .show-sidebar & {
-    //@include shadow-16;
     box-shadow: 0 16px 24px 2px rgba(0, 0, 0, .14),
     0 6px 30px 5px rgba(0, 0, 0, .12),
     0 8px 10px -5px rgba(0, 0, 0, .4),
-    0 0 0 2000px rgba(0, 0, 0, .5);
+    0 0 0 9999px rgba(0, 0, 0, .5);
 
     transform: none;
 
@@ -39,7 +37,7 @@
 
   .sidebar-header {
     min-height: 150px;
-    padding: 48px 24px 24px;
+    padding: $menubar-height 16px 16px;
 
     @include flexbox-vertical;
     justify-content: flex-end;
@@ -48,7 +46,6 @@
 
     color: #FFF;
 
-    //background-color: rgba(255, 255, 255, 0.25);
     background: url("https://c2.staticflickr.com/4/3749/9446565753_5a49366847.jpg") center no-repeat;
     background-size: cover;
 
@@ -70,23 +67,28 @@
     }
 
     .toggle-sidebar {
-      width: auto;
-      min-height: 0;
+      width: $menubar-height;
 
       position: absolute;
-      top: 12px;
-      right: 12px;
+      top: 0;
+      right: 0;
 
       background-color: transparent;
 
       .rtl & {
         right: auto;
-        left: 12px;
+        left: 0;
       }
     }
   }
 
+  .sidebar-nav {
+    @include flexbox;
+
+    button {}
+  }
+
   .structure {
-    padding: 24px;
+    padding: 16px;
   }
 }

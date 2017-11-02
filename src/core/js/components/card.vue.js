@@ -7,7 +7,8 @@ Vue.component( 'card', {
 					'<component :is="\'card-\' + card._card" ref="card" :card="card" v-on:complete="complete"></component>' +
 					'<template v-if="card._activities">' +
 						'<button class="show-activities" v-on:click.prevent.stop="openActivities">' +
-							'<i class="material-icons">more_horiz</i>' +
+							'<i v-if="activitiesComplete" class="material-icons">check</i>' +
+							'<i v-else class="material-icons">more_horiz</i>' +
 						'</button>' +
 						'<button class="hide-activities" v-on:click.prevent.stop="closeActivities">' +
 							'<i class="material-icons">close</i>' +
@@ -53,6 +54,11 @@ Vue.component( 'card', {
 				dragging: this.view.dragging
 			};
 			classes['card-' + this.card._card] = true;
+			if( this.card._classes ) {
+				for( let singleClass of this.card._classes.split( ' ' ) ) {
+					classes[singleClass] = true;
+				}
+			}
 			return classes;
 		},
 		activitiesComplete: function() {
@@ -140,7 +146,9 @@ Vue.component( 'card', {
 			}
 		},
 		openActivities: function() {
-			this.showActivites = true;
+			if( !this.activitiesComplete ) {
+				this.showActivites = true;
+			}
 		},
 		closeActivities: function() {
 			this.showActivites = false;

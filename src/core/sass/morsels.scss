@@ -1,8 +1,4 @@
-//@import url("//fonts.googleapis.com/icon?family=Material+Icons");
-//@import "../../../node_modules/material-design-icons/iconfont/material-icons";
-//@import url("https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed:700");
-@import url('https://fonts.googleapis.com/css?family=Lato:300,900');
-
+@import url('https://fonts.googleapis.com/css?family=Lato:300,700,900');
 
 @import "modules/functions";
 @import "modules/mixins";
@@ -15,26 +11,8 @@
 @import "components/menubar";
 @import "components/sidebar";
 @import "components/course";
-@import "components/segment";
+@import "components/chapter";
 @import "components/component";
 @import "components/stack";
 @import "components/card";
 @import "components/activity";
-
-
-body {
-  //font-family: 'Roboto', sans-serif;
-  font-family: 'Lato', sans-serif;
-  font-weight: 300;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  //font-family: 'Roboto Condensed', sans-serif;
-  //text-transform: uppercase;
-  font-weight: 900;
-}

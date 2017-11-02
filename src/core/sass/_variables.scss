@@ -1,7 +1,6 @@
-$primary: #2196F3;
-$primary-dark: #1976D2;
-$menubar-colour: $primary-dark;
-$sidebar-colour: #212121;
+$primary: #009688;
+$primary-dark: #004D40;
+$menubar-colour: $primary; // #212121
 
 $menubar-height: 48px;
 
@@ -24,6 +23,9 @@ $card-min-width: 300px;
 $card-height: 600px;
 $card-min-height: 450px;
 $card-border-radius: 3px;
+$card-padding-x: 36px;
+$card-padding-y: 48px;
+
 $card-scale-below: 0.99;
 $card-shift-below: 3px;
 
@@ -33,4 +35,5 @@ $card-return: 200ms;
 $card-dismiss: 300ms;
 $card-move-up: 400ms;
 
-$stack-transition: 600ms;
+$stack-complete: 800ms;
+$stack-transition: 800ms;

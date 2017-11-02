@@ -4,5 +4,20 @@
 		"title": "بلدي الدورة الأولى",
 		"description": "تعال. خذ حذائك."
 	},
-	"_segments": []
+	"_chapters": [
+		{
+			"_stacks": [
+				{
+					"_cards": [
+						{
+							"_content": {
+								"title": "فتات",
+								"subtitle": "شرح سريع ..."
+							}
+						}
+					]
+				}
+			]
+		}
+	]
 }

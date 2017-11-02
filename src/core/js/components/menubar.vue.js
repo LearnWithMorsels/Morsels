@@ -6,6 +6,9 @@ Vue.component( 'menubar', {
 					'<button v-on:click.prevent="toggleSidebar">' +
 						'<i class="material-icons">menu</i>' +
 					'</button>' +
+					//'<button v-on:click.prevent="undo">' +
+					//	'<i class="material-icons">undo</i>' +
+					//'</button>' +
 				'</nav>',
 	data: function() {
 		return {
@@ -14,6 +17,9 @@ Vue.component( 'menubar', {
 	methods: {
 		toggleSidebar: function() {
 			this.$emit( 'toggleSidebar' );
+		},
+		undo: function() {
+			this.$emit( 'undo' );
 		}
 	}
 } );

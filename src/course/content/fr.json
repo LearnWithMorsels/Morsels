@@ -4,7 +4,7 @@
 		"title": "Mon Premier Cours",
 		"description": "Un cours d'essai en utilisant le cadre Morsels"
 	},
-	"_segments": [
+	"_chapters": [
 		{
 			"_content": {
 			"title": "Introduction"

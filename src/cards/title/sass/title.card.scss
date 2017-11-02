@@ -4,24 +4,24 @@
 
   text-align: center;
 
+  img {
+    max-width: 96px;
+    margin: 0 auto 1em;
+  }
+
   h1 {
     font-size: 3rem;
-
-    + h2,
-    + p {
-      padding-top: 1rem;
-    }
   }
 
   h2 {
-    font-size: 2rem;
+    padding-top: 1em;
 
-    + p {
-      padding-top: 1rem;
-    }
+    font-size: 2rem;
   }
 
   p {
-    font-size: 1.4rem;
+    margin-top: 8em;
+
+    font-size: 1.1rem;
   }
 }

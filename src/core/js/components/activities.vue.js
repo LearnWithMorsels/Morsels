@@ -4,8 +4,8 @@ import './activity.vue';
 Vue.component( 'activities', {
 	props: ['activities'],
 	template: '<div class="activities">' +
-	'<activity v-for="(activity, index) in activities._items" :key="index" ref="activities" :activity="activity" v-on:complete="completeActivity"></activity>' +
-	'</div>',
+					'<activity v-for="(activity, index) in activities._items" :key="index" ref="activities" :activity="activity" v-on:complete="completeActivity"></activity>' +
+				'</div>',
 	data: function() {
 		return {
 			isMounted: false,

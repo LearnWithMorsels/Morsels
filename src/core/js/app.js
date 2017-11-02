@@ -11,6 +11,7 @@
 
 import Vue from './resources/Vue';
 import './components/course.vue';
+import './partials/question-response.vue';
 
 const head = document.getElementsByTagName( 'body' )[0];
 
@@ -64,6 +65,8 @@ Morsels.card = ( name, properties ) => {
 Morsels.component = ( name, properties ) => {
 	Morsels.registerComponent( 'component-' + name, properties );
 };
+
+//Morsels.vuecomponent = Vue.component;
 
 window.Morsels = Morsels;
 

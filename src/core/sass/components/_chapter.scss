@@ -1,11 +1,10 @@
-.segment {
+.chapter {
   width: 100%;
   height: 100%;
 
-  //transition: transform $stack-transition $card-dismiss;
-  transition: transform $stack-transition;
+  transition: transform $stack-transition $stack-complete;
 
-  .segment-content {
+  .chapter-content {
     width: 100%;
     height: 100%;
 

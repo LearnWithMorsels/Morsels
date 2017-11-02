@@ -1,41 +1,90 @@
 {
-  "title": "Welcome to Morsels",
+  "title": "Morsels in 5 minutes",
   "_content": {
-    "title": "My First Course",
+    "title": "An introduction to Morsels",
     "description": "Come in. Take your shoes off."
   },
-  "_segments": [
+  "_chapters": [
     {
       "title": "Introduction",
-      "_content": {
-        "title": "Introduction"
-      },
       "_stacks": [
         {
-          "title": "Morsels",
-          "_classes": "",
-          "_content": {
-            "title": "Morsels"
-          },
+          "title": "About the framework",
           "_cards": [
             {
               "_card": "title",
+              "_classes": "inverted",
               "_content": {
                 "title": "Morsels",
-                "subtitle": "A quick explanation...",
-                "body": "<p><i class=\"material-icons\">access_time</i> 2 minutes</p>"
+                "subtitle": "A new responsive elearning framework",
+                "image": {
+                  "src": "resources/icons/web.png"
+                },
+                "body": "<p><i class=\"material-icons\">access_time</i> 2 minutes</p>",
+                "footer": "Swipe this card away to get started&hellip;"
+              }
+            },
+            {
+              "_card": "text",
+              "_content": {
+                "title": "Morsels in a nutshell",
+                "body": "<ul><li>Responsive HTML5 framework</li><li>Touch-first methodologies</li><li>PWA (Progressive Web App)</li><li>Lightweight (fast)</li><li>SCORM compliant</li><li>Offline support (Chrome only)</li><li>Quick to build new interactions</li></ul>"
+              }
+            },
+            {
+              "_card": "text",
+              "_content": {
+                "title": "Morsels vs. Adapt",
+                "body": "<p>Morsels is not designed as a replacement for Adapt.</p><p>In fact, it is designed to work in parallel with Adapt as a takeaway and support tool.</p><p>Adapt is still better if you need:</p><ul><li>IE8&ndash;10 support</li><li>Full accessibility</li><li>Larger images and videos</li><li>More &quot;themeable&quot;</li></ul>"
+              }
+            },
+            {
+              "_card": "text",
+              "_content": {
+                "title": "Future roadmap",
+                "body": "<ul><li>Offline support for all modern browsers</li><li>Full authoring tool</li><li>Native apps for Android and iOS</li><li>SCORM 1.2 and 2004 support</li></ul>"
+              }
+            }
+          ]
+        },
+        {
+          "title": "Cards and stacks",
+          "_cards": [
+            {
+              "_card": "text",
+              "_content": {
+                "image": {
+                  "src": "https://4.bp.blogspot.com/-gCE-gBljBOk/Vt0Wc-l-F8I/AAAAAAAABsA/vTJh_lfSx3U/s1600/cover.jpg",
+                  "alt": "Morsel cards"
+                },
+                "title": "Cards",
+                "body": "<p>Inspired by Google's Material Design, Morsels uses cards to show short snippets of content.</p><p>This keeps the content brief and relevant. It also makes finding the right content easier.</p>"
+              }
+            },
+            {
+              "_card": "text",
+              "_content": {
+                "title": "Card types",
+                "body": "<p>Cards can come in many layouts, such as:</p><ul><li>Title</li><li>Text (and image)</li><li>Video</li><li>MCQ</li><li>&hellip;and many more!</li></ul>"
+              }
+            },
+            {
+              "_card": "text",
+              "_content": {
+                "title": "Activities",
+                "body": "<p>Each card can have activities attached to it.</p><p>Activities can be optional or mandatory. If they are mandatory, you must complete them before you can dismiss the card.</p>",
+                "instruction": "Complete all the activities by clicking on the blue button and then swipe this card"
               },
-              "_____________activities": {
-                "title": "Thoughts?",
+              "_activities": {
                 "_options": {
-                  "_optional": true
+                  "_optional": false
                 },
                 "_items": [
                   {
                     "_type": "mcq",
                     "_content": {
-                      "title": "Morsels",
-                      "body": "<p>Like it?</p>",
+                      "title": "Thoughts",
+                      "body": "<p>Do you like the sound of Morsels so far?</p>",
                       "instruction": "Select from the list below"
                     },
                     "_items": [
@@ -59,7 +108,7 @@
                       },
                       "_incorrect": {
                         "title": "Incorrect",
-                        "body": "<p>It's actually pretty sweet...</p>",
+                        "body": "<p>It's actually pretty sweet&hellip;</p>",
                         "_notes": [
                           "morsels_info"
                         ]
@@ -68,57 +117,40 @@
                         "body": "<p>Morsels is awesome.</p>"
                       }
                     }
-                  },
-                  {
-                    "_type": "mcq",
-                    "_content": {
-                      "title": "Age",
-                      "body": "<p>How old?</p>",
-                      "instruction": "Select from the list below"
-                    },
-                    "_items": [
-                      {
-                        "title": "Brand new",
-                        "_shouldBeSelected": true
-                      },
-                      {
-                        "title": "Well old",
-                        "_shouldBeSelected": false
-                      }
-                    ],
-                    "_options": {
-                      "_selectable": 1,
-                      "_attempts": 0
-                    },
-                    "_feedback": {
-                      "_correct": {
-                        "title": "Well done!",
-                        "body": "<p>Nice one</p>"
-                      },
-                      "_incorrect": {
-                        "title": "Incorrect",
-                        "body": "<p>It's actually pretty new...</p>",
-                        "_notes": [
-                          "morsels_info"
-                        ]
-                      },
-                      "_common": {
-                        "body": "<p>Morsels is new.</p>"
-                      }
-                    }
                   }
                 ]
+              }
+            },
+            {
+              "_card": "text",
+              "_content": {
+                "image": {
+                  "src": "http://freefrontend.com/assets/img/css-cards/card-stack.png"
+                },
+                "title": "Stacks",
+                "body": "<p>Cards are arranged in a stack.</p><p>Once you dismiss the last card in the stack, it is complete and you will move on to the next stack.</p>"
               }
             }
           ]
         },
         {
+          "title": "Components",
+          "_cards": [
+            {
+              "_card": "text",
+              "_content": {
+                "image": {
+                  "src": "http://clipartview.com/wp-content/uploads/2017/02/conversation-clipart-free-download.png"
+                },
+                "title": "Components",
+                "body": "<p>Cards can be restrictive.</p><p>To get around this, you can use a component in place of a stack of cards.</p><p>The next example is a conversation component.</p>"
+              }
+            }
+          ]
+        },
+        {
+          "title": "Conversation example",
           "_component": "conversation",
-          "_content": {
-            "title": "Morsels",
-            "subtitle": "A quick explanation...",
-            "body": "<p><i class=\"material-icons\">access_time</i> 2 minutes</p>"
-          },
           "_items": [
             {
               "body": "<p>Do you want to get together or something?</p>"
@@ -141,19 +173,44 @@
             {
               "name": "Laurie",
               "body": "<p>Good idea again. I heard they just came up with a new pizza. It should be good because Summer Pizza House always has the best pizza in town.</p>"
+            },
+            {
+              "name": "Sarah",
+              "body": "<p>When should we meet?</p>"
+            },
+            {
+              "name": "Christie",
+              "body": "<p>Well, the movie is shown at 2:00PM, 4:00PM, 6:00PM and 8:00PM.</p>"
+            },
+            {
+              "name": "Laurie",
+              "body": "<p>Why don’t we go to the 2:00PM show? We can meet at Summer Pizza House at noon. That will give us plenty of time to enjoy our pizza.</p>"
             }
           ]
         },
         {
-          "title": "Tests",
+          "title": "Chapters",
           "_cards": [
             {
               "_card": "text",
               "_content": {
-                "title": "It'll be really quick...",
-                "body": "<p>...and easy!</p>"
+                "title": "Chapters",
+                "body": "<p>The stacks of cards and components can be grouped into chapters.</p><p>This is the last card in the chapter.</p><p>Once you dismiss it, you will be taken on to the next chapter.</p>"
               }
-            },
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Formula 1",
+      "_content": {
+        "title": "Formula 1"
+      },
+      "_stacks": [
+        {
+          "title": "Tests",
+          "_cards": [
             {
               "_card": "mcq",
               "_content": {
@@ -255,15 +312,7 @@
               }
             }
           ]
-        }
-      ]
-    },
-    {
-      "title": "Formula 1",
-      "_content": {
-        "title": "Formula 1"
-      },
-      "_stacks": [
+        },
         {
           "title": "Introduction",
           "_classes": "",
@@ -277,20 +326,6 @@
                 "image": "//upload.wikimedia.org/wikipedia/en/4/45/F1_logo.svg",
                 "title": "The best F1 drivers",
                 "body": "<p>Explore the top 5 F1 drivers of all time.</p>"
-              }
-            },
-            {
-              "_card": "video",
-              "_content": {
-                "title": "A brief history",
-                "_video": {
-                  "_vimeo": {
-                    "id": "43233380",
-                    "_showTitle": false,
-                    "_showByline": false,
-                    "_showPortrait": false
-                  }
-                }
               }
             }
           ]
@@ -401,7 +436,7 @@
                 "headerImage": "images/senna.jpg",
                 "title": "1. Ayrton Senna",
                 "subtitle": "Active: 1984&ndash;1994",
-                "body": "<p>Brilliant, ruthless, determined, fast and charismatic. Just some of the superlatives that some up the greatest driver Formula 1 has ever seen.</p><p>Ayrton ushered in a more professional approach to fittness and absolute dedication to the sport. He had to win and be the best... as Jo Ramirez said in the documentary \"Right to Win\", \"For him it was nothing but winning - to him him coming second was to be the first of the losers\".</p>"
+                "body": "<p>Brilliant, ruthless, determined, fast and charismatic. Just some of the superlatives that some up the greatest driver Formula 1 has ever seen.</p><p>Ayrton ushered in a more professional approach to fittness and absolute dedication to the sport. He had to win and be the best&hellip; as Jo Ramirez said in the documentary \"Right to Win\", \"For him it was nothing but winning - to him him coming second was to be the first of the losers\".</p>"
               }
             },
             {

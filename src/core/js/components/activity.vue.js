@@ -3,8 +3,8 @@ import Vue from '../resources/Vue';
 Vue.component( 'activity', {
 	props: ['activity'],
 	template: '<div :class="classes" :data-activity="activity._type">' +
-	'<component :is="\'activity-\' + activity._type" :activity="activity" v-on:complete="complete" v-on:isCorrect="isCorrect" v-on:isIncorrect="isIncorrect"></component>' +
-	'</div>',
+					'<component :is="\'activity-\' + activity._type" :activity="activity" v-on:complete="complete" v-on:isCorrect="isCorrect" v-on:isIncorrect="isIncorrect"></component>' +
+				'</div>',
 	data: function() {
 		return {
 			completed: false,

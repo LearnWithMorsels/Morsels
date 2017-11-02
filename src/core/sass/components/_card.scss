@@ -55,7 +55,7 @@
   }
 
   &.complete {
-    background-color: #CCC;
+    //background-color: #CCC;
 
     cursor: move;
     cursor: grab;
@@ -139,11 +139,10 @@
     }
 
     &.hide-activities {
-      width: 30px;
-      height: 30px;
+      width: 48px;
 
-      top: 18px;
-      right: -36px;
+      top: 6px;
+      right: -54px;
 
       color: #FFF;
 
@@ -206,7 +205,7 @@
       }
 
       &.hide-activities {
-        right: 18px;
+        right: 6px;
 
         transition: right $activities-fade-in $activities-transition-in;
       }
@@ -231,10 +230,16 @@
     }
   }
 
+  &.inverted {
+    //color: #FFF;
+
+    //background-color: $primary;
+  }
+
   .card-contents {
     width: 100%;
     max-height: 100%;
-    padding: 48px 36px;
+    padding: $card-padding-y $card-padding-x;
 
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -242,32 +247,16 @@
 
     position: relative;
 
+    line-height: 1.35;
+
     z-index: 1;
 
-    h1 {
-      font-size: 3rem;
-    }
-
-    h2 {
-      font-size: 2rem;
-    }
-
-    h3 {
-      font-size: 1.8rem;
-    }
-
-    h4 {
-      font-size: 1.6rem;
-    }
-
-    h5 {
-      font-size: 1.5rem;
-    }
-
-    p {
-      padding-top: 1rem;
-
-      font-size: 1.4rem;
+    .card-image-header {
+      //max-width: calc(100% + (2 * #{$card-padding-x}));
+      //margin-top: -$card-padding-y;
+      //margin-right: -($card-padding-x);
+      margin-bottom: $card-padding-x;
+      //margin-left: -($card-padding-x);
     }
   }
 }

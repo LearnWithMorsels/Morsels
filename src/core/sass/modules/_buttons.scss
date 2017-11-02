@@ -14,5 +14,13 @@ button {
   border: none;
   outline: none;
 
+  transition: color 300ms, background-color 300ms;
+
   cursor: pointer;
+
+  &:hover {
+    background-color: $primary-dark;
+
+    transition: color 120ms, background-color 120ms;
+  }
 }

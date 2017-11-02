@@ -21,19 +21,35 @@
       height: 180px;
       margin-top: -90px;
 
-      display: none;
+      //display: none;
 
       position: absolute;
       top: 50%;
       right: 0;
       left: 0;
 
-      color: rgba(255, 255, 255, 0.75);
-      font-size: 8rem;
+      color: #BDBDBD;
+      font-size: 10rem;
       line-height: 180px;
       text-align: center;
 
+      transform: scale(0);
+
+      transition: all ($stack-complete * 0.75);
+
+      opacity: 0;
+
       z-index: -1;
+    }
+  }
+
+  &.empty {
+    .cards {
+      > .material-icons {
+        transform: scale(1);
+
+        opacity: 1;
+      }
     }
   }
 }

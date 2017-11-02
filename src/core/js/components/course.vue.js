@@ -1,22 +1,21 @@
 import Vue from '../resources/Vue';
-import './segment.vue';
+import './chapter.vue';
  import './menubar.vue';
  import './sidebar.vue';
 
 Vue.component( 'course', {
 	props: ['course'],
 	template: '<div :class="classes">' +
-					'<menubar :content="content" v-on:toggleSidebar="toggleSidebar"></menubar>' +
-					'<sidebar :course="course" :language="language" v-on:changeLanguage="changeLanguage" v-on:close="closeSidebar"></sidebar>' +
-					'<div class="segments" :style="style" v-on:mousedown.capture="closeSidebar" v-on:touchstart.capture="closeSidebar">' +
-						'<segment v-for="(segment, index) in content._segments" :segment="segment" :key="index" v-on:complete="goToNextSegment"></segment>' +
+					'<menubar :content="content" v-on:toggleSidebar="toggleSidebar" v-on:undo="undo"></menubar>' +
+					'<sidebar :course="course" :language="language" v-on:changeLanguage="changeLanguage" v-on:close="closeSidebar" v-on:overview="toggleOverview"></sidebar>' +
+					'<div class="chapters" :style="style" v-on:mousedown.capture="closeSidebar" v-on:touchstart.capture="closeSidebar">' +
+						'<chapter v-for="(chapter, index) in content._chapters" :chapter="chapter" :key="index" v-on:complete="goToNextchapter"></chapter>' +
 					'</div>' +
-					//'<button class="toggle-overview" v-on:click.prevent="viewAll = !viewAll">See all</button>' +
 				'</div>',
 	data: function() {
 		return {
 			language: this.course.config.languages.default || this.course.config.languages.primary || this.course.content[Object.keys(this.course.content)[0]] || 'en',
-			currentSegment: 0,
+			currentchapter: 0,
 			showSidebar: false,
 			viewAll: false
 		};
@@ -41,7 +40,7 @@ Vue.component( 'course', {
 		},
 		style: function() {
 			return {
-				transform: 'translateX(-' + ( this.currentSegment * 100 ) + '%)'
+				transform: 'translateX(-' + ( this.currentchapter * 100 ) + '%)'
 			};
 		}
 	},
@@ -52,9 +51,9 @@ Vue.component( 'course', {
 		updateCourseTitle: function() {
 			document.getElementsByTagName( 'title' )[0].textContent = this.courseTitle;
 		},
-		goToNextSegment: function() {
-			if( this.currentSegment + 1 < this.content._segments.length - 1 ) {
-				this.currentSegment++;
+		goToNextchapter: function() {
+			if( this.currentchapter + 1 < this.content._chapters.length - 1 ) {
+				this.currentchapter++;
 			} else {
 				alert( 'EVERYTHING DONE' );
 			}
@@ -64,6 +63,15 @@ Vue.component( 'course', {
 		},
 		closeSidebar: function() {
 			this.showSidebar = false;
+		},
+		toggleOverview: function() {
+			this.viewAll = !this.viewAll;
+			if( this.viewAll ) {
+				this.closeSidebar();
+			}
+		},
+		undo: function() {
+			console.log( 'undo' );
 		},
 		changeLanguage: function( language) {
 			this.language = language;

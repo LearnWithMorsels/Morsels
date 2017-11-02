@@ -1,9 +1,8 @@
 .menubar {
-  padding: 0 12px;
-
   @include flexbox;
   align-items: center;
   flex-direction: row-reverse;
+  justify-content: space-between;
   @include flex(0 0 $menubar-height);
 
   position: relative;
@@ -19,8 +18,7 @@
   }
 
   button {
-    width: auto;
-    min-height: 0;
+    width: $menubar-height;
 
     color: #FFF;
 

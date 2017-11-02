@@ -16,5 +16,18 @@
   }
 
   .activity-contents {
+    padding: $card-padding-y $card-padding-x;
+
+    button {
+      margin-top: 1rem;
+
+      color: $primary;
+
+      background-color: #FFF;
+
+      &:hover {
+        color: $primary-dark;
+      }
+    }
   }
 }
