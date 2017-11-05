@@ -2,8 +2,8 @@ import Vue from '../resources/Vue';
 import './activities.vue';
 
 Vue.component( 'card', {
-	props: ['card', 'zIndex'],
-	template: '<div :class="classes" :data-card="card._card" :style="{ zIndex: zIndex, left: view.offset.x + \'px\', top: view.offset.y + \'px\' }" :data-uid="_uid">' +
+	props: ['card', 'current', 'zIndex'],
+	template: '<div :class="classes" :data-card="card._card" :style="style" :data-uid="_uid">' +
 					'<component :is="\'card-\' + card._card" ref="card" :card="card" v-on:complete="complete"></component>' +
 					'<template v-if="card._activities">' +
 						'<button class="show-activities" v-on:click.prevent.stop="openActivities">' +
@@ -39,6 +39,7 @@ Vue.component( 'card', {
 			dismissed: this.card.dismissed || false,
 			showActivites: false,
 			isMounted: false,
+			baseFontSize: 16,
 			globals: window.Morsels.globals.state
 		};
 	},
@@ -51,7 +52,8 @@ Vue.component( 'card', {
 				correct: this.isComplete && this.isCorrect,
 				dismissed: this.dismissed,
 				saved: this.saved,
-				dragging: this.view.dragging
+				dragging: this.view.dragging,
+				current: this.current
 			};
 			classes['card-' + this.card._card] = true;
 			if( this.card._classes ) {
@@ -60,6 +62,18 @@ Vue.component( 'card', {
 				}
 			}
 			return classes;
+		},
+		style: function() {
+			let style = {
+				fontSize: this.baseFontSize + 'px',
+				zIndex: this.zIndex
+			};
+			if( this.dismissed ) {
+				style.transform = 'translate(' + ( this.view.offset.x * 3 ) + 'px, ' + ( this.view.offset.y * 3 ) + 'px)';
+			} else if( this.view.dragging ) {
+				style.transform = 'translate(' + this.view.offset.x + 'px, ' + this.view.offset.y + 'px)';
+			}
+			return style;
 		},
 		activitiesComplete: function() {
 			if( this.isMounted === true ) {
@@ -100,6 +114,7 @@ Vue.component( 'card', {
 		this.$el.addEventListener( 'touchcancel', this.pointerUp );
 		this.$el.addEventListener( 'mouseleave', this.pointerUp );
 		this.isMounted = true;
+		this.baseFontSize = parseInt( window.getComputedStyle( this.$el ).getPropertyValue( 'font-size' ) ) || 16;
 	},
 	methods: {
 		complete: function() {
@@ -154,7 +169,8 @@ Vue.component( 'card', {
 			this.showActivites = false;
 		},
 		pointerDown: function( e ) {
-			if( this.isComplete &&
+			if( this.current &&
+				this.isComplete &&
 					!this.showActivites ) {
 				if( e.touches ) {
 					//this.view.touchIndex = e.touches.length - 1;
@@ -193,8 +209,6 @@ Vue.component( 'card', {
 				this.view.dragging = false;
 
 				if( Math.sqrt( Math.pow( this.view.offset.x, 2 ) + Math.pow( this.view.offset.y, 2 ) ) > ( ( this.$el.clientWidth / 2 ) || 200 ) ) {
-					this.view.offset.x *= 3;
-					this.view.offset.y *= 3;
 					this.dismiss();
 				} else {
 					this.recenter();
@@ -204,6 +218,18 @@ Vue.component( 'card', {
 		recenter() {
 			this.view.offset.x = 0;
 			this.view.offset.y = 0;
+		},
+		setFontSize() {
+			let hasScrollbars = this.$el.scrollHeight > this.$el.clientHeight;
+			if( hasScrollbars &&
+					this.baseFontSize > 10 ) {
+				this.baseFontSize -= 0.5;
+				console.log( 'Still has scrollbars, setting to ' + this.baseFontSize );
+			}
+			//console.log( this._uid, this.$el.scrollHeight, this.$el.clientHeight, hasScrollbars ? 'Scrollbars' : 'None' );
 		}
+	},
+	updated: function() {
+		this.setFontSize();
 	}
 } );

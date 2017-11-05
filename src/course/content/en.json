@@ -97,10 +97,40 @@
                         "_shouldBeSelected": false
                       }
                     ],
-                    "_options": {
-                      "_selectable": 1,
-                      "_attempts": 2
+                    "_feedback": {
+                      "_correct": {
+                        "title": "Well done!",
+                        "body": "<p>Nice one</p>"
+                      },
+                      "_incorrect": {
+                        "title": "Incorrect",
+                        "body": "<p>It's actually pretty sweet&hellip;</p>",
+                        "_notes": [
+                          "morsels_info"
+                        ]
+                      },
+                      "_common": {
+                        "body": "<p>Morsels is awesome.</p>"
+                      }
+                    }
+                  },
+                  {
+                    "_type": "mcq",
+                    "_content": {
+                      "title": "Thoughts",
+                      "body": "<p>Will you use it for your next project?</p>",
+                      "instruction": "Select from the list below"
                     },
+                    "_items": [
+                      {
+                        "title": "Of course!",
+                        "_shouldBeSelected": true
+                      },
+                      {
+                        "title": "Maybe not",
+                        "_shouldBeSelected": false
+                      }
+                    ],
                     "_feedback": {
                       "_correct": {
                         "title": "Well done!",
@@ -125,10 +155,10 @@
               "_card": "text",
               "_content": {
                 "image": {
-                  "src": "http://freefrontend.com/assets/img/css-cards/card-stack.png"
+                  "src": "https://camo.envatousercontent.com/40365fec24858cdbdb7ddae12a889c09c2155bbf/687474703a2f2f692e696d6775722e636f6d2f4c754157334b542e6a7067"
                 },
                 "title": "Stacks",
-                "body": "<p>Cards are arranged in a stack.</p><p>Once you dismiss the last card in the stack, it is complete and you will move on to the next stack.</p>"
+                "body": "<p>Cards are arranged in a stack - just like cards in real life.</p><p>Once you dismiss the last card in the stack, it is complete and you will move on to the next stack.</p>"
               }
             }
           ]
@@ -140,7 +170,7 @@
               "_card": "text",
               "_content": {
                 "image": {
-                  "src": "http://clipartview.com/wp-content/uploads/2017/02/conversation-clipart-free-download.png"
+                  "src": "https://imageog.flaticon.com/icons/png/512/9/9915.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF"
                 },
                 "title": "Components",
                 "body": "<p>Cards can be restrictive.</p><p>To get around this, you can use a component in place of a stack of cards.</p><p>The next example is a conversation component.</p>"
@@ -195,7 +225,7 @@
               "_card": "text",
               "_content": {
                 "title": "Chapters",
-                "body": "<p>The stacks of cards and components can be grouped into chapters.</p><p>This is the last card in the chapter.</p><p>Once you dismiss it, you will be taken on to the next chapter.</p>"
+                "body": "<p>The stacks of cards and components can be grouped into chapters.</p><p>This is the last card in the chapter.</p><p>Once you dismiss it, you will be taken to the next chapter.</p>"
               }
             }
           ]

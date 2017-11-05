@@ -1,6 +1,7 @@
 "use strict";
 
-var fs = require( 'fs' ),
+const fs = require( 'fs' ),
+	path = require( 'path' ),
 	gulp = require( 'gulp' ),
 	rollup = require( 'gulp-better-rollup' ),
 	eslint = require( 'rollup-plugin-eslint' ),
@@ -12,13 +13,13 @@ var fs = require( 'fs' ),
 	concat = require( 'gulp-concat' ),
 	merge = require( 'deepmerge' ),
 	insert = require( 'gulp-insert' ),
-	//extend = require( 'gulp-multi-extend' ),
 	rename = require( 'gulp-rename' ),
 	sourcemaps = require( 'gulp-sourcemaps' ),
 	browserSync = require( 'browser-sync' ).create();
 
-var CONFIG = JSON.parse( fs.readFileSync( './src/course/config.json' ) ),
-	eslintOptions = {
+let CONFIG = JSON.parse( fs.readFileSync( './src/course/config.json' ) );
+
+const eslintOptions = {
 		exclude: 'node_modules/**',
 		parserOptions: {
 			ecmaVersion: 6,
@@ -60,7 +61,21 @@ var CONFIG = JSON.parse( fs.readFileSync( './src/course/config.json' ) ),
 		}
 
 		return arrayOut;
-
+	},
+	walkSync = dir => fs.readdirSync( dir )
+		.reduce( ( files, file ) =>
+				fs.statSync( path.join( dir, file ) ).isDirectory() ?
+					files.concat( walkSync( path.join( dir, file ) ) ) :
+					files.concat( path.join( dir, file ) ),
+			[] ),
+	listResources = () => {
+		let resources = walkSync( './src/course/resources' );
+		for( let resource in resources ) {
+			if( resources.hasOwnProperty( resource ) ) {
+				resources[resource] = resources[resource].replace( 'src/course/resources', 'resources' );
+			}
+		}
+		return resources;
 	};
 
 gulp.task( 'index', () => {
@@ -145,17 +160,17 @@ gulp.task( 'scss:framework', () => {
 	//.pipe( fileOverride( 'core/sass', 'app/core/sass' ) )
 	//.pipe( fileOverride( 'activities/*/sass', 'app/activities/$1/sass' ) )
 	//.pipe( fileOverride( 'cards/*/sass', 'app/cards/$1/sass' ) )
-			.pipe( sourcemaps.init() )
-			.pipe( sass( { outputStyle: 'compressed' } )
-					.on( 'error', err => {
-						sass.logError( err );
-						this.emit( 'end' );
-					} )
-			)
-			.pipe( concat( 'morsels.min.css' ) )
-			.pipe( sourcemaps.write( './' ) )
-			.pipe( gulp.dest( './build/css' ) )
-			.pipe( browserSync.stream( { match: '**/*.css' } ) );
+		.pipe( sourcemaps.init() )
+		.pipe( sass( { outputStyle: 'compressed' } )
+			.on( 'error', err => {
+				sass.logError( err );
+				this.emit( 'end' );
+			} )
+		)
+		.pipe( concat( 'morsels.min.css' ) )
+		.pipe( sourcemaps.write( './' ) )
+		.pipe( gulp.dest( './build/css' ) )
+		.pipe( browserSync.stream( { match: '**/*.css' } ) );
 } );
 
 gulp.task( 'resources', () => {
@@ -165,10 +180,10 @@ gulp.task( 'resources', () => {
 
 gulp.task( 'fonts', () => {
 	return gulp.src( [
-			'./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.eot',
-			'./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.ttf',
-			'./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.woff',
-			'./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.woff2'
+		'./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.eot',
+		'./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.ttf',
+		'./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.woff',
+		'./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.woff2'
 	] )
 		.pipe( gulp.dest( './build/css/fonts' ) );
 } );
@@ -326,6 +341,7 @@ gulp.task( 'components', () => {
 gulp.task( 'service-worker', () => {
 	gulp.src( './src/core/js/sw.js' )
 		.pipe( insert.prepend( 'const TIMESTAMP = "' + timestamp() + '";' ) )
+		.pipe( insert.prepend( 'const RESOURCES = ' + JSON.stringify( listResources().concat( CONFIG.onlineResources || [] ) ) + ';' ) )
 		.pipe( gulp.dest( './build' ) );
 } );
 
@@ -388,7 +404,7 @@ gulp.task( 'serve', () => {
 	gulp.watch( './src/core/sass/base.scss', ['scss:base'] );
 	gulp.watch( ['./src/core/sass/**/*.scss', './src/activities/**/*.scss', './src/cards/**/*.scss', './src/components/**/*.scss'], ['scss:framework'] );
 
-	gulp.watch( './src/course/config.json', ['data', 'manifest'] ).on( 'change', browserSync.reload );
+	gulp.watch( './src/course/config.json', ['data', 'manifest', 'service-worker'] ).on( 'change', browserSync.reload );
 	gulp.watch( './src/course/content/*.json', ['data'] ).on( 'change', browserSync.reload );
 } );
 

@@ -11,6 +11,9 @@
     "192": "./resources/icons/xxxhdpi.png",
     "512": "./resources/icons/web.png"
   },
+  "onlineResources": [
+    "https://fonts.googleapis.com/css?family=Lato:300,700,900"
+  ],
   "lms": {
     "scorm": {
       "enable": false,

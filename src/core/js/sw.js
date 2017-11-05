@@ -28,18 +28,19 @@ self.addEventListener( 'install', event => {
 			} )
 	);
 
-	event.waitUntil(
-		caches
-			.open( `${version}resources` )
-			.then( cache => {
-				return cache
-					.addAll( [
-					] );
-			} )
-			.then( () => {
-				console.log( 'SERVICE WORKER::RESOURCES   Course resources cache complete' );
-			} )
-	);
+	if( RESOURCES ) {
+		event.waitUntil(
+			caches
+				.open( `${version}resources` )
+				.then( cache => {
+					return cache
+						.addAll( RESOURCES );
+				} )
+				.then( () => {
+					console.log( 'SERVICE WORKER::RESOURCES   Course resources cache complete' );
+				} )
+		);
+	}
 } );
 
 //REFRESH THE THINGS (IF NEEDED)
@@ -66,53 +67,47 @@ self.addEventListener( 'activate', event => {
 			} )
 	);
 
-	event.waitUntil( async function() {
-		// Feature-detect
-		if( self.registration.navigationPreload ) {
-			// Enable navigation preloads!
-			console.log( 'SERVICE WORKER::PRELOAD     Navigation preloads done' );
-			await self.registration.navigationPreload.enable();
-		}
-	}() );
+	//event.waitUntil( async function() {
+	//	// Feature-detect
+	//	if( self.registration.navigationPreload ) {
+	//		// Enable navigation preloads!
+	//		console.log( 'SERVICE WORKER::PRELOAD     Navigation preloads done' );
+	//		await self.registration.navigationPreload.enable();
+	//	}
+	//}() );
 } );
 
 //SERVE THE THINGS
 self.addEventListener( 'fetch', event => {
 	if( event.request.method === 'GET' ) {
-		if( event.request.url.indexOf( 'resources/' ) !== -1 ) {
-			console.log( 'RETURN PLACEHOLDER IMAGE/VIDEO' );
-			//TODO: RETURN PLACEHOLDER IMAGE/VIDEO
-		} else {
+		event.respondWith(
 			caches
 				.match( event.request )
-				.then( () => {
-					event.respondWith(
-						caches
-							.match( event.request )
+				.then( response => {
+					if( response ) {
+						console.log( 'SERVICE WORKER::CACHE       ' + response.url );
+						return response;
+					} else {
+						console.log( 'SERVICE WORKER::LIVE        ' + event.request.url );
+						return fetch( event.request )
 							.then( response => {
-								if( response ) {
-									console.log( 'SERVICE WORKER::CACHE       ' + response.url );
-									return response;
-								} else {
-									console.log( 'SERVICE WORKER::LIVE        ' + event.request.url );
-									return fetch( event.request, {
-										method: event.request.method,
-										//mode: 'same-origin',
-										credentials: event.request.credentials,
-										redirect: 'manual'
+								return caches
+									.open( `${version}resources` )
+									.then( cache => {
+										cache.put( event.request, response.clone() );
+										return response;
 									} );
-								}
-							} )
-							.catch( error => {
-								if( event.request.method === 'GET' ) {
-									console.warn( 'SERVICE WORKER::FAILED      fetch(' + event.request.url + ') failed', error );
-									return caches.match( './offline.html' );
-								}
-							} )
-					);
+							} );
+					}
 				} )
 				.catch( error => {
-				} );
-		}
+					console.warn( 'SERVICE WORKER::FAILED   fetch(' + event.request.url + ') failed', error );
+					if( event.request.method === 'GET' &&
+						event.request.url.indexOf( 'resources/' ) !== -1 ) {
+						console.log( 'RETURN PLACEHOLDER IMAGE/VIDEO FOR ' + event.request.url );
+						//return caches.match( './offline.html' );
+					}
+				} )
+		);
 	}
 } );

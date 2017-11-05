@@ -12,8 +12,8 @@
   box-sizing: border-box;
 
   position: absolute;
-  top: 0;
-  left: 0;
+  //top: 0;
+  //left: 0;
 
   background-color: #FFF;
 
@@ -24,7 +24,7 @@
   transform: translate3d(0, 0, 0) scale(pow($card-scale-below, 3)) translateY($card-shift-below * 3);
   transform-origin: 50% 100%;
 
-  transition: top $card-return ease-out, left $card-return ease-out, background-color 1000ms, box-shadow $card-place-down cubic-bezier(.25,.8,.25,1), transform $card-move-up, opacity $card-dismiss, z-index $card-dismiss;
+  transition: background-color 1000ms, box-shadow $card-place-down cubic-bezier(.25,.8,.25,1), transform $card-return ease-out, opacity $card-dismiss, z-index $card-dismiss;
 
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -36,8 +36,9 @@
 
   z-index: 1;
 
-  &:first-child {
+  &.current {
     transform: none;
+    will-change: transform;
 
     opacity: 1;
 
@@ -68,40 +69,21 @@
   }
 
   &.dismissed {
-    transition: top $card-dismiss, left $card-dismiss, visibility 1ms $card-dismiss, transform 1ms $card-dismiss, opacity $card-dismiss, z-index $card-dismiss;
+    transition: visibility 1ms $card-dismiss, transform $card-dismiss, opacity $card-dismiss, z-index $card-dismiss;
 
     visibility: hidden;
 
     opacity: 0;
 
     z-index: 3 !important;
-
-    + .card + .card + .card {
-      transform: scale(pow($card-scale-below, 2)) translateY($card-shift-below * 2);
-
-      opacity: 1;
-    }
-
-    &.card + .card + .card {
-      transform: scale($card-scale-below) translateY($card-shift-below);
-
-      opacity: 1;
-    }
-
-    &.card.card + .card {
-      transform: translate(0, 0);
-
-      opacity: 1;
-    }
   }
 
   &.dragging {
     @include shadow-8;
 
-    transform: scale(1 / $card-scale-below) !important;
     transform-origin: 50% 50%;
 
-    transition: box-shadow $card-pick-up cubic-bezier(.25,.8,.25,1), transform $card-move-up, opacity $card-dismiss, z-index $card-dismiss;
+    transition: box-shadow $card-pick-up cubic-bezier(.25,.8,.25,1), opacity $card-dismiss, z-index $card-dismiss;
 
     cursor: grabbing;
     cursor: -moz-grabbing;
@@ -181,6 +163,7 @@
     left: 200%;
 
     color: #FFF;
+    font-size: 16px;
 
     border: none;
     border-radius: 100%;
@@ -238,7 +221,7 @@
 
   .card-contents {
     width: 100%;
-    max-height: 100%;
+    //max-height: 100%;
     padding: $card-padding-y $card-padding-x;
 
     -webkit-box-sizing: border-box;
