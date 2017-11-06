@@ -78,8 +78,11 @@ const eslintOptions = {
 		return resources;
 	};
 
-gulp.task( 'index', () => {
+gulp.task( 'index', ['scss:base'], () => {
 	return gulp.src( './src/core/index.html' )
+		.pipe(insert.transform(function(contents, file) {
+			return contents.replace( '</head>', '<style type="text/css">' + fs.readFileSync( './build/css/base.css' ) + '</style></head>' );
+		}))
 		.pipe( gulp.dest( './build' ) );
 } );
 
@@ -401,8 +404,7 @@ gulp.task( 'serve', () => {
 	gulp.watch( './src/cards/*/js/**/*.js', ['cards'] ).on( 'change', browserSync.reload );
 	gulp.watch( './src/components/*/js/**/*.js', ['components'] ).on( 'change', browserSync.reload );
 
-	gulp.watch( './src/core/sass/base.scss', ['scss:base'] );
-	gulp.watch( ['./src/core/sass/**/*.scss', './src/activities/**/*.scss', './src/cards/**/*.scss', './src/components/**/*.scss'], ['scss:framework'] );
+	gulp.watch( ['./src/core/sass/**/*.scss', './src/activities/**/*.scss', './src/cards/**/*.scss', './src/components/**/*.scss'], ['scss:framework', 'index'] );
 
 	gulp.watch( './src/course/config.json', ['data', 'manifest', 'service-worker'] ).on( 'change', browserSync.reload );
 	gulp.watch( './src/course/content/*.json', ['data'] ).on( 'change', browserSync.reload );

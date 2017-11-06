@@ -18,17 +18,22 @@ const head = document.getElementsByTagName( 'body' )[0];
 let Morsels = {
 	appendJS: src => {
 		let script = document.createElement( 'script' );
-
 		script.textContent = src;
 		head.append( script );
 	},
-	addCSS: href => {
-		let link = document.createElement( 'link' );
-		link.href = href;
-		link.type = 'text/css';
-		link.rel = 'stylesheet';
-		head.append( link );
+	appendCSS: src => {
+		let style = document.createElement( 'script' );
+		style.type = 'text/css';
+		style.textContent = src;
+		head.append( style );
 	},
+	//addCSS: href => {
+	//	let link = document.createElement( 'link' );
+	//	link.href = href;
+	//	link.type = 'text/css';
+	//	link.rel = 'stylesheet';
+	//	head.append( link );
+	//},
 	addMeta: ( name, content ) => {
 		let meta = document.createElement( 'meta' );
 		meta.name = name;
@@ -70,8 +75,7 @@ Morsels.component = ( name, properties ) => {
 
 window.Morsels = Morsels;
 
-//Morsels.addCSS( './css/base.css' );
-Morsels.addCSS( './css/morsels.min.css' );
+//Morsels.addCSS( './css/morsels.min.css' );
 
 let fetchFile = file => {
 		return fetch( file )
@@ -92,7 +96,8 @@ Promise.all( [
 	fetchJSONFile( './course.json' ),
 	fetchFile( './js/activities.min.js' ),
 	fetchFile( './js/cards.min.js' ),
-	fetchFile( './js/components.min.js' )
+	fetchFile( './js/components.min.js' ),
+	fetchFile( './css/morsels.min.css' )
 ] )
 	.then( returns => {
 		let course = returns[0];
@@ -100,6 +105,7 @@ Promise.all( [
 		Morsels.appendJS( returns[1] );
 		Morsels.appendJS( returns[2] );
 		Morsels.appendJS( returns[3] );
+		Morsels.appendCSS( returns[4] );
 
 		Morsels.Vue = new Vue( {
 			el: '#morsels-course',
@@ -112,10 +118,8 @@ Promise.all( [
 	} );
 
 Morsels.addMeta( 'theme-color', '#212121' );
-// <meta name="msapplication-navbutton-color" content="#3F51B5">
+Morsels.addMeta( 'msapplication-navbutton-color', '#212121' );
 // <meta name="apple-mobile-web-app-title" content="Smileonthetiles">
-// <meta name="apple-mobile-web-app-capable" content="yes">
-// <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
 // <link rel="icon" sizes="48x48" href="/app/Resources/images/icons/icon-48.png">
 // <link rel="icon" sizes="57x57" href="/app/Resources/images/icons/icon-57.png">

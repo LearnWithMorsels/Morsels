@@ -224,9 +224,8 @@ Vue.component( 'card', {
 			if( hasScrollbars &&
 					this.baseFontSize > 10 ) {
 				this.baseFontSize -= 0.5;
-				console.log( 'Still has scrollbars, setting to ' + this.baseFontSize );
+				//console.log( 'Still has scrollbars, setting to ' + this.baseFontSize );
 			}
-			//console.log( this._uid, this.$el.scrollHeight, this.$el.clientHeight, hasScrollbars ? 'Scrollbars' : 'None' );
 		}
 	},
 	updated: function() {
