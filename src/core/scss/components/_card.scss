@@ -24,7 +24,7 @@
   transform: translate3d(0, 0, 0) scale(pow($card-scale-below, 3)) translateY($card-shift-below * 3);
   transform-origin: 50% 100%;
 
-  transition: background-color 1000ms, box-shadow $card-place-down cubic-bezier(.25,.8,.25,1), transform $card-return ease-out, opacity $card-dismiss, z-index $card-dismiss;
+  transition: box-shadow $card-place-down cubic-bezier(.25,.8,.25,1), transform $card-return ease-out, opacity $card-dismiss, z-index $card-dismiss;
 
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -35,6 +35,12 @@
   opacity: 0;
 
   z-index: 1;
+
+  .dark-theme & {
+    //color: #FFF;
+
+    background-color: #424242;
+  }
 
   &.current {
     transform: none;
@@ -100,20 +106,20 @@
     }
 
     &.show-activities {
-      width: 48px;
-      height: 48px;
+      width: $button-height;
+      height: $button-height;
 
       right: 18px;
       bottom: 18px;
 
       color: #FFF;
 
-      background-color: $primary;
+      background-color: $secondary-colour;
 
       border: none;
       border-radius: 100%;
 
-      box-shadow: 0 0 0 0 $primary;
+      box-shadow: 0 0 0 0 $secondary-colour;
 
       transition: right 1ms $activities-fade-out, color $activities-transition-out $activities-fade-out, box-shadow $activities-transition-out $activities-fade-out;
 
@@ -121,7 +127,7 @@
     }
 
     &.hide-activities {
-      width: 48px;
+      width: $button-height;
 
       top: 6px;
       right: -54px;
@@ -138,8 +144,8 @@
     }
 
     &.save-card {
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
 
       top: 18px;
       left: 18px;
@@ -182,7 +188,7 @@
 
         color: transparent;
 
-        box-shadow: 0 0 0 700px $primary;
+        box-shadow: 0 0 0 700px $secondary-colour;
 
         transition: right 1ms ($activities-transition-in - 1ms), color $activities-transition-in, box-shadow $activities-transition-in;
       }

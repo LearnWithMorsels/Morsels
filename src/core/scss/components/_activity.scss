@@ -21,12 +21,12 @@
     button {
       margin-top: 1rem;
 
-      color: $primary;
+      color: $secondary-colour;
 
       background-color: #FFF;
 
       &:hover {
-        color: $primary-dark;
+        color: $secondary-colour-dark;
       }
     }
   }

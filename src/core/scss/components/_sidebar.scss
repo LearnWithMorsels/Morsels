@@ -1,11 +1,13 @@
+//https://material.io/guidelines/components/lists-controls.html#lists-controls-types-of-list-controls
+
 .sidebar {
   max-width: 480px;
-  width: calc(100% - 60px);
+  width: calc(100% - 56px);
 
   position: fixed;
   top: 0;
-  right: 0;
   bottom: 0;
+  left: 0;
 
   overflow: auto;
 
@@ -13,15 +15,19 @@
 
   box-shadow:  0 0 0 0 rgba(0, 0, 0, .14), 0 0 0 0 rgba(0, 0, 0, .12), 0 0 0 0 rgba(0, 0, 0, .2), 0 0 0 9999px rgba(0, 0, 0, 0);
 
-  transform: translateX(100%);
+  transform: translateX(-100%);
 
   transition: box-shadow $sidebar-transition ease-in, transform $sidebar-transition ease-in;
 
   z-index: 3;
 
+  .dark-theme & {
+    background-color: #424242;
+  }
+
   .rtl & {
-    right: auto;
-    left: 0;
+    right: 0;
+    left: auto;
 
     transform: translateX(-100%);
   }
@@ -83,14 +89,18 @@
       }
     }
 
+    p {
+      padding-top: 0;
+    }
+
     .course-progress {
-      margin-top: 12px;
+      margin-top: 16px;
 
       @include flexbox;
       align-items: center;
 
       progress {
-        height: 6px;
+        height: 4px;
 
         @include flex(1 0);
 
@@ -111,7 +121,7 @@
       }
 
       .course-progress-percentage {
-        margin-left: 12px;
+        margin-left: 18px;
 
         @include flex(0 1);
 
@@ -135,10 +145,22 @@
         //margin-left: 6px;
       }
 
+      //.dark-theme & {
+      //  color: $active-icon-colour-inverted;
+      //
+      //  background-color: #303030;
+      //}
+
       &.current {
-        color: $primary;
+        color: $primary-colour;
 
         background-color: #FFF;
+
+        .dark-theme & {
+          color: $active-icon-colour-inverted;
+
+          background-color: #424242;
+        }
       }
     }
   }

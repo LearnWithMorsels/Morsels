@@ -1,14 +1,87 @@
+@import "../../../core/scss/modules/functions";
+@import "../../../core/scss/modules/mixins";
+@import "../../../core/scss/variables";
+
+
 .card[data-card="mcq"] {
   .mcq-options {
+    padding-top: 1em;
+    padding-bottom: 2em;
+
     label {
-      margin-bottom: 12px;
-      padding: 12px 18px;
+      margin-bottom: 6px;
+      padding: 16px;
 
-      display: block;
+      @include flexbox;
+      align-items: center;
+      justify-content: flex-start;
 
-      background-color: #EEE;
+      //background-color: #EEE;
 
       //box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.2), 0 1px 5px 0 rgba(0,0,0,0.12);
+
+      cursor: pointer;
+
+      &:hover {
+        //background-color: rgba(255, 255, 255, 0.25);
+      }
+
+      .mcq-state {
+        width: 24px;
+        height: 24px;
+        //margin-right: 16px;
+
+        position: relative;
+
+        @include flex(0 1 56px);
+
+        input {
+          display: none;
+
+          &[type="radio"] ~ i.mcq-checkbox-state,
+          &[type="checkbox"] ~ i.mcq-radio-state,
+          ~ .mcq-selected-state/*,
+          &[type="radio"]:checked ~ .mcq-unselected-state,
+          &[type="checkbox"]:checked ~ .mcq-unselected-state*/ {
+            opacity: 0;
+          }
+
+          &[type="radio"]:checked ~ .mcq-radio-state.mcq-selected-state,
+          &[type="checkbox"]:checked ~ .mcq-checkbox-state.mcq-selected-state {
+            opacity: 1;
+          }
+        }
+
+        i {
+          position: absolute;
+          top: 0;
+          left: 0;
+
+          transition: opacity 200ms;
+
+          &.mcq-unselected-state {
+            color: $active-icon-colour;
+
+            .dark-theme & {
+              color: $inactive-icon-colour-inverted;
+            }
+          }
+
+          &.mcq-selected-state {
+            color: $primary-colour;
+
+            .dark-theme & {
+              color: $active-icon-colour-inverted;
+            }
+          }
+        }
+      }
+
+      .mcq-option-title {
+        @include flex(1 0);
+
+        font-weight: 700;
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
-@import "../../../core/sass/modules/functions";
-@import "../../../core/sass/modules/mixins";
-@import "../../../core/sass/variables";
+@import "../../../core/scss/modules/functions";
+@import "../../../core/scss/modules/mixins";
+@import "../../../core/scss/variables";
 
 .component-conversation {
   .component-contents {
@@ -54,13 +54,13 @@
 
           color: #FFF;
 
-          background-color: $primary;
+          background-color: $primary-colour;
 
           &::after {
             right: 100%;
             left: auto;
 
-            border-right-color: $primary;
+            border-right-color: $primary-colour;
             border-left-color: transparent;
           }
         }
@@ -68,7 +68,7 @@
         &.conversation-item-add-enter,
         &.conversation-item-add-leave-to {
           opacity: 0;
-          transform: translateY(30px);
+          transform: translateY(32px);
         }
 
         &.conversation-item-add-enter-to {

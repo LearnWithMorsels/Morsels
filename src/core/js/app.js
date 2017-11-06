@@ -22,18 +22,18 @@ let Morsels = {
 		head.append( script );
 	},
 	appendCSS: src => {
-		let style = document.createElement( 'script' );
+		let style = document.createElement( 'style' );
 		style.type = 'text/css';
 		style.textContent = src;
 		head.append( style );
 	},
-	//addCSS: href => {
-	//	let link = document.createElement( 'link' );
-	//	link.href = href;
-	//	link.type = 'text/css';
-	//	link.rel = 'stylesheet';
-	//	head.append( link );
-	//},
+	addCSS: href => {
+		let link = document.createElement( 'link' );
+		link.href = href;
+		link.type = 'text/css';
+		link.rel = 'stylesheet';
+		head.append( link );
+	},
 	addMeta: ( name, content ) => {
 		let meta = document.createElement( 'meta' );
 		meta.name = name;
@@ -75,7 +75,7 @@ Morsels.component = ( name, properties ) => {
 
 window.Morsels = Morsels;
 
-//Morsels.addCSS( './css/morsels.min.css' );
+Morsels.addCSS( './css/morsels.min.css' );
 
 let fetchFile = file => {
 		return fetch( file )
@@ -97,7 +97,7 @@ Promise.all( [
 	fetchFile( './js/activities.min.js' ),
 	fetchFile( './js/cards.min.js' ),
 	fetchFile( './js/components.min.js' ),
-	fetchFile( './css/morsels.min.css' )
+	//fetchFile( './css/morsels.min.css' )
 ] )
 	.then( returns => {
 		let course = returns[0];
@@ -105,7 +105,7 @@ Promise.all( [
 		Morsels.appendJS( returns[1] );
 		Morsels.appendJS( returns[2] );
 		Morsels.appendJS( returns[3] );
-		Morsels.appendCSS( returns[4] );
+		//Morsels.appendCSS( returns[4] );
 
 		Morsels.Vue = new Vue( {
 			el: '#morsels-course',
@@ -116,27 +116,6 @@ Promise.all( [
 			}
 		} );
 	} );
-
-Morsels.addMeta( 'theme-color', '#212121' );
-Morsels.addMeta( 'msapplication-navbutton-color', '#212121' );
-// <meta name="apple-mobile-web-app-title" content="Smileonthetiles">
-
-// <link rel="icon" sizes="48x48" href="/app/Resources/images/icons/icon-48.png">
-// <link rel="icon" sizes="57x57" href="/app/Resources/images/icons/icon-57.png">
-// <link rel="icon" sizes="72x72" href="/app/Resources/images/icons/icon-72.png">
-// <link rel="icon" sizes="96x96" href="/app/Resources/images/icons/icon-96.png">
-// <link rel="icon" sizes="114x114" href="/app/Resources/images/icons/icon-114.png">
-// <link rel="icon" sizes="144x144" href="/app/Resources/images/icons/icon-144.png">
-// <link rel="icon" sizes="152x152" href="/app/Resources/images/icons/icon-152.png">
-// <link rel="icon" sizes="167x167" href="/app/Resources/images/icons/icon-167.png">
-// <link rel="icon" sizes="180x180" href="/app/Resources/images/icons/icon-180.png">
-// <link rel="icon" sizes="192x192" href="/app/Resources/images/icons/icon-192.png">
-
-// <link rel="apple-touch-icon" sizes="57x57" href="/app/Resources/images/icons/icon-square-57.png">
-// <link rel="apple-touch-icon" sizes="152x152" href="/app/Resources/images/icons/icon-square-152.png">
-// <link rel="apple-touch-icon" sizes="167x167" href="/app/Resources/images/icons/icon-square-167.png">
-// <link rel="apple-touch-icon" sizes="180x180" href="/app/Resources/images/icons/icon-square-180.png">
-
 
 if( 'serviceWorker' in navigator &&
 	window.location.hostname !== 'localhost' ) {

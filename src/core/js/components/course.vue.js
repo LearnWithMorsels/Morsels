@@ -6,16 +6,16 @@ import './chapter.vue';
 Vue.component( 'course', {
 	props: ['course'],
 	template: '<div :class="classes">' +
-					'<menubar :content="content" v-on:toggleSidebar="toggleSidebar" v-on:undo="undo"></menubar>' +
-					'<sidebar :course="course" :language="language" v-on:changeLanguage="changeLanguage" v-on:close="closeSidebar" v-on:overview="toggleOverview"></sidebar>' +
-					'<div class="chapters" :style="style" v-on:mousedown.capture="closeSidebar" v-on:touchstart.capture="closeSidebar">' +
+					'<menubar :content="content" v-on:toggleSidebar="toggleSidebar" v-on:undo="undo" v-on:overview="toggleOverview"></menubar>' +
+					'<sidebar ref="sidebar" :course="course" :language="language" v-on:changeLanguage="changeLanguage" v-on:close="closeSidebar"></sidebar>' +
+					'<div class="chapters" :style="style" v-on:mousedown.capture="bodyClick" v-on:touchstart.capture="bodyClick">' +
 						'<chapter v-for="(chapter, index) in content._chapters" :chapter="chapter" :key="index" v-on:complete="goToNextchapter"></chapter>' +
 					'</div>' +
 				'</div>',
 	data: function() {
 		return {
 			language: this.course.config.languages.default || this.course.config.languages.primary || this.course.content[Object.keys(this.course.content)[0]] || 'en',
-			currentchapter: 0,
+			currentChapter: 0,
 			showSidebar: false,
 			viewAll: false
 		};
@@ -40,22 +40,26 @@ Vue.component( 'course', {
 		},
 		style: function() {
 			return {
-				transform: 'translateX(-' + ( this.currentchapter * 100 ) + '%)'
+				transform: 'translateX(-' + ( this.currentChapter * 100 ) + '%)'
 			};
 		}
 	},
 	mounted: function() {
 		this.updateCourseTitle();
+		this.updateLanguageAttr();
 	},
 	methods: {
 		updateCourseTitle: function() {
 			document.getElementsByTagName( 'title' )[0].textContent = this.courseTitle;
 		},
+		updateLanguageAttr: function() {
+			document.documentElement.lang = this.language;
+		},
 		goToNextchapter: function() {
-			if( this.currentchapter + 1 < this.content._chapters.length - 1 ) {
-				this.currentchapter++;
+			if( this.currentChapter + 1 < this.content._chapters.length - 1 ) {
+				this.currentChapter++;
 			} else {
-				alert( 'EVERYTHING DONE' );
+				//alert( 'EVERYTHING DONE' );
 			}
 		},
 		toggleSidebar: function() {
@@ -63,6 +67,13 @@ Vue.component( 'course', {
 		},
 		closeSidebar: function() {
 			this.showSidebar = false;
+		},
+		closeMenubarSubmenu: function() {
+			//this.$refs.sidebar.hideSubmenu();
+		},
+		bodyClick: function() {
+			this.closeSidebar();
+			this.closeMenubarSubmenu();
 		},
 		toggleOverview: function() {
 			this.viewAll = !this.viewAll;
@@ -80,6 +91,7 @@ Vue.component( 'course', {
 	watch: {
 		language: function() {
 			this.updateCourseTitle();
+			this.updateLanguageAttr();
 		}
 	}
 } );

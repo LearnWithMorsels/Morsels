@@ -5,11 +5,11 @@
 
   .cards {
     width: $card-width;
-    min-width: $card-min-width;
-    max-width: calc(100% - 24px);
+    max-width: calc(100% - 16px);
     height: $card-height;
-    min-height: $card-min-height;
-    max-height: calc(100% - 48px);
+    //max-height: calc(100% - #{48px + $menubar-height});
+    max-height: calc(100% - 32px);
+    //margin-top: ($menubar-height / 2);
 
     position: relative;
 
@@ -28,7 +28,7 @@
       right: 0;
       left: 0;
 
-      color: #BDBDBD;
+      color: $inactive-icon-colour;
       font-size: 8rem;
       line-height: 180px;
       text-align: center;
@@ -40,6 +40,10 @@
       opacity: 0;
 
       z-index: -1;
+
+      .dark-theme & {
+        color: $inactive-icon-colour-inverted;
+      }
     }
   }
 

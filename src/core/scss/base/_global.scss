@@ -1,0 +1,80 @@
+html {
+  color: $primary-text-colour;
+
+  background-color: #FAFAFA;
+  //background-color: $primary-colour;
+  //background: -moz-linear-gradient(top, $primary-colour-dark 0%, $primary-colour 100%); /* FF3.6-15 */
+  //background: -webkit-linear-gradient(top, $primary-colour-dark 0%, $primary-colour 100%); /* Chrome10-25,Safari5.1-6 */
+  //background: linear-gradient(to bottom, $primary-colour-dark 0%, $primary-colour 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
+  &.dark-theme {
+    color: $primary-text-colour-inverted;
+
+    background-color: #303030;
+  }
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 900;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+h3 {
+  font-size: 1.8em;
+}
+
+h4 {
+  font-size: 1.6em;
+}
+
+h5 {
+  font-size: 1.5em;
+}
+
+p,
+ul,
+ol,
+table {
+  padding-top: 0.75em;
+
+  font-size: 1.4em;
+}
+
+li + li {
+  padding-top: 0.5em;
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  text-align: center;
+}
+
+strong {
+  font-weight: 700;
+}
+
+img {
+  max-width: 100%;
+
+  display: block;
+}

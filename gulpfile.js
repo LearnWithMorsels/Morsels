@@ -3,6 +3,8 @@
 const fs = require( 'fs' ),
 	path = require( 'path' ),
 	gulp = require( 'gulp' ),
+	del = require( 'del' ),
+	zip = require( 'gulp-zip' ),
 	rollup = require( 'gulp-better-rollup' ),
 	eslint = require( 'rollup-plugin-eslint' ),
 	babel = require( 'rollup-plugin-babel' ),
@@ -42,9 +44,6 @@ const eslintOptions = {
 		},
 		envs: ['browser']
 	},
-	timestamp = function() {
-		return new Date().getTime();
-	},
 	arrayMerge = ( destinationArray, sourceArray, options ) => {
 		let arrayOut = Array.isArray( destinationArray ) ? [] : {};
 
@@ -76,13 +75,209 @@ const eslintOptions = {
 			}
 		}
 		return resources;
+	},
+	slug = string => {
+		return string.replace( /(^[ _\-]*|[ _\-]*$|[^a-z0-9\s\-_])/gi, '' ).replace( /\s/g, '-' ).replace( /\-{2,}/g, '-' ).toLowerCase();
+	},
+	padLeft = ( string, finalLength, padChar = ' ' ) => {
+		string = string.toString();
+		if( string.length < finalLength ) {
+			for( let intChar = 0; intChar < finalLength; intChar++ ) {
+				string = padChar + string;
+			}
+		}
+		return string.slice( -finalLength );
+	},
+	numberSuffix = ( number, includeNumber ) => {
+		if( typeof number !== 'number' ) {
+			number = parseInt( number );
+		}
+		let suffix = '';
+		if( typeof number === 'number'
+			&& number > 0 ) {
+			let numberTensUnits = parseInt( number.toString().substr( -2 ) ),
+			numberUnits = parseInt( number.toString().substr( -1 ) );
+
+			if( numberUnits === 1
+				|| ( numberTensUnits > 10
+					&& numberTensUnits !== 11 ) ) {
+				suffix = 'st';
+			} else if( numberUnits === 2
+				|| ( numberTensUnits > 10
+					&& numberTensUnits !== 12 ) ) {
+				suffix = 'nd';
+			} else if( numberUnits === 3
+				|| ( numberTensUnits > 10
+					&& numberTensUnits !== 13 ) ) {
+				suffix = 'rd';
+			} else {
+				suffix = 'th';
+			}
+		}
+		return ( includeNumber === true ) ? number + suffix : suffix;
+	},
+	date = ( format = '' ) => {
+		let now = new Date(),
+			words = {
+				days: {
+					0: {
+						long: 'Sunday',
+						short: 'Sun'
+					},
+					1: {
+						long: 'Monday',
+						short: 'Mon'
+					},
+					2: {
+						long: 'Tuesday',
+						short: 'Tue'
+					},
+					3: {
+						long: 'Wednesday',
+						short: 'Wed'
+					},
+					4: {
+						long: 'Thursday',
+						short: 'Thu'
+					},
+					5: {
+						long: 'Friday',
+						short: 'Fri'
+					},
+					6: {
+						long: 'Saturday',
+						short: 'Sat'
+					}
+				},
+				months: {
+					1: {
+						long: 'January',
+						short: 'Jan'
+					},
+					2: {
+						long: 'February',
+						short: 'Feb'
+					},
+					3: {
+						long: 'March',
+						short: 'Mar'
+					},
+					4: {
+						long: 'April',
+						short: 'Apr'
+					},
+					5: {
+						long: 'May',
+						short: 'May'
+					},
+					6: {
+						long: 'June',
+						short: 'Jun'
+					},
+					7: {
+						long: 'July',
+						short: 'Jul'
+					},
+					8: {
+						long: 'August',
+						short: 'Aug'
+					},
+					9: {
+						long: 'September',
+						short: 'Sep'
+					},
+					10: {
+						long: 'October',
+						short: 'Oct'
+					},
+					11: {
+						long: 'November',
+						short: 'Nov'
+					},
+					12: {
+						long: 'December',
+						short: 'Dec'
+					}
+				}
+			},
+			time = {
+				N: now.getDay() % 7,
+				j: now.getDate(),
+				n: now.getMonth() + 1,
+				Y: now.getFullYear(),
+				G: now.getHours(),
+				i: padLeft( now.getMinutes(), 2, '0' ),
+				s: padLeft( now.getSeconds(), 2, '0' ),
+				u: now.getMilliseconds(),
+				U: Math.floor( now.getTime() / 1000 ),
+				Z: now.getTimezoneOffset() * 3600
+			};
+		time.D = words.days[time.N]['short'],
+			time.l = words.days[time.N]['long'],
+			time.d = padLeft( time.j, 2, '0' ),
+			time.S = numberSuffix( time.j ),
+			time.m = padLeft( time.n, 2, '0' ),
+			time.F = words.months[time.n]['long'],
+			time.M = words.months[time.n]['short'],
+			time.y = padLeft( time.Y, 2 ),
+			time.H = padLeft( time.G, 2, '0' ),
+			time.g = time.G == 0 ? 12 : ( time.G > 12 ? time.G - 12 : time.G ),
+			time.h = padLeft( time.g, 2, '0' ),
+			time.a = ( time.G < 12 ) ? 'am' : 'pm',
+			time.A = time.a.toUpperCase(),
+			time.L = ( time.Y % 4 === 0 && ( ( time.Y % 100 === 0 && time.Y % 400 === 0 ) || time.Y % 100 !== 0 ) ) ? 1 : 0;
+		if( format !== '' ) {
+			let out = '',
+				char = 0;
+			while( char < format.length ) {
+				let strChar = format.charAt( char );
+				if( strChar === '\\' ) {
+					char++;
+					out += format.substr( char, 1 );
+				} else if( strChar === 'r' ) {
+					out += time.D + ', ' + time.j + ' ' + time.M + ' ' + time.Y + ' ' + time.H + ':' + time.i + ':' + time.s;
+				} else if( strChar === 'x' ) {
+					out += time.Y + '-' + time.m + '-' + time.d + '\\T' + time.H + ':' + time.i + ':' + time.s + '\\Z';
+				} else {
+					if( strChar !== ''
+						&& time.hasOwnProperty( strChar ) ) {
+						out += time[strChar];
+					} else {
+						out += strChar;
+					}
+				}
+				char++;
+			}
+			return out;
+		} else {
+			return time;
+		}
 	};
 
 gulp.task( 'index', ['scss:base'], () => {
 	return gulp.src( './src/core/index.html' )
-		.pipe(insert.transform(function(contents, file) {
-			return contents.replace( '</head>', '<style type="text/css">' + fs.readFileSync( './build/css/base.css' ) + '</style></head>' );
-		}))
+		.pipe( insert.transform( ( contents, file ) => {
+			let iconMeta = '';
+
+			for( let size in CONFIG.appIcons ) {
+				if( CONFIG.appIcons.hasOwnProperty( size ) ) {
+					iconMeta += '<link rel="icon" sizes="' + size + 'x' + size + '" href="' + CONFIG.appIcons[size] + '">';
+				}
+			}
+
+			return contents.replace( '</head>',
+				'<style type="text/css">' + fs.readFileSync( './build/css/base.css' ) + '</style>' +
+				'<meta name="theme-color" content="' + CONFIG.appThemeColour + '">' +
+				'<meta name="apple-mobile-web-app-title" content="' + CONFIG.appShortName + '">' +
+				'<meta name="msapplication-navbutton-color" content="' + CONFIG.appBackgroundColour + '">' +
+				iconMeta +
+				// <link rel="apple-touch-icon" sizes="57x57" href="/app/Resources/images/icons/icon-square-57.png">
+				// <link rel="apple-touch-icon" sizes="152x152" href="/app/Resources/images/icons/icon-square-152.png">
+				// <link rel="apple-touch-icon" sizes="167x167" href="/app/Resources/images/icons/icon-square-167.png">
+				// <link rel="apple-touch-icon" sizes="180x180" href="/app/Resources/images/icons/icon-square-180.png">
+				'</head>'
+			);
+		} ) )
 		.pipe( gulp.dest( './build' ) );
 } );
 
@@ -140,7 +335,7 @@ gulp.task( 'data', ['index'], () => {
 gulp.task( 'scss', ['scss:base', 'scss:framework'] );
 
 gulp.task( 'scss:base', () => {
-	return gulp.src( './src/core/sass/base.scss' )
+	return gulp.src( './src/core/scss/base.scss' )
 		.pipe( sourcemaps.init() )
 		.pipe( sass( { outputStyle: 'compressed' } )
 			.on( 'error', err => {
@@ -155,14 +350,14 @@ gulp.task( 'scss:base', () => {
 
 gulp.task( 'scss:framework', () => {
 	return gulp.src( [
-		'./src/core/sass/morsels.scss',
+		'./src/core/scss/morsels.scss',
 		'./src/activities/**/*.scss',
 		'./src/cards/**/*.scss',
 		'./src/components/**/*.scss'
 	] )
-	//.pipe( fileOverride( 'core/sass', 'app/core/sass' ) )
-	//.pipe( fileOverride( 'activities/*/sass', 'app/activities/$1/sass' ) )
-	//.pipe( fileOverride( 'cards/*/sass', 'app/cards/$1/sass' ) )
+	//.pipe( fileOverride( 'core/scss', 'app/core/scss' ) )
+	//.pipe( fileOverride( 'activities/*/scss', 'app/activities/$1/scss' ) )
+	//.pipe( fileOverride( 'cards/*/scss', 'app/cards/$1/scss' ) )
 		.pipe( sourcemaps.init() )
 		.pipe( sass( { outputStyle: 'compressed' } )
 			.on( 'error', err => {
@@ -263,92 +458,47 @@ gulp.task( 'components', () => {
 		.pipe( gulp.dest( './build/js' ) );
 } );
 
-// gulp.task( 'lms', ['lms:scorm', 'lms:xapi'] );
+gulp.task( 'archive', () => {
+	let now = date( 'Y-m-d_H:i:s' );
 
-// gulp.task( 'lms:scorm', ['lms:scorm:wrapper', 'lms:scorm:definitions'] );
+	gulp.src( './src/app/**/*' )
+		.pipe( gulp.dest( './archive/' + now + '/app' ) );
 
-// gulp.task( 'lms:scorm:wrapper', () => {
-// 	return gulp.src( './src/core/lms/scorm/SCORM_API_wrapper.js' )
-// 		.pipe( gulp.dest( './build/lms/scorm' ) );
-// } );
+	return gulp.src( './src/course/**/*' )
+		.pipe( gulp.dest( './archive/' + now + '/course' ) );
+} );
 
-// gulp.task( 'lms:scorm:definitions', () => {
-// 	if( COURSE.lms &&
-// 		COURSE.lms.scorm &&
-// 		COURSE.lms.scorm.enable &&
-// 		COURSE.lms.scorm.version ) {
-// 		gulp.src( './src/core/lms/scorm/definitions/' + COURSE.lms.scorm.version + '/imsmanifest.xml' )
-// 			.pipe(
-// 				xmlpoke(
-// 					{
-// 						replacements: [
-// 							{
-// 								xpath: '//ims:organizations/organization/title',
-// 								namespaces: {
-// 									'ims': 'http://www.imsproject.org/xsd/imscp_rootv1p1p2'
-// 								},
-// 								value: 'TEST'
-// 							}
-// 						]
-// 					}
-// 				)
-// 			)
-// 			/*.pipe(
-// 			 addsrc(
-// 			 [
-// 			 './src/core/lms/scorm/definitions/' + COURSE.lms.scorm.version + '/*',
-// 			 '!./src/core/lms/scorm/definitions/' + COURSE.lms.scorm.version + '/imsmanifest.xml'
-// 			 ]
-// 			 )
-// 			 )*/
-// 			.pipe( gulp.dest( './build' ) );
-// 	}
-// } );
+gulp.task( 'new', ['archive'], () => {
+	del(
+		[
+			'./src/course/**/*',
+			'./src/app/**/*'
+		]
+	).then( () => {
+		gulp.src( './src/resources/default-course.json' )
+			.pipe( rename( 'en.json' ) )
+			.pipe( gulp.dest( './src/course' ) );
 
-// gulp.task( 'lms:xapi', () => {
-// 	//
-// } );
+		gulp.src( './src/resources/default-config.json' )
+			.pipe( rename( 'config.json' ) )
+			.pipe( gulp.dest( './src/app' ) );
+	} );
+} );
 
-// gulp.task( 'archive', () => {
-// 	// let now = timestamp();
-// 	//
-// 	// gulp.src( './src/course/**/*' )
-// 	// 	.pipe( gulp.dest( './archive/' + now + '/course' ) );
-// 	// return gulp.src( './src/app/**/*' )
-// 	// 	.pipe( gulp.dest( './archive/' + now + '/app' ) );
-// } );
+gulp.task( 'clean', () => {
+	return del(
+		['./build/**/*']
+	);
+} );
 
-// gulp.task( 'new', ['archive'], () => {
-// 	// del(
-// 	// 	[
-// 	// 		'./src/course/**/*',
-// 	// 		'./src/app/**/*'
-// 	// 	]
-// 	// ).then( () => {
-// 	// 	gulp.src( './src/resources/default-course.json' )
-// 	// 		.pipe( rename( 'en.json' ) )
-// 	// 		.pipe( gulp.dest( './src/course' ) );
-// 	//
-// 	// 	gulp.src( './src/resources/default-config.json' )
-// 	// 		.pipe( rename( 'config.json' ) )
-// 	// 		.pipe( gulp.dest( './src/app' ) );
-// 	// } );
-// } );
-
-// gulp.task( 'clean', () => {
-// 	return del(
-// 		['./build/**/*']
-// 	);
-// } );
-
-gulp.task( 'service-worker', () => {
+gulp.task( 'service-worker', ['data'], () => {
 	gulp.src( './src/core/js/sw.js' )
-		.pipe( insert.prepend( 'const TIMESTAMP = "' + timestamp() + '";' ) )
+		.pipe( insert.prepend( 'const TIMESTAMP = "' + date( 'U' ) + '";' ) )
 		.pipe( insert.prepend( 'const RESOURCES = ' + JSON.stringify( listResources().concat( CONFIG.onlineResources || [] ) ) + ';' ) )
 		.pipe( gulp.dest( './build' ) );
 } );
 
-gulp.task( 'manifest', ['index'], () => {
+gulp.task( 'manifest', ['index', 'data'], () => {
 	var manifestJSON = {
 		short_name: CONFIG.appShortName || 'Morsels',
 		name: CONFIG.appName || 'Morsels',
@@ -357,25 +507,30 @@ gulp.task( 'manifest', ['index'], () => {
 		display: 'fullscreen',
 		orientation: 'portrait',
 		icons: [],
-		// 'start_url': './',
+		start_url: './',
 		// 'dir': 'ltr',
 		// 'lang': 'en-GB'
 	};
 
-	for( var size in CONFIG.appIcons ) {
-		var iconURI = CONFIG.appIcons[size];
-		manifestJSON.icons.push( {
-
-			src: './' + CONFIG.appIcons[size],
-			type: 'image/' + CONFIG.appIcons[size].split( '.' ).pop(),
-			sizes: size + 'x' + size
-		} );
+	for( let size in CONFIG.appIcons ) {
+		if( CONFIG.appIcons.hasOwnProperty( size ) ) {
+			let iconURI = CONFIG.appIcons[size];
+			manifestJSON.icons.push( {
+				src: './' + iconURI,
+				type: 'image/' + iconURI.split( '.' ).pop(),
+				sizes: size + 'x' + size
+			} );
+		}
 	}
 
 	fs.writeFileSync( './build/manifest.json', JSON.stringify( manifestJSON ) );
 } );
 
-gulp.task( 'dev', ['default', 'serve'] );
+gulp.task( 'package', ['default'], () => {
+	return gulp.src( './build/**/*' )
+		.pipe( zip( ( slug( CONFIG.appShortName ) || slug( CONFIG.appName ) || 'untitled-course' ) + '_' + date( 'Y-m-d_H:i:s' ) + '.zip' ) )
+		.pipe( gulp.dest( './packages' ) );
+} );
 
 gulp.task( 'serve', () => {
 	browserSync.init(
@@ -404,16 +559,28 @@ gulp.task( 'serve', () => {
 	gulp.watch( './src/cards/*/js/**/*.js', ['cards'] ).on( 'change', browserSync.reload );
 	gulp.watch( './src/components/*/js/**/*.js', ['components'] ).on( 'change', browserSync.reload );
 
-	gulp.watch( ['./src/core/sass/**/*.scss', './src/activities/**/*.scss', './src/cards/**/*.scss', './src/components/**/*.scss'], ['scss:framework', 'index'] );
+	gulp.watch( [
+		'./src/core/scss/base.scss',
+		'./src/core/scss/_variables.scss',
+		'./src/core/scss/modules/_mixins.scss',
+		'./src/core/scss/base/_reset.scss',
+		'./src/core/scss/base/_global.scss',
+		'./src/core/scss/base/_loader.scss'
+	], ['index'] ).on( 'change', browserSync.reload );
+	gulp.watch( [
+		'./src/core/scss/morsels.scss',
+		'./src/core/scss/_variables.scss',
+		'./src/core/scss/components/**/*.scss',
+		'./src/core/scss/modules/**/*.scss',
+		'./src/activities/**/*.scss',
+		'./src/cards/**/*.scss',
+		'./src/components/**/*.scss'
+	], ['scss:framework'] );
 
 	gulp.watch( './src/course/config.json', ['data', 'manifest', 'service-worker'] ).on( 'change', browserSync.reload );
 	gulp.watch( './src/course/content/*.json', ['data'] ).on( 'change', browserSync.reload );
 } );
 
-gulp.task( 'default', ['index', 'js', 'activities', 'cards', 'components', 'scss', 'fonts', 'data', 'resources', 'service-worker', 'manifest'] );
+gulp.task( 'dev', ['default', 'serve'] );
 
-// gulp.task( 'package', ['default'], () => {
-// 	return gulp.src( './build/**/*' )
-// 		.pipe( zip( 'scorm-package-' + timestamp() + '.zip' ) )
-// 		.pipe( gulp.dest( './scorm-packages' ) );
-// } );
+gulp.task( 'default', ['index', 'js', 'activities', 'cards', 'components', 'scss', 'fonts', 'data', 'resources', 'service-worker', 'manifest'] );

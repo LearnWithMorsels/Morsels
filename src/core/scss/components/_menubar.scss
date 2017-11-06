@@ -1,0 +1,52 @@
+.menubar {
+  @include flexbox;
+  align-items: center;
+  //flex-direction: row-reverse;
+  justify-content: space-between;
+  @include flex(0 0 $menubar-height);
+  //align-items: flex-start;
+
+  position: relative;
+
+  background-color: $primary-colour;
+
+  @include shadow-4;
+
+  z-index: 2;
+
+  .dark-theme & {
+    background-color: #212121;
+  }
+
+  .spacer {
+    @include flex(1 0);
+  }
+
+  button {
+    min-width: $menubar-height;
+
+    @include flex(0 1);
+
+    color: $active-icon-colour-inverted;
+
+    background: none;
+  }
+
+  .menubar-submenu-wrapper {
+    position: relative;
+
+    .menubar-submenu {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+
+      background-color: #FFF;
+
+      @include shadow-8;
+
+      button {
+        color: $active-icon-colour;
+      }
+    }
+  }
+}

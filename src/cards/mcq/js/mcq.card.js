@@ -6,12 +6,19 @@ Morsels.card( 'mcq', {
 					'<transition name="fade" mode="out-in">' +
 						'<div v-if="!submitted" key="question">' +
 							'<template v-if="card._content">' +
-								'<h4>{{ card._content.title }}</h4>' +
-								'<h5>{{ card._content.subtitle }}</h5>' +
-								'<div v-html="card._content.body"></div>' +
+								'<h4 v-if="card._content.title">{{ card._content.title }}</h4>' +
+								'<h5 v-if="card._content.subtitle">{{ card._content.subtitle }}</h5>' +
+								'<div v-if="card._content.body" v-html="card._content.body"></div>' +
+								'<p v-if="card._content.instruction"><small><strong><em>{{ card._content.instruction }}</em></strong></small></p>' +
 								'<div class="mcq-options">' +
 									'<label v-for="(item, index) in card._items">' +
-										'<input :type="inputType" :value="index" v-model="selectedItems">' +
+										'<span class="mcq-state">' +
+											'<input :type="inputType" :value="index" v-model="selectedItems">' +
+											'<i class="mcq-radio-state mcq-unselected-state material-icons">radio_button_unchecked</i>' +
+											'<i class="mcq-radio-state mcq-selected-state material-icons">radio_button_checked</i>' +
+											'<i class="mcq-checkbox-state mcq-unselected-state material-icons">check_box_outline_blank</i>' +
+											'<i class="mcq-checkbox-state mcq-selected-state material-icons">check_box</i>' +
+										'</span>' +
 										'<span class="mcq-option-title">{{ item.title }}</span>' +
 									'</label>' +
 								'</div>' +

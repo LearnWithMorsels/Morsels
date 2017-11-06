@@ -9,19 +9,16 @@ Vue.component( 'sidebar', {
 						'</button>' +
 						'<h3>{{ content._content.title }}</h3>' +
 						'<p>{{ content._content.description }}</p>' +
-						'<div class="course-progress">' +
+						'<div v-if="course.config.features && course.config.features.progress && course.config.features.progress.visible" class="course-progress">' +
 							'<progress max="100" value="29"></progress>' +
-							'<span class="course-progress-percentage">29%</span>' +
+							'<span v-if="course.config.features.progress.percentage" class="course-progress-percentage">29%</span>' +
 						'</div>' +
 					'</header>' +
 					'<div class="sidebar-nav">' +
-						//'<button>' +
-						//	'<i class="material-icons" v-on:click.prevent="overview">dashboard</i>' +
-						//'</button>' +
 						'<button :class="{ current: selectedTab === 0 }" v-on:click.prevent="selectedTab = 0">' +
-							'<i class="material-icons">dashboard</i>' +
+							'<i class="material-icons">explore</i>' +
 						'</button>' +
-						'<button :class="{ current: selectedTab === 1 }" v-on:click.prevent="selectedTab = 1">' +
+						'<button v-if="course.config.features && course.config.features.favourites" :class="{ current: selectedTab === 1 }" v-on:click.prevent="selectedTab = 1">' +
 							'<i class="material-icons">bookmark_border</i>' +
 						'</button>' +
 						'<button :class="{ current: selectedTab === 2 }" v-on:click.prevent="selectedTab = 2">' +
@@ -30,8 +27,11 @@ Vue.component( 'sidebar', {
 						'<button v-if="languages.length > 1" :class="{ current: selectedTab === 3 }" v-on:click.prevent="selectedTab = 3">' +
 							'<i class="material-icons">language</i>' +
 						'</button>' +
-						'<button :class="{ current: selectedTab === 4 }" v-on:click.prevent="selectedTab = 4">' +
+						'<button v-if="course.config.features && course.config.features.search" :class="{ current: selectedTab === 4 }" v-on:click.prevent="selectedTab = 4">' +
 							'<i class="material-icons">search</i>' +
+						'</button>' +
+						'<button v-on:click.prevent="toggleTheme">' +
+							'<i class="material-icons">invert_colors</i>' +
 						'</button>' +
 					'</div>' +
 					//'<transition-group name="fade" tag="div" mode="out-in">' +
@@ -69,24 +69,6 @@ Vue.component( 'sidebar', {
 		return {
 			selectedLanguage: this.language,
 			selectedTab: 0,
-			tabs: [
-				{
-					onClick: 'overview',
-					icon: 'dashboard'
-				},
-				{
-					icon: 'bookmark_border'
-				},
-				{
-					icon: 'info_outline'
-				},
-				{
-					icon: 'language'
-				},
-				{
-					icon: 'search'
-				}
-			],
 			globals: window.Morsels.globals.state
 		};
 	},
@@ -110,8 +92,8 @@ Vue.component( 'sidebar', {
 		close: function() {
 			this.$emit( 'close' );
 		},
-		overview: function() {
-			this.$emit( 'overview' );
+		toggleTheme: function() {
+			document.documentElement.classList.toggle( 'dark-theme' );
 		}
 	}
 } );

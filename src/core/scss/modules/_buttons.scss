@@ -6,10 +6,10 @@ button {
   align-items: center;
   justify-content: center;
 
-  color: #FFF;
+  color: $primary-text-colour-inverted;
   font-weight: 900;
 
-  background-color: $primary;
+  background-color: $primary-colour;
 
   border: none;
   outline: none;
@@ -19,8 +19,16 @@ button {
   cursor: pointer;
 
   &:hover {
-    background-color: $primary-dark;
+    background-color: $primary-colour-dark;
 
     transition: color 120ms, background-color 120ms;
+  }
+
+  .dark-theme & {
+    background-color: #303030;
+
+    &:hover {
+      background-color: #212121;
+    }
   }
 }
