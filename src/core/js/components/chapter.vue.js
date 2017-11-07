@@ -3,12 +3,12 @@ import './stack.vue';
 import './component.vue';
 
 Vue.component( 'chapter', {
-	props: ['chapter'],
-	template: '<section class="chapter" :style="style">' +
+	props: ['chapter', 'isCurrent'],
+	template: '<section :class="classes" :style="style">' +
 					'<div class="chapter-content">' +
 						'<template v-for="(stack, index) in chapter._stacks">' +
-							'<component v-if="stack._component" :component="stack" :key="index" v-on:complete="goToNextStack"></component>' +
-							'<stack v-else :stack="stack" :key="index" v-on:empty="goToNextStack"></stack>' +
+							'<component v-if="stack._component" key="index" :isCurrent="isCurrent && currentStack === index" :component="stack" v-on:complete="goToNextStack"></component>' +
+							'<stack v-else key="index" :isCurrent="isCurrent && currentStack === index" :stack="stack" v-on:empty="goToNextStack"></stack>' +
 						'</template>' +
 					'</div>' +
 				'</section>',
@@ -18,9 +18,15 @@ Vue.component( 'chapter', {
 		};
 	},
 	computed: {
+		classes: function() {
+			return {
+				chapter: true,
+				current: this.isCurrent
+			};
+		},
 		style: function() {
 			return {
-				transform: 'translateY(-' + ( this.currentStack * 100 ) + '%)'
+				transform: 'translateX(-' + ( this.currentStack * 100 ) + '%)'
 			};
 		}
 	},

@@ -2,9 +2,9 @@ import Vue from '../resources/Vue';
 import './card.vue';
 
 Vue.component( 'component', {
-	props: ['component'],
+	props: ['component', 'isCurrent'],
 	template: '<div :class="classes">' +
-					'<component :is="\'component-\' + component._component" ref="component" :component="component" v-on:complete="complete"></component>' +
+					'<component :is="componentName" ref="component" :component="component" v-on:complete="complete"></component>' +
 				'</div>',
 	data: function() {
 		return {
@@ -13,12 +13,16 @@ Vue.component( 'component', {
 		};
 	},
 	computed: {
+		componentName: function() {
+			return 'component-' + this.component._component;
+		},
 		classes: function() {
 			let classes = {
 				component: true,
-				complete: this.completed
+				complete: this.completed,
+				current: this.isCurrent
 			};
-			classes['component-' + this.component._component] = true;
+			classes[this.componentName] = true;
 			return classes;
 		}
 	},

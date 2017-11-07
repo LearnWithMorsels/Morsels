@@ -42,7 +42,8 @@
     background-color: #424242;
   }
 
-  &.current {
+  &.current,
+  .noncurrent &:first-child {
     transform: none;
     will-change: transform;
 
@@ -68,20 +69,6 @@
     cursor: grab;
     cursor: -moz-grab;
     cursor: -webkit-grab;
-
-    &.correct {
-      background-color: #CFC;
-    }
-  }
-
-  &.dismissed {
-    transition: visibility 1ms $card-dismiss, transform $card-dismiss, opacity $card-dismiss, z-index $card-dismiss;
-
-    visibility: hidden;
-
-    opacity: 0;
-
-    z-index: 3 !important;
   }
 
   &.dragging {
@@ -96,6 +83,26 @@
     cursor: -webkit-grabbing;
 
     z-index: 2;
+  }
+
+  &.saved {
+    button {
+      &.save-card {
+        //color: #FFF;
+
+        //background-color: #C00;
+      }
+    }
+  }
+
+  &.dismissed {
+    transition: visibility 1ms $card-dismiss, transform $card-dismiss, opacity $card-dismiss, z-index $card-dismiss;
+
+    visibility: hidden;
+
+    opacity: 0;
+
+    z-index: 3 !important;
   }
 
   button {
@@ -207,22 +214,6 @@
 
       transition: left 1ms $activities-transition-in, opacity $activities-fade-in $activities-transition-in;
     }
-  }
-
-  &.saved {
-    button {
-      &.save-card {
-        //color: #FFF;
-
-        //background-color: #C00;
-      }
-    }
-  }
-
-  &.inverted {
-    //color: #FFF;
-
-    //background-color: $primary;
   }
 
   .card-contents {

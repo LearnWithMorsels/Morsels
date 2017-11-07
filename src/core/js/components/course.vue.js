@@ -9,7 +9,7 @@ Vue.component( 'course', {
 					'<menubar :content="content" v-on:toggleSidebar="toggleSidebar" v-on:undo="undo" v-on:overview="toggleOverview"></menubar>' +
 					'<sidebar ref="sidebar" :course="course" :language="language" v-on:changeLanguage="changeLanguage" v-on:close="closeSidebar"></sidebar>' +
 					'<div class="chapters" :style="style" v-on:mousedown.capture="bodyClick" v-on:touchstart.capture="bodyClick">' +
-						'<chapter v-for="(chapter, index) in content._chapters" :chapter="chapter" :key="index" v-on:complete="goToNextchapter"></chapter>' +
+						'<chapter v-for="(chapter, index) in content._chapters" key="index" :isCurrent="currentChapter === index" :chapter="chapter" v-on:complete="goToNextchapter"></chapter>' +
 					'</div>' +
 				'</div>',
 	data: function() {
@@ -40,7 +40,7 @@ Vue.component( 'course', {
 		},
 		style: function() {
 			return {
-				transform: 'translateX(-' + ( this.currentChapter * 100 ) + '%)'
+				transform: 'translateY(-' + ( this.currentChapter * 100 ) + '%)'
 			};
 		}
 	},

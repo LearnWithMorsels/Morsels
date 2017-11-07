@@ -56,9 +56,13 @@ Vue.component( 'sidebar', {
 							'<p>INFO CARDS</p>' +
 						'</div>' +
 						'<div v-show="selectedTab === 3" key="3" class="sidebar-content">' +
-							'<select v-model="selectedLanguage">' +
-								'<option v-for="language in languages" :value="language">{{ course.config.languages.labels[language].name || language }}</option>' +
-							'</select>' +
+							'<template v-for="language in languages">' +
+								'<label>' +
+									'<input type="radio" :value="language" v-model="selectedLanguage">' +
+									'{{ course.config.languages.labels[language].name || language }}' +
+								'</label>' +
+								'<br>' +
+							'</template>' +
 						'</div>' +
 						'<div v-show="selectedTab === 4" key="4" class="sidebar-content">' +
 							'<p>SEARCH</p>' +

@@ -2,13 +2,13 @@ import Vue from '../resources/Vue';
 import './card.vue';
 
 Vue.component( 'stack', {
-	props: ['stack'],
+	props: ['stack', 'isCurrent'],
 	template: '<div :class="classes">' +
 					// '<h3>Stack {{ stack.title }}</h3>' +
 					// '<p>Cards: {{ stack._cards.length }}, completed: {{ cardsCompleted }}, dismissed: {{ cardsDismissed }}</p>' +
 					'<div class="cards">' +
 						'<template v-for="(card, index) in stack._cards">' +
-							'<card :card="card" :current="cardsDismissed === index" :key="index" ref="cards" :zIndex="stack._cards.length - index" v-on:complete="cardCompleted" v-on:dismiss="cardDismissed"></card>' +
+							'<card :card="card" :isCurrent="isCurrent && cardsDismissed === index" :key="index" ref="cards" :zIndex="stack._cards.length - index" v-on:complete="cardCompleted" v-on:dismiss="cardDismissed"></card>' +
 						'</template>' +
 						'<i class="material-icons">check_circle</i>' +
 					'</div>' +
@@ -51,11 +51,15 @@ Vue.component( 'stack', {
 			return this.cardsDismissed === this.stack._cards.length;
 		},
 		classes: function() {
-			return {
+			let classes = {
 				stack: true,
 				empty: this.empty,
-				complete: this.completed
+				complete: this.completed,
+				//current: this.isCurrent,
+				//noncurrent: !this.isCurrent
 			};
+			classes[this.isCurrent ? 'current' : 'noncurrent'] = true;
+			return classes;
 		}
 	},
 	mounted: function() {

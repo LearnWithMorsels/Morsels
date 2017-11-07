@@ -2,9 +2,9 @@ import Vue from '../resources/Vue';
 import './activities.vue';
 
 Vue.component( 'card', {
-	props: ['card', 'current', 'zIndex'],
-	template: '<div :class="classes" :data-card="card._card" :style="style" :data-uid="_uid">' +
-					'<component :is="\'card-\' + card._card" ref="card" :card="card" v-on:complete="complete"></component>' +
+	props: ['card', 'isCurrent', 'zIndex'],
+	template: '<div :class="classes" :style="style" :data-card="card._card" :data-uid="_uid">' +
+					'<component :is="cardName" ref="card" :card="card" v-on:complete="complete"></component>' +
 					'<template v-if="card._activities">' +
 						'<button class="show-activities" v-on:click.prevent.stop="openActivities">' +
 							'<i v-if="activitiesComplete" class="material-icons">check</i>' +
@@ -44,6 +44,9 @@ Vue.component( 'card', {
 		};
 	},
 	computed: {
+		cardName: function() {
+			return 'card-' + this.card._card;
+		},
 		classes: function() {
 			let classes = {
 				card: true,
@@ -53,9 +56,9 @@ Vue.component( 'card', {
 				dismissed: this.dismissed,
 				saved: this.saved,
 				dragging: this.view.dragging,
-				current: this.current
+				current: this.isCurrent
 			};
-			classes['card-' + this.card._card] = true;
+			classes[this.cardName] = true;
 			if( this.card._classes ) {
 				for( let singleClass of this.card._classes.split( ' ' ) ) {
 					classes[singleClass] = true;
@@ -169,7 +172,7 @@ Vue.component( 'card', {
 			this.showActivites = false;
 		},
 		pointerDown: function( e ) {
-			if( this.current &&
+			if( this.isCurrent &&
 				this.isComplete &&
 					!this.showActivites ) {
 				if( e.touches ) {

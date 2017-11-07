@@ -15,11 +15,11 @@
 
   &.overview {
     .chapters {
-      width: ($card-width + 42px);
-      height: ($card-height + 42px);
+      max-width: ($card-width + 24px);
+      max-height: ($card-height + 42px);
       //padding: 32px;
 
-      transform: scale(0.25) !important;
+      transform: scale(0.4) !important;
 
       transition: all $course-overview-transition;
 
@@ -31,6 +31,8 @@
         .stack,
         .component {
           //background-color: #C00;
+
+          //box-shadow: inset 10px 10px 15px rgba(0, 0, 0, 0.25);
         }
 
         .cards,
@@ -42,7 +44,9 @@
   }
 
   .chapters {
+    max-width: 100%;
     width: 100%;
+    max-height: calc(100% - #{$menubar-height});
     height: calc(100% - #{$menubar-height});
     //height: 100%;
 
@@ -52,19 +56,19 @@
 
     position: relative;
 
-    white-space: nowrap;
+    //white-space: nowrap;
 
-    transition: all $course-overview-transition;
+    transition: all $course-overview-transition $card-dismiss;
     transform-origin: 0 0;
 
     z-index: 1;
 
     .chapter {
       //@include inline-flexbox;
-      display: inline-block;
+      //display: inline-block;
 
       vertical-align: top;
-      white-space: normal;
+      //white-space: normal;
     }
   }
 }
