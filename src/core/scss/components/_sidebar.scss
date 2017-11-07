@@ -105,6 +105,7 @@
         @include flex(1 0);
 
         -webkit-appearance: none;
+        -moz-appearance: none;
         appearance: none;
 
         &::-webkit-progress-bar {

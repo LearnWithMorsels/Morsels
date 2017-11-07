@@ -579,6 +579,8 @@ gulp.task( 'serve', () => {
 
 	gulp.watch( './src/course/config.json', ['data', 'manifest', 'service-worker'] ).on( 'change', browserSync.reload );
 	gulp.watch( './src/course/content/*.json', ['data'] ).on( 'change', browserSync.reload );
+
+	gulp.watch( './src/course/resources/**/*', ['resources'] ).on( 'change', browserSync.reload );
 } );
 
 gulp.task( 'dev', ['default', 'serve'] );
