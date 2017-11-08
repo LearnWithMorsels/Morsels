@@ -21,7 +21,9 @@
 
   @include shadow-2;
 
+  -webkit-transform: translate3d(0, 0, 0) scale(pow($card-scale-below, 3)) translateY($card-shift-below * 3);
   transform: translate3d(0, 0, 0) scale(pow($card-scale-below, 3)) translateY($card-shift-below * 3);
+  -webkit-transform-origin: 50% 100%;
   transform-origin: 50% 100%;
 
   transition: box-shadow $card-place-down cubic-bezier(.25,.8,.25,1), transform $card-return ease-out, opacity $card-dismiss, z-index $card-dismiss;
@@ -37,24 +39,25 @@
   z-index: 1;
 
   .dark-theme & {
-    //color: #FFF;
-
     background-color: #424242;
   }
 
   &.current,
-  .noncurrent &:first-child {
+  .non-current &:first-child {
+    -webkit-transform: none;
     transform: none;
     will-change: transform;
 
     opacity: 1;
 
     + .card {
+      -webkit-transform: scale($card-scale-below) translateY($card-shift-below);
       transform: scale($card-scale-below) translateY($card-shift-below);
 
       opacity: 1;
 
       + .card {
+        -webkit-transform: scale(pow($card-scale-below, 2)) translateY($card-shift-below * 2);
         transform: scale(pow($card-scale-below, 2)) translateY($card-shift-below * 2);
 
         opacity: 1;
@@ -74,6 +77,7 @@
   &.dragging {
     @include shadow-8;
 
+    -webkit-transform-origin: 50% 50%;
     transform-origin: 50% 50%;
 
     transition: box-shadow $card-pick-up cubic-bezier(.25,.8,.25,1), opacity $card-dismiss, z-index $card-dismiss;
@@ -102,7 +106,7 @@
 
     opacity: 0;
 
-    z-index: 3 !important;
+    //z-index: 3 !important;
   }
 
   button {
@@ -116,8 +120,8 @@
       width: $button-height;
       height: $button-height;
 
-      right: 18px;
-      bottom: 18px;
+      right: 16px;
+      bottom: 16px;
 
       color: #FFF;
 
@@ -131,13 +135,18 @@
       transition: right 1ms $activities-fade-out, color $activities-transition-out $activities-fade-out, box-shadow $activities-transition-out $activities-fade-out;
 
       z-index: 2;
+
+      &.prompt {
+        -webkit-animation: shake 1s infinite;
+        animation: shake 1s infinite;
+      }
     }
 
     &.hide-activities {
       width: $button-height;
 
-      top: 6px;
-      right: -54px;
+      top: 0;
+      right: -$button-height;
 
       color: #FFF;
 
@@ -154,8 +163,8 @@
       width: 32px;
       height: 32px;
 
-      top: 18px;
-      left: 18px;
+      top: 16px;
+      left: 16px;
 
       color: #C00;
 
@@ -188,10 +197,46 @@
     z-index: 3;
   }
 
+  .card-activities-indicator {
+    width: $button-height;
+
+    position: absolute;
+    top: $button-height;
+    bottom: $button-height;
+    left: -$button-height;
+
+    @include flexbox-vertical;
+    align-items: center;
+    justify-content: center;
+
+    transition: left $activities-fade-out;
+
+    z-index: 4;
+
+    > div {
+      width: 8px;
+      height: 8px;
+      margin: 8px 0;
+
+      background-color: transparent;
+
+      border: 1px #FFF solid;
+      border-radius: 100%;
+
+      transition: background-color $activity-transition-out;
+
+      &.current {
+        background-color: #FFF;
+
+        transition: background-color $activity-transition-in $activity-transition-out;
+      }
+    }
+  }
+
   &.show-activities {
     button {
       &.show-activities {
-        right: -66px;
+        right: -$button-height;
 
         color: transparent;
 
@@ -201,7 +246,7 @@
       }
 
       &.hide-activities {
-        right: 6px;
+        right: 0;
 
         transition: right $activities-fade-in $activities-transition-in;
       }
@@ -213,6 +258,12 @@
       opacity: 1;
 
       transition: left 1ms $activities-transition-in, opacity $activities-fade-in $activities-transition-in;
+    }
+
+    .card-activities-indicator {
+      left: 0;
+
+      transition: left $activities-fade-in $activities-transition-in;
     }
   }
 

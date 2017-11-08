@@ -4,18 +4,20 @@
 
   text-align: center;
 
-  img {
-    max-width: 6em;
-    margin: 0 auto 1em;
-  }
+  .card-contents {
+    img {
+      max-width: 6em;
+      margin: 0 auto 1em;
+    }
 
-  h2 {
-    padding-top: 1em;
-  }
+    h2 {
+      padding-top: 1em;
+    }
 
-  p {
-    margin-top: 8em;
+    p {
+      margin-top: 8em;
 
-    font-size: 1.1em;
+      font-size: 1.1em;
+    }
   }
 }

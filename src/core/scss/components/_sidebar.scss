@@ -15,6 +15,7 @@
 
   box-shadow:  0 0 0 0 rgba(0, 0, 0, .14), 0 0 0 0 rgba(0, 0, 0, .12), 0 0 0 0 rgba(0, 0, 0, .2), 0 0 0 9999px rgba(0, 0, 0, 0);
 
+  -webkit-transform: translateX(-100%);
   transform: translateX(-100%);
 
   transition: box-shadow $sidebar-transition ease-in, transform $sidebar-transition ease-in;
@@ -29,6 +30,7 @@
     right: 0;
     left: auto;
 
+    -webkit-transform: translateX(100%);
     transform: translateX(100%);
   }
 
@@ -38,6 +40,7 @@
     0 8px 10px -5px rgba(0, 0, 0, .4),
     0 0 0 9999px rgba(0, 0, 0, .5);
 
+    -webkit-transform: none;
     transform: none;
 
     transition: box-shadow $sidebar-transition ease-out, transform $sidebar-transition ease-out;
@@ -137,9 +140,13 @@
     position: sticky;
     top: 0;
 
-    //background-color: $primary;
+    background-color: $primary-colour;
 
     //@include shadow-4;
+
+    .dark-theme & {
+      background-color: #303030;
+    }
 
     button {
       + button {

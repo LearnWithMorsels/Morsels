@@ -3,7 +3,7 @@ import './activity.vue';
 
 Vue.component( 'activities', {
 	props: ['activities'],
-	template: '<div class="activities">' +
+	template: '<div :class="classes">' +
 					'<activity v-for="(activity, index) in activities._items" :key="index" ref="activities" :activity="activity" v-on:complete="completeActivity"></activity>' +
 				'</div>',
 	data: function() {
@@ -14,6 +14,12 @@ Vue.component( 'activities', {
 		};
 	},
 	computed: {
+		classes: function() {
+			return {
+				activities: true,
+				multiple: this.activities._items.length > 1
+			};
+		},
 		isComplete: function() {
 			let completed = false;
 			if( this.isMounted === true ) {
@@ -38,10 +44,10 @@ Vue.component( 'activities', {
 	},
 	methods: {
 		completeActivity: function() {
-			console.log( 'ACTS:Complete' );
-			if( this.isComplete ) {
+			if( this.isComplete &&
+					!this.completed ) {
 				this.completed = true;
-				this.$emit( 'complete' );
+				this.$emit( 'completed' );
 			}
 		}
 	}

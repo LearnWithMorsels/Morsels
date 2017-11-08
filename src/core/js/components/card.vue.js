@@ -6,19 +6,22 @@ Vue.component( 'card', {
 	template: '<div :class="classes" :style="style" :data-card="card._card" :data-uid="_uid">' +
 					'<component :is="cardName" ref="card" :card="card" v-on:complete="complete"></component>' +
 					'<template v-if="card._activities">' +
-						'<button class="show-activities" v-on:click.prevent.stop="openActivities">' +
-							'<i v-if="activitiesComplete" class="material-icons">check</i>' +
+						'<button class="show-activities" :class="{ prompt: promptActivites }" v-on:click.prevent.stop="openActivities">' +
+							'<i v-if="allActivitiesCompleted" class="material-icons">check</i>' +
 							'<i v-else class="material-icons">more_horiz</i>' +
 						'</button>' +
 						'<button class="hide-activities" v-on:click.prevent.stop="closeActivities">' +
 							'<i class="material-icons">close</i>' +
 						'</button>' +
+						'<activities :activities="card._activities" ref="activities" v-on:complete="completeActivities"></activities>' +
+						'<div v-if="card._activities._items.length > 1" class="card-activities-indicator">' +
+							'<div v-for="(activity, index) in card._activities._items" :class="{ current: index === activitiesCompleted }"></div>' +
+						'</div>' +
 					'</template>' +
 					//'<button class="save-card" v-on:click.prevent.stop="toggleSave">' +
 					//	'<i v-if="saved" class="material-icons">bookmark</i>' +
 					//	'<i v-else class="material-icons">bookmark_border</i>' +
 					//'</button>' +
-					'<activities v-if="card._activities" :activities="card._activities" ref="activities" v-on:complete="completeActivities"></activities>' +
 				'</div>',
 	data: function() {
 		return {
@@ -31,7 +34,7 @@ Vue.component( 'card', {
 					x: 0,
 					y: 0
 				},
-				pointerdown: false,
+				pointerIsDown: false,
 				touchIndex: 0,
 				dragging: false
 			},
@@ -52,13 +55,14 @@ Vue.component( 'card', {
 				card: true,
 				'show-activities': this.showActivites,
 				complete: this.isComplete,
-				correct: this.isComplete && this.isCorrect,
+				//correct: this.isComplete && this.isCorrect,
 				dismissed: this.dismissed,
 				saved: this.saved,
 				dragging: this.view.dragging,
 				current: this.isCurrent
 			};
 			classes[this.cardName] = true;
+			classes['card-' + this.card._card] = true;
 			if( this.card._classes ) {
 				for( let singleClass of this.card._classes.split( ' ' ) ) {
 					classes[singleClass] = true;
@@ -78,33 +82,44 @@ Vue.component( 'card', {
 			}
 			return style;
 		},
-		activitiesComplete: function() {
-			if( this.isMounted === true ) {
-				let activitiesComplete = this.$refs.activities.isComplete;
-				if( activitiesComplete ) {
+		allActivitiesCompleted: function() {
+			if( this.card._activities &&
+					this.isMounted === true ) {
+				let completed = this.$refs.activities.isComplete;
+				if( completed ) {
 					this.closeActivities();
 				}
-				return activitiesComplete;
+				return completed;
 			} else {
-				return false;
+				return true;
 			}
+		},
+		activitiesCompleted: function() {
+			if( this.card._activities &&
+					this.isMounted === true ) {
+				return this.$refs.activities.activitiesComplete;
+			} else {
+				return 0;
+			}
+		},
+		activitiesOptional: function() {
+			return ( !this.card._activities ||
+					( !this.card._activities._options ||
+						( this.card._activities._options &&
+						this.card._activities._options._optional !== false ) ) );
 		},
 		isComplete: function() {
 			let completed = false;
 			if( this.isMounted === true ) {
-				if( this.card._activities &&
-						( !this.card._activities._options ||
-								( this.card._activities._options &&
-										this.card._activities._options._optional !== true ) ) ) {
-					completed = this.completed && this.activitiesComplete;
-				} else {
-					completed = this.completed;
-				}
+				completed = this.completed && ( this.activitiesOptional || this.allActivitiesCompleted );
 			}
 			return completed;
 		},
 		saved: function() {
 			return this.globals.savedCards.indexOf( this._uid ) !== -1;
+		},
+		promptActivites: function() {
+			return !this.activitiesOptional && !this.activitiesCompleted && this.view.pointerIsDown;
 		}
 	},
 	mounted: function() {
@@ -121,24 +136,19 @@ Vue.component( 'card', {
 	},
 	methods: {
 		complete: function() {
-			this.completed = true;
-
-			if( this.isComplete ) {
+			if( !this.completed &&
+				( this.activitiesOptional ||
+						this.allActivitiesCompleted ) ) {
+				this.completed = true;
 				this.$emit( 'completed' );
-			}
-
-			if( this.isCorrect ) {
-				this.$emit( 'correct' );
 			}
 		},
 		completeActivities: function() {
 			if( this.isMounted === true ) {
-				console.log( 'CARD:ACT:Complete' );
-
-				if( this.isComplete ) {
+				//if( this.isComplete ) {
 					this.closeActivities();
-					this.$emit( 'completed' );//TODO: HIDE "SHOW ACTIVITY" BUTTON
-				}
+					//this.$emit( 'completed' );//TODO: HIDE "SHOW ACTIVITY" BUTTON
+				//}
 			}
 		},
 		save: function() {
@@ -164,7 +174,7 @@ Vue.component( 'card', {
 			}
 		},
 		openActivities: function() {
-			if( !this.activitiesComplete ) {
+			if( !this.allActivitiesCompleted ) {
 				this.showActivites = true;
 			}
 		},
@@ -172,6 +182,7 @@ Vue.component( 'card', {
 			this.showActivites = false;
 		},
 		pointerDown: function( e ) {
+			this.view.pointerIsDown = true;
 			if( this.isCurrent &&
 				this.isComplete &&
 					!this.showActivites ) {
@@ -184,11 +195,10 @@ Vue.component( 'card', {
 					this.view.pointerStart.y = e.clientY || 0;
 				}
 				this.view.dragging = true;
-				this.view.pointerdown = true;
 			}
 		},
 		pointerMove: function( e ) {
-			if( this.view.pointerdown ) {
+			if( this.view.dragging ) {
 				e.preventDefault();
 
 				let x, y;
@@ -201,14 +211,13 @@ Vue.component( 'card', {
 					y = e.clientY || 0;
 				}
 
-				this.view.dragging = true;
 				this.view.offset.x = ( x - this.view.pointerStart.x );
 				this.view.offset.y = ( y - this.view.pointerStart.y );
 			}
 		},
 		pointerUp: function() {
+			this.view.pointerIsDown = false;
 			if( !this.dismissed ) {
-				this.view.pointerdown = false;
 				this.view.dragging = false;
 
 				if( Math.sqrt( Math.pow( this.view.offset.x, 2 ) + Math.pow( this.view.offset.y, 2 ) ) > ( ( this.$el.clientWidth / 2 ) || 200 ) ) {

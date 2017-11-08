@@ -40,12 +40,20 @@
         &::after {
           position: absolute;
           top: 10px;
-          left: 100%;
+          left: calc(100% - 1px);
 
-          border: 10px transparent solid;
+          border: 11px transparent solid;
           border-left-color: #FFF;
 
           content: "";
+        }
+
+        .dark-theme & {
+          background-color: #424242;
+
+          &::after {
+            border-left-color: #424242;
+          }
         }
 
         &.me {
@@ -57,7 +65,7 @@
           background-color: $primary-colour;
 
           &::after {
-            right: 100%;
+            right: calc(100% - 1px);
             left: auto;
 
             border-right-color: $primary-colour;
@@ -68,6 +76,8 @@
         &.conversation-item-add-enter,
         &.conversation-item-add-leave-to {
           opacity: 0;
+
+          -webkit-transform: translateY(32px);
           transform: translateY(32px);
         }
 

@@ -13,7 +13,7 @@
           "_cards": [
             {
               "_card": "title",
-              "_classes": "inverted",
+              "_classes": "",
               "_content": {
                 "title": "Morsels",
                 "subtitle": "A new responsive elearning framework",

@@ -6,9 +6,9 @@ Vue.component( 'menubar', {
 					'<button v-on:click.prevent="toggleSidebar">' +
 						'<i class="material-icons">menu</i>' +
 					'</button>' +
-					'<button v-on:click.prevent="overview">' +
-						'<i class="material-icons">dashboard</i>' +
-					'</button>' +
+					//'<button v-on:click.prevent="overview">' +
+					//	'<i class="material-icons">dashboard</i>' +
+					//'</button>' +
 					'<div class="spacer"></div>' +
 					//'<button v-on:click.prevent="undo">' +
 					//	'<i class="material-icons">undo</i>' +

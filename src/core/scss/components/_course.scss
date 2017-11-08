@@ -18,13 +18,14 @@
       max-width: ($card-width + 24px);
       max-height: ($card-height + 42px);
 
-      transform: scale(0.4) !important;
-
       transition: all $course-overview-transition;
+      //transition: none;
 
       .chapter {
+        -webkit-transform: none !important;
         transform: none !important;
 
+        -webkit-transition: transform $course-overview-transition;
         transition: transform $course-overview-transition;
 
         .stack,
@@ -32,6 +33,42 @@
           //background-color: #C00;
 
           //box-shadow: inset 10px 10px 15px rgba(0, 0, 0, 0.25);
+        }
+
+        .stack {
+          &.current {
+            //background-color: $secondary-colour;
+
+            .card {
+              &:first-child {
+                outline: 8px $secondary-colour solid;
+              }
+            }
+          }
+
+          &.non-current {
+            &.empty {
+              .card {
+                visibility: visible;
+
+                opacity: 0.35;
+
+                -webkit-transform: none !important;
+                transform: none !important;
+
+                &:first-child {
+                  ~ .card,
+                  ~ .component {
+                    display: none;
+                  }
+                }
+              }
+
+              .material-icons {
+                display: none;
+              }
+            }
+          }
         }
 
         .cards,

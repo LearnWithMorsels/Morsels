@@ -16,7 +16,12 @@
   }
 
   .activity-contents {
-    padding: $card-padding-y $card-padding-x;
+    //padding: $card-padding-y $card-padding-x;
+    padding: $button-height;
+
+    .activities.multiple & {
+      //padding-right: $button-height;
+    }
 
     button {
       margin-top: 1rem;
