@@ -96,7 +96,7 @@ const eslintOptions = {
 		if( typeof number === 'number'
 			&& number > 0 ) {
 			let numberTensUnits = parseInt( number.toString().substr( -2 ) ),
-			numberUnits = parseInt( number.toString().substr( -1 ) );
+				numberUnits = parseInt( number.toString().substr( -1 ) );
 
 			if( numberUnits === 1
 				|| ( numberTensUnits > 10
@@ -221,7 +221,7 @@ const eslintOptions = {
 			time.M = words.months[time.n]['short'],
 			time.y = padLeft( time.Y, 2 ),
 			time.H = padLeft( time.G, 2, '0' ),
-			time.g = time.G == 0 ? 12 : ( time.G > 12 ? time.G - 12 : time.G ),
+			time.g = time.G === 0 ? 12 : ( time.G > 12 ? time.G - 12 : time.G ),
 			time.h = padLeft( time.g, 2, '0' ),
 			time.a = ( time.G < 12 ) ? 'am' : 'pm',
 			time.A = time.a.toUpperCase(),
@@ -256,6 +256,7 @@ const eslintOptions = {
 
 gulp.task( 'index', ['scss:base'], () => {
 	return gulp.src( './src/core/index.html' )
+		.pipe( fileOverride( 'core/index.html', 'course/core/index.html' ) )
 		.pipe( insert.transform( ( contents, file ) => {
 			let iconMeta = '';
 
@@ -283,7 +284,7 @@ gulp.task( 'index', ['scss:base'], () => {
 
 gulp.task( 'js', () => {
 	gulp.src( './src/core/js/app.js' )
-		.pipe( fileOverride( 'core/js/*', 'app/core/js/$1' ) )
+		.pipe( fileOverride( 'core/js/*', 'course/core/js/$1' ) )
 		.pipe( sourcemaps.init() )
 		.pipe( rollup( {
 			plugins: [
@@ -336,6 +337,7 @@ gulp.task( 'scss', ['scss:base', 'scss:framework'] );
 
 gulp.task( 'scss:base', () => {
 	return gulp.src( './src/core/scss/base.scss' )
+		.pipe( fileOverride( 'core/scss', 'course/core/scss' ) )
 		.pipe( sourcemaps.init() )
 		.pipe( sass( { outputStyle: 'compressed' } )
 			.on( 'error', err => {
@@ -355,9 +357,10 @@ gulp.task( 'scss:framework', () => {
 		'./src/cards/**/*.scss',
 		'./src/components/**/*.scss'
 	] )
-	//.pipe( fileOverride( 'core/scss', 'app/core/scss' ) )
-	//.pipe( fileOverride( 'activities/*/scss', 'app/activities/$1/scss' ) )
-	//.pipe( fileOverride( 'cards/*/scss', 'app/cards/$1/scss' ) )
+		.pipe( fileOverride( 'core/scss', 'course/core/scss' ) )
+		.pipe( fileOverride( 'activities/*/scss', 'course/activities/$1/scss' ) )
+		.pipe( fileOverride( 'cards/*/scss', 'course/cards/$1/scss' ) )
+		.pipe( fileOverride( 'components/*/scss', 'course/components/$1/scss' ) )
 		.pipe( sourcemaps.init() )
 		.pipe( sass( { outputStyle: 'compressed' } )
 			.on( 'error', err => {
@@ -371,7 +374,15 @@ gulp.task( 'scss:framework', () => {
 		.pipe( browserSync.stream( { match: '**/*.css' } ) );
 } );
 
-gulp.task( 'resources', () => {
+gulp.task( 'resources', ['resources:core', 'resources:course'] );
+
+gulp.task( 'resources:core', () => {
+	return gulp.src( './src/core/resources/**/*' )
+		.pipe( fileOverride( 'core/resources/*', 'course/core/resources/$1' ) )
+		.pipe( gulp.dest( './build/core' ) );
+} );
+
+gulp.task( 'resources:course', () => {
 	return gulp.src( './src/course/resources/**/*' )
 		.pipe( gulp.dest( './build/resources' ) );
 } );
@@ -387,8 +398,8 @@ gulp.task( 'fonts', () => {
 } );
 
 gulp.task( 'activities', () => {
-	return gulp.src( './src/activities/*/js/**/*.js' )
-		.pipe( fileOverride( 'activities/*/js', 'app/activities/$1/js' ) )
+	return gulp.src( './src/activities/*/js/*.js' )
+		.pipe( fileOverride( 'activities/*/js', 'course/activities/$1/js' ) )
 		.pipe( sourcemaps.init() )
 		.pipe( rollup( {
 			plugins: [
@@ -411,8 +422,8 @@ gulp.task( 'activities', () => {
 } );
 
 gulp.task( 'cards', () => {
-	return gulp.src( './src/cards/*/js/**/*.js' )
-		.pipe( fileOverride( 'cards/*/js', 'app/cards/$1/js' ) )
+	return gulp.src( './src/cards/*/js/*.js' )
+		.pipe( fileOverride( 'cards/*/js', 'course/cards/$1/js' ) )
 		.pipe( sourcemaps.init() )
 		.pipe( rollup( {
 			plugins: [
@@ -435,8 +446,8 @@ gulp.task( 'cards', () => {
 } );
 
 gulp.task( 'components', () => {
-	return gulp.src( './src/components/*/js/**/*.js' )
-		.pipe( fileOverride( 'components/*/js', 'app/components/$1/js' ) )
+	return gulp.src( './src/components/*/js/*.js' )
+		.pipe( fileOverride( 'components/*/js', 'course/components/$1/js' ) )
 		.pipe( sourcemaps.init() )
 		.pipe( rollup( {
 			plugins: [
@@ -461,34 +472,25 @@ gulp.task( 'components', () => {
 gulp.task( 'archive', () => {
 	let now = date( 'Y-m-d_H:i:s' );
 
-	gulp.src( './src/app/**/*' )
-		.pipe( gulp.dest( './archive/' + now + '/app' ) );
-
 	return gulp.src( './src/course/**/*' )
 		.pipe( gulp.dest( './archive/' + now + '/course' ) );
 } );
 
 gulp.task( 'new', ['archive'], () => {
-	del(
-		[
-			'./src/course/**/*',
-			'./src/app/**/*'
-		]
-	).then( () => {
-		gulp.src( './src/resources/default-course.json' )
-			.pipe( rename( 'en.json' ) )
-			.pipe( gulp.dest( './src/course' ) );
+	del( './src/course/**/*' )
+		.then( () => {
+			gulp.src( './src/resources/default-course.json' )
+				.pipe( rename( 'en.json' ) )
+				.pipe( gulp.dest( './src/course' ) );
 
-		gulp.src( './src/resources/default-config.json' )
-			.pipe( rename( 'config.json' ) )
-			.pipe( gulp.dest( './src/app' ) );
-	} );
+			gulp.src( './src/resources/default-config.json' )
+				.pipe( rename( 'config.json' ) )
+				.pipe( gulp.dest( './src/course' ) );
+		} );
 } );
 
 gulp.task( 'clean', () => {
-	return del(
-		['./build/**/*']
-	);
+	return del( './build/**/*' );
 } );
 
 gulp.task( 'service-worker', ['data'], () => {
