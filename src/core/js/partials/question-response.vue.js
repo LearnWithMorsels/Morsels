@@ -1,4 +1,4 @@
-import Vue from '../resources/Vue';
+import Vue from 'resources/Vue';
 
 Vue.component( 'question-response', {
 	props: ['correct', 'feedback', 'attemptsRemaining'],

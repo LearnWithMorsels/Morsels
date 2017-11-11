@@ -294,7 +294,21 @@ gulp.task( 'js', () => {
 					presets: [['es2015', { 'modules': false }]],
 					sourceMaps: true,
 					exclude: 'node_modules/**',
-					babelrc: false
+					babelrc: false,
+					plugins: [
+						[ 'module-resolver', {
+								root: [
+									'./src/course/core/js',
+									'./src/course/core/js/components',
+									'./src/course/core/js/partials',
+									'./src/course/core/js/resources',
+									'./src/core/js',
+									'./src/core/js/components',
+									'./src/core/js/partials',
+									'./src/core/js/resources'
+								]
+							} ]
+					]
 				} ),
 				uglify()
 			]
@@ -409,7 +423,15 @@ gulp.task( 'activities', () => {
 					presets: [['es2015', { 'modules': false }]],
 					sourceMaps: true,
 					exclude: 'node_modules/**',
-					babelrc: false
+					babelrc: false,
+					plugins: [
+						[ 'module-resolver', {
+							root: [
+								'./src/course/activities/*/js',
+								'./src/activities/*/js'
+							]
+						} ]
+					]
 				} ),
 				uglify()
 			]
@@ -433,7 +455,15 @@ gulp.task( 'cards', () => {
 					presets: [['es2015', { 'modules': false }]],
 					sourceMaps: true,
 					exclude: 'node_modules/**',
-					babelrc: false
+					babelrc: false,
+					plugins: [
+						[ 'module-resolver', {
+							root: [
+								'./src/course/cards/*/js',
+								'./src/cards/*/js'
+							]
+						} ]
+					]
 				} ),
 				uglify()
 			]
@@ -457,7 +487,15 @@ gulp.task( 'components', () => {
 					presets: [['es2015', { 'modules': false }]],
 					sourceMaps: true,
 					exclude: 'node_modules/**',
-					babelrc: false
+					babelrc: false,
+					plugins: [
+						[ 'module-resolver', {
+							root: [
+								'./src/course/components/*/js',
+								'./src/components/*/js'
+							]
+						} ]
+					]
 				} ),
 				uglify()
 			]

@@ -1,6 +1,6 @@
-import Vue from '../resources/Vue';
-import './stack.vue';
-import './component.vue';
+import Vue from 'resources/Vue';
+import 'stack.vue';
+import 'component.vue';
 
 Vue.component( 'chapter', {
 	props: ['chapter', 'isCurrent'],

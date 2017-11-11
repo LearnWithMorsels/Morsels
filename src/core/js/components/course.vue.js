@@ -1,7 +1,7 @@
-import Vue from '../resources/Vue';
-import './chapter.vue';
-import './menubar.vue';
-import './sidebar.vue';
+import Vue from 'resources/Vue';
+import 'chapter.vue';
+import 'menubar.vue';
+import 'sidebar.vue';
 
 Vue.component( 'course', {
 	props: ['course'],

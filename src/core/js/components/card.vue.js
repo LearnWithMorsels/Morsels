@@ -1,5 +1,5 @@
-import Vue from '../resources/Vue';
-import './activities.vue';
+import Vue from 'resources/Vue';
+import 'activities.vue';
 
 Vue.component( 'card', {
 	props: ['card', 'isCurrent', 'zIndex'],

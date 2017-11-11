@@ -1,5 +1,5 @@
-import Vue from '../resources/Vue';
-import './card.vue';
+import Vue from 'resources/Vue';
+import 'card.vue';
 
 Vue.component( 'component', {
 	props: ['component', 'isCurrent'],

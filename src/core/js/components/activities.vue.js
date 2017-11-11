@@ -1,5 +1,5 @@
-import Vue from '../resources/Vue';
-import './activity.vue';
+import Vue from 'resources/Vue';
+import 'activity.vue';
 
 Vue.component( 'activities', {
 	props: ['activities'],

@@ -1,4 +1,4 @@
-import Vue from '../resources/Vue';
+import Vue from 'resources/Vue';
 
 Vue.component( 'menubar', {
 	props: ['content'],

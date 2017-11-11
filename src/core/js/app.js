@@ -9,9 +9,9 @@
  * ----------[ BITE-SIZED ELEARNING ]----------
  */
 
-import Vue from './resources/Vue';
-import './components/course.vue';
-import './partials/question-response.vue';
+import Vue from 'resources/Vue';
+import 'components/course.vue';
+import 'partials/question-response.vue';
 
 const head = document.getElementsByTagName( 'body' )[0];
 
