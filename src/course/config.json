@@ -14,7 +14,7 @@
     "512": "./core/icons/morsels-512.png"
   },
   "features": {
-    "favourites": false,
+    "saveItems": true,
     "search": false,
     "progress": {
       "visible": false,

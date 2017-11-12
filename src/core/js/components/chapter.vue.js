@@ -3,21 +3,24 @@ import 'stack.vue';
 import 'component.vue';
 
 Vue.component( 'chapter', {
-	props: ['chapter', 'isCurrent'],
+	props: ['chapterIndex', 'chapter', 'isCurrent'],
 	template: '<section :class="classes" :style="style">' +
 					'<div class="chapter-content">' +
 						'<template v-for="(stack, index) in chapter._stacks">' +
-							'<component v-if="stack._component" key="index" :isCurrent="isCurrent && currentStack === index" :component="stack" v-on:complete="goToNextStack"></component>' +
-							'<stack v-else key="index" :isCurrent="isCurrent && currentStack === index" :stack="stack" v-on:empty="goToNextStack"></stack>' +
+							'<component v-if="stack._component" key="index" :isCurrent="isCurrent && currentItem === index" :component="stack" v-on:complete="goToNextItem"></component>' +
+							'<stack v-else key="index" :isCurrent="isCurrent && currentItem === index" :stack="stack" :chapterIndex="chapterIndex" v-on:empty="goToNextItem"></stack>' +
 						'</template>' +
 					'</div>' +
 				'</section>',
 	data: function() {
 		return {
-			currentStack: 0
+			//currentItem: 0
 		};
 	},
 	computed: {
+		currentItem: function() {
+			return this.$store.state.current.item;
+		},
 		classes: function() {
 			return {
 				chapter: true,
@@ -26,14 +29,15 @@ Vue.component( 'chapter', {
 		},
 		style: function() {
 			return {
-				transform: 'translateX(-' + ( this.currentStack * 100 ) + '%)'
+				transform: this.isCurrent ? 'translateX(-' + ( this.currentItem * 100 ) + '%)' : 'none'
 			};
 		}
 	},
 	methods: {
-		goToNextStack: function() {
-			if( this.currentStack + 1 < this.chapter._stacks.length ) {
-				this.currentStack++;
+		goToNextItem: function() {
+			if( this.currentItem + 1 < this.chapter._stacks.length ) {
+				//this.currentItem++;
+				this.$store.commit( 'goTo', { item: this.currentItem + 1 } );
 			} else {
 				this.$emit( 'complete' );
 			}

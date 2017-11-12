@@ -2,13 +2,12 @@ import Vue from 'resources/Vue';
 import 'card.vue';
 
 Vue.component( 'stack', {
-	props: ['stack', 'isCurrent'],
+	props: ['chapterIndex', 'stack', 'isCurrent'],
 	template: '<div :class="classes">' +
-					// '<h3>Stack {{ stack.title }}</h3>' +
-					// '<p>Cards: {{ stack._cards.length }}, completed: {{ completedCards }}, dismissed: {{ dismissedCards }}</p>' +
+					//'<div class="stack-title">{{ stack.title }}</div>' +
 					'<div class="cards">' +
 						'<template v-for="(card, index) in stack._cards">' +
-							'<card :card="card" :isCurrent="isCurrent && dismissedCards === index" :key="index" ref="cards" :zIndex="stack._cards.length - index" v-on:complete="cardCompleted" v-on:dismiss="cardDismissed"></card>' +
+							'<card :card="card" :isCurrent="isCurrent && dismissedCards === index" :key="index" ref="cards" :chapterIndex="chapterIndex" :chapterItemIndex="index" :zIndex="stack._cards.length - index" v-on:complete="cardCompleted" v-on:dismiss="cardDismissed"></card>' +
 						'</template>' +
 						'<i class="material-icons">check_circle</i>' +
 					'</div>' +

@@ -1,4 +1,4 @@
-import Vue from 'resources/Vue';
+import Vue from '../resources/Vue';
 
 Vue.component( 'sidebar', {
 	props: ['course', 'language'],
@@ -18,7 +18,7 @@ Vue.component( 'sidebar', {
 						'<button :class="{ current: selectedTab === 0 }" v-on:click.prevent="selectedTab = 0">' +
 							'<i class="material-icons">explore</i>' +
 						'</button>' +
-						'<button v-if="course.config.features && course.config.features.favourites" :class="{ current: selectedTab === 1 }" v-on:click.prevent="selectedTab = 1">' +
+						'<button v-if="course.config.features && course.config.features.saveItems" :class="{ current: selectedTab === 1 }" v-on:click.prevent="selectedTab = 1">' +
 							'<i class="material-icons">bookmark_border</i>' +
 						'</button>' +
 						'<button :class="{ current: selectedTab === 2 }" v-on:click.prevent="selectedTab = 2">' +
@@ -47,9 +47,11 @@ Vue.component( 'sidebar', {
 							'</ul>' +
 						'</div>' +
 						'<div v-show="selectedTab === 1" key="1" class="sidebar-content">' +
-							'<h3>Saved cards</h3>' +
-							'<div class="saved-cards">' +
-								'<div v-for="(savedCard, index) in globals.savedCards" :key="index">{{ savedCard }}</div>' +
+							'<h3>Saved items</h3>' +
+							'<div class="saved-items">' +
+								'<div v-for="(saved, index) in savedItems" :key="index">' +
+									'<button v-on:click.prevent="goTo(saved.chapter, saved.item)">{{ saved.title }}</button>' +
+								'</div>' +
 							'</div>' +
 						'</div>' +
 						'<div v-show="selectedTab === 2" key="2" class="sidebar-content">' +
@@ -72,8 +74,7 @@ Vue.component( 'sidebar', {
 	data: function() {
 		return {
 			selectedLanguage: this.language,
-			selectedTab: 0,
-			globals: window.Morsels.globals.state
+			selectedTab: 0
 		};
 	},
 	computed: {
@@ -82,6 +83,9 @@ Vue.component( 'sidebar', {
 		},
 		languages: function() {
 			return Object.keys( this.course.content );
+		},
+		savedItems: function() {
+			return this.$store.state.saved;
 		}
 	},
 	watch: {
@@ -98,6 +102,10 @@ Vue.component( 'sidebar', {
 		},
 		toggleTheme: function() {
 			document.documentElement.classList.toggle( 'dark-theme' );
+		},
+		goTo: function( chapter, item ) {
+			this.$store.commit( 'goTo', { chapter: chapter, item: item } );
+			this.close();
 		}
 	}
 } );

@@ -10,72 +10,60 @@
  */
 
 import Vue from 'resources/Vue';
+import Vuex from 'resources/Vuex';
 import 'components/course.vue';
 import 'partials/question-response.vue';
 
-const head = document.getElementsByTagName( 'body' )[0];
-
-let Morsels = {
-	appendJS: src => {
+const head = document.getElementsByTagName( 'body' )[0],
+	appendJS = src => {
 		let script = document.createElement( 'script' );
 		script.textContent = src;
 		head.append( script );
 	},
-	appendCSS: src => {
+	appendCSS = src => {
 		let style = document.createElement( 'style' );
 		style.type = 'text/css';
 		style.textContent = src;
 		head.append( style );
 	},
-	addCSS: href => {
+	addCSS = href => {
 		let link = document.createElement( 'link' );
 		link.href = href;
 		link.type = 'text/css';
 		link.rel = 'stylesheet';
 		head.append( link );
 	},
-	addMeta: ( name, content ) => {
+	addMeta = ( name, content ) => {
 		let meta = document.createElement( 'meta' );
 		meta.name = name;
 		meta.content = content;
 		head.append( meta );
-	},
+	};
+
+let Morsels = {
 	registerComponent: ( name, properties ) => {
 		Vue.component( name, properties );
 	},
-	globals: {
-		state: {
-			savedCards: []
-		},
-		saveCard( cardUID ) {
-			this.state.savedCards.push( cardUID )
-		},
-		unsaveCard( cardUID ) {
-			let cardSavedIndex = this.state.savedCards.indexOf( cardUID );
-			if( cardSavedIndex > -1 ) {
-				this.state.savedCards.splice( cardSavedIndex, 1 );
-			}
-		}
-	}
-};
 
-Morsels.activity = ( name, properties ) => {
+
+	activity: ( name, properties ) => {
 	Morsels.registerComponent( 'activity-' + name, properties );
-};
+},
 
-Morsels.card = ( name, properties ) => {
+card: ( name, properties ) => {
 	Morsels.registerComponent( 'card-' + name, properties );
-};
+},
 
-Morsels.component = ( name, properties ) => {
+component: ( name, properties ) => {
 	Morsels.registerComponent( 'component-' + name, properties );
+}
 };
 
 //Morsels.vuecomponent = Vue.component;
 
 window.Morsels = Morsels;
 
-Morsels.addCSS( './css/morsels.min.css' );
+addCSS( './css/morsels.min.css' );
 
 let fetchFile = file => {
 		return fetch( file )
@@ -102,19 +90,70 @@ Promise.all( [
 	.then( returns => {
 		let course = returns[0];
 
-		Morsels.appendJS( returns[1] );
-		Morsels.appendJS( returns[2] );
-		Morsels.appendJS( returns[3] );
-		//Morsels.appendCSS( returns[4] );
+		appendJS( returns[1] );
+		appendJS( returns[2] );
+		appendJS( returns[3] );
+		//appendCSS( returns[4] );
 
-		Morsels.Vue = new Vue( {
+		const store = new Vuex.Store( {
+			state: {
+				course: course,
+				current: {
+					chapter: 0,
+					item: 0
+				},
+				saved: []
+			},
+			mutations: {
+				goTo( state, location ) {
+					if( location.hasOwnProperty( 'item' ) ) {
+						state.current.item = location.item;
+					}
+					if( location.hasOwnProperty( 'chapter' ) ) {
+						state.current.chapter = location.chapter;
+					}
+				},
+				saveCard( state, save ) {
+					let cardIndex = -1;
+					for( let index in state.saved ) {
+						let saved = state.saved[index];
+						if( saved.uid === save.uid ) {
+							cardIndex = index;
+							break;
+						}
+					}
+					if( cardIndex === -1 ) {
+						state.saved.push( save );
+					}
+				},
+				unsaveCard( state, uid ) {
+					let cardIndex = -1;
+					for( let index in state.saved ) {
+						let saved = state.saved[index];
+						if( saved.uid === uid ) {
+							cardIndex = index;
+							break;
+						}
+					}
+					if( cardIndex > -1 ) {
+						state.saved.splice( cardIndex, 1 );
+					}
+				}
+			},
+			actions: {}
+		} );
+
+		const app = new Vue( {
 			el: '#morsels-course',
 			template: '<course :course="course"></course>',
+			store,
 			data: {
-				course: course,
-				globals: window.Morsels.globals.state
+				course: course
 			}
 		} );
+
+		//Morsels.Vue = app;
+		//Morsels.store = store;
 	} );
 
 if( 'serviceWorker' in navigator &&

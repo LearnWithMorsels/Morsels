@@ -2,7 +2,7 @@ import Vue from 'resources/Vue';
 import 'activities.vue';
 
 Vue.component( 'card', {
-	props: ['card', 'isCurrent', 'zIndex'],
+	props: ['chapterIndex', 'chapterItemIndex', 'card', 'isCurrent', 'zIndex'],
 	template: '<div :class="classes" :style="style" :data-card="card._card" :data-uid="_uid">' +
 					'<component :is="cardName" ref="card" :card="card" v-on:complete="complete"></component>' +
 					'<template v-if="card._activities">' +
@@ -18,10 +18,10 @@ Vue.component( 'card', {
 							'<div v-for="(activity, index) in card._activities._items" :class="{ current: index === activitiesCompleted }"></div>' +
 						'</div>' +
 					'</template>' +
-					//'<button class="save-card" v-on:click.prevent.stop="toggleSave">' +
-					//	'<i v-if="saved" class="material-icons">bookmark</i>' +
-					//	'<i v-else class="material-icons">bookmark_border</i>' +
-					//'</button>' +
+					'<button class="save-card" v-on:click.prevent.stop="toggleSave">' +
+						'<i v-if="saved" class="material-icons">bookmark</i>' +
+						'<i v-else class="material-icons">bookmark_border</i>' +
+					'</button>' +
 				'</div>',
 	data: function() {
 		return {
@@ -42,8 +42,7 @@ Vue.component( 'card', {
 			dismissed: this.card.dismissed || false,
 			showActivites: false,
 			isMounted: false,
-			baseFontSize: 16,
-			globals: window.Morsels.globals.state
+			baseFontSize: 16
 		};
 	},
 	computed: {
@@ -116,7 +115,12 @@ Vue.component( 'card', {
 			return completed;
 		},
 		saved: function() {
-			return this.globals.savedCards.indexOf( this._uid ) !== -1;
+			for( let index in this.$store.state.saved ) {
+				if( this.$store.state.saved[index].uid === this._uid ) {
+					return true;
+				}
+			}
+			return false;
 		},
 		promptActivites: function() {
 			return !this.activitiesOptional && !this.activitiesCompleted && this.view.pointerIsDown;
@@ -152,10 +156,15 @@ Vue.component( 'card', {
 			}
 		},
 		save: function() {
-			window.Morsels.globals.saveCard( this._uid );
+			this.$store.commit( 'saveCard', {
+				uid: this._uid,
+				chapter: this.chapterIndex,
+				item: this.chapterItemIndex,
+				title: this.title || this.card._content.title || 'Untitled'
+			} );
 		},
 		unsave: function() {
-			window.Morsels.globals.unsaveCard( this._uid );
+			this.$store.commit( 'unsaveCard', this._uid );
 		},
 		toggleSave: function() {
 			this.saved ? this.unsave() : this.save();

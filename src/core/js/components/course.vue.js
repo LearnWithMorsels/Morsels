@@ -9,7 +9,7 @@ Vue.component( 'course', {
 					'<menubar :content="content" v-on:toggleSidebar="toggleSidebar" v-on:undo="undo" v-on:overview="toggleOverview"></menubar>' +
 					'<sidebar ref="sidebar" :course="course" :language="language" v-on:changeLanguage="changeLanguage" v-on:close="closeSidebar"></sidebar>' +
 					'<div class="chapters" :style="style" v-on:mousedown.capture="bodyClick" v-on:touchstart.capture="bodyClick">' +
-						'<chapter v-for="(chapter, index) in content._chapters" key="index" :isCurrent="currentChapter === index" :chapter="chapter" v-on:complete="goToNextChapter"></chapter>' +
+						'<chapter v-for="(chapter, index) in content._chapters" key="index" :isCurrent="currentChapter === index" :chapter="chapter" :chapterIndex="index" v-on:complete="goToNextChapter"></chapter>' +
 					'</div>' +
 				'</div>',
 	data: function() {
@@ -27,13 +27,16 @@ Vue.component( 'course', {
 				dragging: false
 			},
 			language: this.course.config.languages.default || this.course.config.languages.primary || this.course.content[Object.keys( this.course.content )[0]] || 'en',
-			currentChapter: 0,
+			//currentChapter: 0,
 			showSidebar: false,
 			viewAll: false,
 			viewAllScale: 0.4
 		};
 	},
 	computed: {
+		currentChapter: function(  ) {
+			return this.$store.state.current.chapter;
+		},
 		content: function() {
 			return this.course.content[this.language] || {}
 		},
@@ -136,7 +139,8 @@ Vue.component( 'course', {
 		},
 		goToNextChapter: function() {
 			if( this.currentChapter + 1 < this.content._chapters.length ) {
-				this.currentChapter++;
+				//this.currentChapter++;
+				this.$store.commit( 'goTo', { chapter: this.currentChapter + 1, item: 0 } );
 			} else {
 				//alert( 'EVERYTHING DONE' );
 			}

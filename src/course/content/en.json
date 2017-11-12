@@ -18,7 +18,7 @@
                 "title": "Morsels",
                 "subtitle": "A new responsive elearning framework",
                 "image": {
-                  "src": "resources/icons/web.png"
+                  "src": "core/icons/morsels-256.png"
                 },
                 "body": "<p><i class=\"material-icons\">access_time</i> 2 minutes</p>",
                 "footer": "Swipe this card away to get started&hellip;"
