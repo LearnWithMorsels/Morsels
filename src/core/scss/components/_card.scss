@@ -92,9 +92,13 @@
   &.saved {
     button {
       &.save-card {
-        //color: #FFF;
+        color: #FFF;
 
         //background-color: #C00;
+
+        &::after {
+          border-color: $secondary-colour transparent transparent $secondary-colour;
+        }
       }
     }
   }
@@ -160,19 +164,30 @@
     }
 
     &.save-card {
-      width: 32px;
-      height: 32px;
+      width: ($button-height * 1.25);
+      height: ($button-height * 1.25);
+      padding: 0 ($button-height * 0.375) ($button-height * 0.375) 0;
 
-      top: 16px;
-      left: 16px;
+      top: 0;
+      left: 0;
 
-      color: #C00;
+      color: $secondary-colour;
 
-      background: none;
+      background: transparent;
 
       border: none;
 
       z-index: 1;
+
+      &::after {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        border: ($button-height * 0.75) transparent solid;
+
+        content: "";
+      }
     }
   }
 

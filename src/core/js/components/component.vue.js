@@ -4,7 +4,7 @@ import 'card.vue';
 Vue.component( 'component', {
 	props: ['component', 'isCurrent'],
 	template: '<div :class="classes">' +
-					//'<div class="component-title">{{ stack.title }}</div>' +
+					'<div class="component-title">{{ component.title }}</div>' +
 					'<component :is="componentName" ref="component" :component="component" v-on:complete="complete"></component>' +
 				'</div>',
 	data: function() {

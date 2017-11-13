@@ -1,0 +1,16 @@
+{
+  "_card": "video",
+  "_content": {
+    "title": "",
+    "_video": {
+      "_local": {
+        "poster": "videos/example.png",
+        "_src": {
+          "wemb": "videos/example.webm",
+          "ogv": "videos/example.ogv",
+          "mp4": "videos/example.mp4"
+        }
+      }
+    }
+  }
+}

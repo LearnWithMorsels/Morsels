@@ -5,10 +5,11 @@ import 'component.vue';
 Vue.component( 'chapter', {
 	props: ['chapterIndex', 'chapter', 'isCurrent'],
 	template: '<section :class="classes" :style="style">' +
+					//'<div class="chapter-title">{{ chapter.title }}</div>' +
 					'<div class="chapter-content">' +
-						'<template v-for="(stack, index) in chapter._stacks">' +
+						'<template v-for="(stack, index) in chapter._items">' +
 							'<component v-if="stack._component" key="index" :isCurrent="isCurrent && currentItem === index" :component="stack" v-on:complete="goToNextItem"></component>' +
-							'<stack v-else key="index" :isCurrent="isCurrent && currentItem === index" :stack="stack" :chapterIndex="chapterIndex" v-on:empty="goToNextItem"></stack>' +
+							'<stack v-else key="index" :isCurrent="isCurrent && currentItem === index" :stack="stack" :chapterIndex="chapterIndex" :stackIndex="index" v-on:empty="goToNextItem"></stack>' +
 						'</template>' +
 					'</div>' +
 				'</section>',
@@ -35,7 +36,7 @@ Vue.component( 'chapter', {
 	},
 	methods: {
 		goToNextItem: function() {
-			if( this.currentItem + 1 < this.chapter._stacks.length ) {
+			if( this.currentItem + 1 < this.chapter._items.length ) {
 				//this.currentItem++;
 				this.$store.commit( 'goTo', { item: this.currentItem + 1 } );
 			} else {

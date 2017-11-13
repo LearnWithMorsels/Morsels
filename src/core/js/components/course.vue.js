@@ -7,7 +7,7 @@ Vue.component( 'course', {
 	props: ['course'],
 	template: '<div :class="classes">' +
 					'<menubar :content="content" v-on:toggleSidebar="toggleSidebar" v-on:undo="undo" v-on:overview="toggleOverview"></menubar>' +
-					'<sidebar ref="sidebar" :course="course" :language="language" v-on:changeLanguage="changeLanguage" v-on:close="closeSidebar"></sidebar>' +
+					'<sidebar ref="sidebar" :course="course" :language="language" v-on:close="closeSidebar"></sidebar>' +
 					'<div class="chapters" :style="style" v-on:mousedown.capture="bodyClick" v-on:touchstart.capture="bodyClick">' +
 						'<chapter v-for="(chapter, index) in content._chapters" key="index" :isCurrent="currentChapter === index" :chapter="chapter" :chapterIndex="index" v-on:complete="goToNextChapter"></chapter>' +
 					'</div>' +
@@ -26,14 +26,15 @@ Vue.component( 'course', {
 				touchIndex: 0,
 				dragging: false
 			},
-			language: this.course.config.languages.default || this.course.config.languages.primary || this.course.content[Object.keys( this.course.content )[0]] || 'en',
-			//currentChapter: 0,
 			showSidebar: false,
 			viewAll: false,
 			viewAllScale: 0.4
 		};
 	},
 	computed: {
+		language: function() {
+			return this.$store.state.language;
+		},
 		currentChapter: function(  ) {
 			return this.$store.state.current.chapter;
 		},
@@ -64,7 +65,7 @@ Vue.component( 'course', {
 			return style;
 		},
 		rtl: function() {
-			return this.course.config.languages.labels[this.language].rtl;
+			return this.course.languages[this.language].rtl;
 		}
 	},
 	mounted: function() {
@@ -168,9 +169,6 @@ Vue.component( 'course', {
 		},
 		undo: function() {
 			console.log( 'undo' );
-		},
-		changeLanguage: function( language ) {
-			this.language = language;
 		}
 	},
 	watch: {

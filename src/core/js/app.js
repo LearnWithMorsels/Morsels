@@ -10,7 +10,8 @@
  */
 
 import Vue from 'resources/Vue';
-import Vuex from 'resources/Vuex';
+import MorselsVuexStore from 'resources/VuexStore';
+import 'resources/RegisterServiceWorker';
 import 'components/course.vue';
 import 'partials/question-response.vue';
 
@@ -44,24 +45,16 @@ let Morsels = {
 	registerComponent: ( name, properties ) => {
 		Vue.component( name, properties );
 	},
-
-
 	activity: ( name, properties ) => {
-	Morsels.registerComponent( 'activity-' + name, properties );
-},
-
-card: ( name, properties ) => {
-	Morsels.registerComponent( 'card-' + name, properties );
-},
-
-component: ( name, properties ) => {
-	Morsels.registerComponent( 'component-' + name, properties );
-}
+		Morsels.registerComponent( 'activity-' + name, properties );
+	},
+	card: ( name, properties ) => {
+		Morsels.registerComponent( 'card-' + name, properties );
+	},
+	component: ( name, properties ) => {
+		Morsels.registerComponent( 'component-' + name, properties );
+	}
 };
-
-//Morsels.vuecomponent = Vue.component;
-
-window.Morsels = Morsels;
 
 addCSS( './css/morsels.min.css' );
 
@@ -95,76 +88,22 @@ Promise.all( [
 		appendJS( returns[3] );
 		//appendCSS( returns[4] );
 
-		const store = new Vuex.Store( {
-			state: {
-				course: course,
-				current: {
-					chapter: 0,
-					item: 0
+		const store = new MorselsVuexStore( course.config.languages.default || course.config.languages.primary || course.content[Object.keys( course.content )[0]] || 'en' ),
+			app = new Vue( {
+				el: '#morsels-course',
+				template: '<course :course="course"></course>',
+				store,
+				data: {
+					course: course
 				},
-				saved: []
-			},
-			mutations: {
-				goTo( state, location ) {
-					if( location.hasOwnProperty( 'item' ) ) {
-						state.current.item = location.item;
-					}
-					if( location.hasOwnProperty( 'chapter' ) ) {
-						state.current.chapter = location.chapter;
-					}
-				},
-				saveCard( state, save ) {
-					let cardIndex = -1;
-					for( let index in state.saved ) {
-						let saved = state.saved[index];
-						if( saved.uid === save.uid ) {
-							cardIndex = index;
-							break;
-						}
-					}
-					if( cardIndex === -1 ) {
-						state.saved.push( save );
-					}
-				},
-				unsaveCard( state, uid ) {
-					let cardIndex = -1;
-					for( let index in state.saved ) {
-						let saved = state.saved[index];
-						if( saved.uid === uid ) {
-							cardIndex = index;
-							break;
-						}
-					}
-					if( cardIndex > -1 ) {
-						state.saved.splice( cardIndex, 1 );
-					}
+				beforeCreate() {
+					this.$store.commit( 'initialiseStore' );
 				}
-			},
-			actions: {}
-		} );
+			} );
 
-		const app = new Vue( {
-			el: '#morsels-course',
-			template: '<course :course="course"></course>',
-			store,
-			data: {
-				course: course
-			}
-		} );
-
-		//Morsels.Vue = app;
-		//Morsels.store = store;
+		Morsels.COURSE = course;
+		//Morsels.VUE = app;
+		//Morsels.STORE = store;
 	} );
 
-if( 'serviceWorker' in navigator &&
-	window.location.hostname !== 'localhost' ) {
-	navigator
-		.serviceWorker
-		.register( './sw.js' )
-		.then( swReg => {
-			console.log( 'Service worker registered', swReg );
-		} )
-		.catch( e => {
-			console.error( 'Service worker registration error', e );
-		} );
-}
+window.Morsels = Morsels;

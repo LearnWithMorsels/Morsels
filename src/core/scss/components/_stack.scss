@@ -1,17 +1,36 @@
 .stack {
-  @include flexbox;
-  align-items: center;
-  justify-content: center;
+  padding: 24px 16px;
+
+  flex-wrap: wrap;
+
+  .stack-title {
+    width: $card-width;
+    max-width: 100%;
+    margin-bottom: 24px;
+
+    display: none;
+
+    position: relative;
+
+    @include flex(0);
+
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 900;
+
+    z-index: 1;
+  }
 
   .cards {
     width: $card-width;
-    max-width: calc(100% - 16px);
-    height: $card-height;
-    //max-height: calc(100% - #{48px + $menubar-height});
-    max-height: calc(100% - 32px);
-    //margin-top: ($menubar-height / 2);
+    //max-width: calc(100% - 32px);
+    max-width: 100%;
+    max-height: $card-height;
+    //max-height: calc(100% - 48px);
 
     position: relative;
+
+    @include flex(1);
 
     white-space: normal;
 

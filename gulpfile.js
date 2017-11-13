@@ -322,9 +322,11 @@ gulp.task( 'js', () => {
 
 gulp.task( 'data', ['index'], () => {
 	CONFIG = JSON.parse( fs.readFileSync( './src/course/config.json' ) );
+	let LANGUAGES = JSON.parse( fs.readFileSync( './src/core/resources/data/languages.json' ) );
 
 	var COURSE = {
 		config: CONFIG,
+		languages: LANGUAGES,
 		content: {}
 	};
 

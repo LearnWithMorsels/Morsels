@@ -50,7 +50,7 @@ Vue.component( 'sidebar', {
 							'<h3>Saved items</h3>' +
 							'<div class="saved-items">' +
 								'<div v-for="(saved, index) in savedItems" :key="index">' +
-									'<button v-on:click.prevent="goTo(saved.chapter, saved.item)">{{ saved.title }}</button>' +
+									'<button v-on:click.prevent="goTo(saved.chapter, saved.item, saved.index)">{{ saved.title }}</button>' +
 								'</div>' +
 							'</div>' +
 						'</div>' +
@@ -58,10 +58,10 @@ Vue.component( 'sidebar', {
 							'<p>INFO CARDS</p>' +
 						'</div>' +
 						'<div v-show="selectedTab === 3" key="3" class="sidebar-content">' +
-							'<template v-for="language in languages">' +
+							'<template v-for="eachLanguage in languages">' +
 								'<label>' +
-									'<input type="radio" :value="language" v-model="selectedLanguage">' +
-									'{{ course.config.languages.labels[language].name || language }}' +
+									'<input type="radio" :value="eachLanguage" v-model="selectedLanguage">' +
+									'{{ course.languages[eachLanguage].name || eachLanguage }}' +
 								'</label>' +
 								'<br>' +
 							'</template>' +
@@ -73,13 +73,13 @@ Vue.component( 'sidebar', {
 				'</nav>',
 	data: function() {
 		return {
-			selectedLanguage: this.language,
+			selectedLanguage: this.$store.state.language,
 			selectedTab: 0
 		};
 	},
 	computed: {
 		content: function() {
-			return this.course.content[this.language] || {}
+			return this.course.content[this.selectedLanguage] || {}
 		},
 		languages: function() {
 			return Object.keys( this.course.content );
@@ -89,8 +89,8 @@ Vue.component( 'sidebar', {
 		}
 	},
 	watch: {
-		selectedLanguage: function( val, oldVal ) {
-			this.$emit( 'changeLanguage', val );
+		selectedLanguage: function( language, oldLanguage ) {
+			this.$store.commit( 'setLanguage', language );
 		}
 	},
 	mounted: function() {
@@ -103,8 +103,8 @@ Vue.component( 'sidebar', {
 		toggleTheme: function() {
 			document.documentElement.classList.toggle( 'dark-theme' );
 		},
-		goTo: function( chapter, item ) {
-			this.$store.commit( 'goTo', { chapter: chapter, item: item } );
+		goTo: function( chapter, item, index ) {
+			this.$store.commit( 'goTo', { chapter: chapter, item: item, index: index } );
 			this.close();
 		}
 	}

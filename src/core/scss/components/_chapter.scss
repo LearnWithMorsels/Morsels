@@ -2,7 +2,27 @@
   width: 100%;
   height: 100%;
 
+  position: relative;
+
   transition: transform $stack-transition $stack-complete;
+
+  .chapter-title {
+    @include flexbox;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 900;
+
+    position: absolute;
+    top: 0;
+    right: 100%;
+    bottom: 0;
+    left: -100%;
+
+    color: #FFF;
+
+    background-color: $primary-colour;
+  }
 
   .chapter-content {
     width: 100%;
@@ -15,7 +35,14 @@
       width: 100%;
       height: 100%;
 
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+
       @include inline-flexbox;
+      align-items: center;
+      align-content: space-evenly;
+      justify-content: center;
+      flex-direction: column;
 
       white-space: normal;
       vertical-align: top;

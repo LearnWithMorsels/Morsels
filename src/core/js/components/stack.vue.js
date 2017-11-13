@@ -2,12 +2,12 @@ import Vue from 'resources/Vue';
 import 'card.vue';
 
 Vue.component( 'stack', {
-	props: ['chapterIndex', 'stack', 'isCurrent'],
+	props: ['chapterIndex', 'stackIndex', 'stack', 'isCurrent'],
 	template: '<div :class="classes">' +
-					//'<div class="stack-title">{{ stack.title }}</div>' +
+					'<div class="stack-title">{{ stack.title }}</div>' +
 					'<div class="cards">' +
 						'<template v-for="(card, index) in stack._cards">' +
-							'<card :card="card" :isCurrent="isCurrent && dismissedCards === index" :key="index" ref="cards" :chapterIndex="chapterIndex" :chapterItemIndex="index" :zIndex="stack._cards.length - index" v-on:complete="cardCompleted" v-on:dismiss="cardDismissed"></card>' +
+							'<card :card="card" :isCurrent="isCurrent && dismissedCards === index" :key="index" ref="cards" :chapterIndex="chapterIndex" :stackIndex="stackIndex" :cardIndex="index" :zIndex="stack._cards.length - index" v-on:complete="cardCompleted" v-on:dismiss="cardDismissed"></card>' +
 						'</template>' +
 						'<i class="material-icons">check_circle</i>' +
 					'</div>' +
@@ -69,6 +69,7 @@ Vue.component( 'stack', {
 			}
 		},
 		cardDismissed: function() {
+			this.$store.commit( 'goTo', { index: this.dismissedCards } ); // Creates a loop
 			if( this.empty ) {
 				this.$emit( 'empty' );
 			}
