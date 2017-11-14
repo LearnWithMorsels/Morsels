@@ -9,6 +9,8 @@
 
   transition: transform 400ms;
 
+  counter-set: chapter;
+
   &.rtl {
     direction: rtl;
   }
@@ -21,59 +23,63 @@
       transition: all $course-overview-transition;
       //transition: none;
 
-      .chapter {
-        -webkit-transform: none !important;
-        transform: none !important;
+      .chapters-inner {
+        transition: all $course-overview-transition;
 
-        -webkit-transition: transform $course-overview-transition;
-        transition: transform $course-overview-transition;
+        .chapter {
+          -webkit-transform: none !important;
+          transform: none !important;
 
-        .stack,
-        .component {
-          //background-color: #C00;
+          -webkit-transition: transform $course-overview-transition;
+          transition: transform $course-overview-transition;
 
-          //box-shadow: inset 10px 10px 15px rgba(0, 0, 0, 0.25);
-        }
-
-        .stack {
-          &.current {
-            //background-color: $secondary-colour;
-
-            .card {
-              &:first-child {
-                outline: 8px $secondary-colour solid;
-              }
-            }
+          .chapter-title {
+            margin-left: 0;
           }
 
-          &.non-current {
-            &.empty {
-              .card {
-                visibility: visible;
+          .chapter-item-title {
+            @include flexbox-vertical;
 
-                opacity: 0.35;
+            //-webkit-transform: translate3d(0, 0, 0);
+            //transform: translate3d(0, 0, 0);
 
-                -webkit-transform: none !important;
-                transform: none !important;
-
-                &:first-child {
-                  ~ .card,
-                  ~ .component {
-                    display: none;
-                  }
-                }
-              }
-
-              .material-icons {
-                display: none;
-              }
-            }
+            //opacity: 1;
           }
-        }
 
-        .cards,
-        .component-contents {
-          //display: none;
+          .stack {
+            &.current {
+              background-color: $secondary-colour;
+            }
+
+            //&.non-current {
+            //  &.empty {
+            //    .card {
+            //      visibility: visible;
+            //
+            //      opacity: 0.35;
+            //
+            //      -webkit-transform: none !important;
+            //      transform: none !important;
+            //
+            //      &:first-child {
+            //        ~ .card,
+            //        ~ .component {
+            //          display: none;
+            //        }
+            //      }
+            //    }
+            //
+            //    .material-icons {
+            //      display: none;
+            //    }
+            //  }
+            //}
+          }
+
+          .cards,
+          .component-contents {
+            display: none;
+          }
         }
       }
     }
@@ -94,17 +100,25 @@
 
     //white-space: nowrap;
 
-    transition: all $course-overview-transition $card-dismiss;
+    transition: all $course-overview-transition;
     transform-origin: 0 0;
 
     z-index: 1;
 
-    .chapter {
-      //@include inline-flexbox;
-      //display: inline-block;
+    .chapters-inner {
+      width: 100%;
+      height: 100%;
 
-      vertical-align: top;
-      //white-space: normal;
+      //transition: all $chapter-item-advance-transition $stack-complete;
+      transition: all $chapter-item-advance-transition;
+
+      .chapter {
+        //@include inline-flexbox;
+        //display: inline-block;
+
+        vertical-align: top;
+        //white-space: normal;
+      }
     }
   }
 }

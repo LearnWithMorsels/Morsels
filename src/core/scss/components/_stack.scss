@@ -3,24 +3,6 @@
 
   flex-wrap: wrap;
 
-  .stack-title {
-    width: $card-width;
-    max-width: 100%;
-    margin-bottom: 24px;
-
-    display: none;
-
-    position: relative;
-
-    @include flex(0);
-
-    text-align: center;
-    font-size: 1.25rem;
-    font-weight: 900;
-
-    z-index: 1;
-  }
-
   .cards {
     width: $card-width;
     //max-width: calc(100% - 32px);
@@ -55,7 +37,7 @@
       -webkit-transform: scale(0);
       transform: scale(0);
 
-      transition: all ($stack-complete * 0.75);
+      transition: transform $stack-complete, opacity $stack-complete;
 
       opacity: 0;
 

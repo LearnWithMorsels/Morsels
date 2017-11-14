@@ -2,10 +2,16 @@ import Vue from 'resources/Vue';
 import 'card.vue';
 
 Vue.component( 'component', {
-	props: ['component', 'isCurrent'],
+	props: ['chapterIndex', 'componentIndex', 'component', 'isCurrent'],
 	template: '<div :class="classes">' +
-					'<div class="component-title">{{ component.title }}</div>' +
-					'<component :is="componentName" ref="component" :component="component" v-on:complete="complete"></component>' +
+					'<div class="chapter-item-title">{{ component.title }}</div>' +
+					'<component ref="component"' +
+						' :is="componentName"' +
+						' :chapterIndex="chapterIndex"' +
+						' :componentIndex="componentIndex"' +
+						' :component="component"' +
+						' :isCurrent="isCurrent"' +
+						' v-on:completed="complete"></component>' +
 				'</div>',
 	data: function() {
 		return {
@@ -19,6 +25,7 @@ Vue.component( 'component', {
 		},
 		classes: function() {
 			let classes = {
+				'chapter-item': true,
 				component: true,
 				complete: this.completed,
 				current: this.isCurrent
@@ -29,8 +36,10 @@ Vue.component( 'component', {
 	},
 	methods: {
 		complete: function() {
-			this.completed = true;
-			this.$emit( 'complete' );
+			if( !this.completed ) {
+				this.completed = true;
+				this.$emit( 'completed' );
+			}
 		}
 	}
 } );

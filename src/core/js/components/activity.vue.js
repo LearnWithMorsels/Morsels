@@ -3,7 +3,7 @@ import Vue from 'resources/Vue';
 Vue.component( 'activity', {
 	props: ['activity'],
 	template: '<div :class="classes" :data-activity="activity._type">' +
-					'<component :is="\'activity-\' + activity._type" :activity="activity" v-on:complete="complete"></component>' +
+					'<component :is="\'activity-\' + activity._type" :activity="activity" v-on:completed="complete"></component>' +
 				'</div>',
 	data: function() {
 		return {
@@ -19,9 +19,9 @@ Vue.component( 'activity', {
 			classes['activity-' + this.activity._type] = true;
 			return classes;
 		},
-		isComplete: function() {
-			return this.completed;
-		}
+		//isComplete: function() {
+		//	return this.completed;
+		//}
 	},
 	methods: {
 		complete: function() {

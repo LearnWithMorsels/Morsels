@@ -7,6 +7,6 @@ Morsels.card( 'title', {
 					'<p v-if="card._content.footer"><em v-html="card._content.footer"></em></p>' +
 				'</div>',
 	mounted: function() {
-		this.$emit( 'complete' );
+		this.$emit( 'completed' );
 	}
 } );

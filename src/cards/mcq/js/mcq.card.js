@@ -65,7 +65,7 @@ Morsels.card( 'mcq', {
 	},
 	methods: {
 		complete: function() {
-			this.$emit( 'complete' );
+			this.$emit( 'completed' );
 		},
 		submitAnswer: function() {
 			let correct = true;

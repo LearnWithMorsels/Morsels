@@ -8,6 +8,6 @@ Morsels.card( 'text', {
 					'<p v-if="card._content.instruction"><small><strong><em>{{ card._content.instruction }}</em></strong></small></p>' +
 				'</div>',
 	mounted: function() {
-		this.$emit( 'complete' );
+		this.$emit( 'completed' );
 	}
 } );

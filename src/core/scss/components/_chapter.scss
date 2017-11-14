@@ -4,34 +4,45 @@
 
   position: relative;
 
-  transition: transform $stack-transition $stack-complete;
+  white-space: nowrap;
+
+  transition: transform $chapter-item-advance-transition $stack-complete;
+
+  counter-increment: chapter;
+  counter-set: chapter-item;
 
   .chapter-title {
-    @include flexbox;
+    width: 100%;
+    height: 100%;
+    margin-left: -100%;
+
+    @include inline-flexbox;
     align-items: center;
     justify-content: center;
+
+    color: $primary-colour;
     font-size: 2rem;
     font-weight: 900;
+    white-space: normal;
 
-    position: absolute;
-    top: 0;
-    right: 100%;
-    bottom: 0;
-    left: -100%;
+    //background-color: $primary-text-colour;
 
-    color: #FFF;
+    transition: margin-left $course-overview-transition;
 
-    background-color: $primary-colour;
+    &::before {
+      content: counter(chapter) ". ";
+    }
   }
 
   .chapter-content {
     width: 100%;
     height: 100%;
 
-    white-space: nowrap;
+    display: inline-block;
 
-    .stack,
-    .component {
+    vertical-align: middle;
+
+    .chapter-item {
       width: 100%;
       height: 100%;
 
@@ -46,6 +57,53 @@
 
       white-space: normal;
       vertical-align: top;
+      counter-increment: chapter-item;
+
+      .chapter-item-title {
+        width: $card-width;
+        max-width: 100%;
+        height: $card-height;
+        max-height: 100%;
+        padding: $card-padding-y $card-padding-x;
+
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+
+        position: absolute;
+
+        display: none;
+        align-items: center;
+        justify-content: center;
+        @include flex(1);
+
+        overflow: hidden;
+
+        //color: $primary-text-colour;
+        font-size: 3rem;
+        font-weight: 900;
+        text-align: center;
+
+        background-color: #FFF;
+
+        border-radius: $card-border-radius;
+
+        @include shadow-2;
+
+        //-webkit-transform: translate3d(0, -100vh, 0);
+        //transform: translate3d(0, -100vh, 0);
+
+        //-webkit-transition: transform $course-overview-transition, opacity $course-overview-transition;
+        //transition: transform $course-overview-transition, opacity $course-overview-transition;
+
+        //opacity: 0;
+
+        z-index: 3;
+
+        &::before {
+          content: counter(chapter-item) ". ";
+        }
+      }
     }
   }
 }

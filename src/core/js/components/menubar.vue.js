@@ -10,9 +10,9 @@ Vue.component( 'menubar', {
 						'<i class="material-icons">dashboard</i>' +
 					'</button>' +
 					'<div class="spacer"></div>' +
-					//'<button v-on:click.prevent="undo">' +
-					//	'<i class="material-icons">undo</i>' +
-					//'</button>' +
+					'<button v-show="canUndo" v-on:click.prevent="undo">' +
+						'<i class="material-icons">undo</i>' +
+					'</button>' +
 					//'<div class="menubar-submenu-wrapper">' +
 					//	'<button v-on:click.prevent="toggleSubmenu">' +
 					//		'<i class="material-icons">more_vert</i>' +
@@ -31,12 +31,17 @@ Vue.component( 'menubar', {
 			submenuVisible: false
 		};
 	},
+	computed: {
+		canUndo: function() {
+			return ( this.$store.state.current.index > 0 || this.$store.state.current.item > 0 || this.$store.state.current.chapter > 0 );
+		}
+	},
 	methods: {
 		toggleSidebar: function() {
 			this.$emit( 'toggleSidebar' );
 		},
 		undo: function() {
-			this.$emit( 'undo' );
+			this.$emit( 'navigateBack' );
 		},
 		overview: function() {
 			this.$emit( 'overview' );

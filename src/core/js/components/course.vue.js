@@ -6,10 +6,17 @@ import 'sidebar.vue';
 Vue.component( 'course', {
 	props: ['course'],
 	template: '<div :class="classes">' +
-					'<menubar :content="content" v-on:toggleSidebar="toggleSidebar" v-on:undo="undo" v-on:overview="toggleOverview"></menubar>' +
+					'<menubar :content="content" v-on:toggleSidebar="toggleSidebar" v-on:navigateBack="navigateBack" v-on:overview="toggleOverview"></menubar>' +
 					'<sidebar ref="sidebar" :course="course" :language="language" v-on:close="closeSidebar"></sidebar>' +
-					'<div class="chapters" :style="style" v-on:mousedown.capture="bodyClick" v-on:touchstart.capture="bodyClick">' +
-						'<chapter v-for="(chapter, index) in content._chapters" key="index" :isCurrent="currentChapter === index" :chapter="chapter" :chapterIndex="index" v-on:complete="goToNextChapter"></chapter>' +
+					'<div class="chapters" :style="chaptersStyle" v-on:mousedown.capture="bodyClick" v-on:touchstart.capture="bodyClick">' +
+						'<div class="chapters-inner" :style="chaptersInnerStyle">' +
+							'<chapter v-for="(chapter, index) in content._chapters"' +
+								' key="index"' +
+								' :chapterIndex="index"' +
+								' :chapter="chapter"' +
+								' :isCurrent="currentChapter === index"' +
+								' v-on:complete="goToNextChapter"></chapter>' +
+						'</div>' +
 					'</div>' +
 				'</div>',
 	data: function() {
@@ -38,6 +45,9 @@ Vue.component( 'course', {
 		currentChapter: function(  ) {
 			return this.$store.state.current.chapter;
 		},
+		currentChapterItem: function(  ) {
+			return this.$store.state.current.chapteritem;
+		},
 		content: function() {
 			return this.course.content[this.language] || {}
 		},
@@ -52,15 +62,27 @@ Vue.component( 'course', {
 				'show-sidebar': this.showSidebar
 			};
 		},
-		style: function() {
+		chaptersStyle: function() {
 			let style = {
 				fontSize: this.baseFontSize + 'px',
 				zIndex: this.zIndex
 			};
 			if( this.viewAll ) {
 				style.transform = 'translate(' + this.view.offset.x + 'px, ' + this.view.offset.y + 'px) scale(' + this.viewAllScale + ')';
+				if( this.view.dragging ) {
+					style.transition = 'none';
+				}
 			} else {
-				style.transform = 'translateY(-' + ( this.currentChapter * 100 ) + '%)';
+				style.transform = 'translate(0, 0) scale(1)';
+			}
+			return style;
+		},
+		chaptersInnerStyle: function() {
+			let style = {};
+			if( this.viewAll ) {
+				style.transform = 'translate(0, 0)';
+			} else {
+				style.transform = 'translate(-' + ( this.currentChapterItem * 100 ) + '%, -' + ( this.currentChapter * 100 ) + '%)';
 			}
 			return style;
 		},
@@ -167,8 +189,14 @@ Vue.component( 'course', {
 				this.closeSidebar();
 			}
 		},
-		undo: function() {
-			console.log( 'undo' );
+		navigateBack: function() {
+			if( this.$store.state.current.index > 0 ) {
+				this.$store.commit( 'goTo', { chapteritemindex: this.$store.state.current.chapteritemindex - 1 } );
+			} else if( this.$store.state.current.item > 0 ) {
+				this.$store.commit( 'goTo', { chapteritem: this.$store.state.current.chapteritem - 1 } );
+			} else if( this.$store.state.current.chapter > 0 ) {
+				this.$store.commit( 'goTo', { chapter: this.$store.state.current.chapter - 1 } );
+			}
 		}
 	},
 	watch: {

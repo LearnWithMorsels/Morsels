@@ -44,7 +44,7 @@ Morsels.card( 'video', {
 				this.playing = false;
 			} );
 		} else {
-			this.$emit( 'complete' );
+			this.$emit( 'completed' );
 		}
 	},
 	methods: {
@@ -59,7 +59,7 @@ Morsels.card( 'video', {
 			if( this.$video ) {
 				this.playing = true;
 				this.$video.play();
-				this.$emit( 'complete' );
+				this.$emit( 'completed' );
 				// this.$emit( 'isCorrect' );
 			}
 		},

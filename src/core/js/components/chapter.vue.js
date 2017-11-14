@@ -5,22 +5,36 @@ import 'component.vue';
 Vue.component( 'chapter', {
 	props: ['chapterIndex', 'chapter', 'isCurrent'],
 	template: '<section :class="classes" :style="style">' +
-					//'<div class="chapter-title">{{ chapter.title }}</div>' +
+					'<div class="chapter-title">{{ chapter.title }}</div>' +
 					'<div class="chapter-content">' +
-						'<template v-for="(stack, index) in chapter._items">' +
-							'<component v-if="stack._component" key="index" :isCurrent="isCurrent && currentItem === index" :component="stack" v-on:complete="goToNextItem"></component>' +
-							'<stack v-else key="index" :isCurrent="isCurrent && currentItem === index" :stack="stack" :chapterIndex="chapterIndex" :stackIndex="index" v-on:empty="goToNextItem"></stack>' +
+						'<template v-for="(chapterItem, index) in chapter._items">' +
+							'<component v-if="chapterItem._component"' +
+								' key="index"' +
+								' :isCurrent="isCurrent && currentChapterItem === index"' +
+								' :chapterIndex="chapterIndex"' +
+								' :component="chapterItem"' +
+								' :componentIndex="chapterIndex"' +
+								' :chapterItemIndex="index"' +
+								' v-on:completed="goToNextItem"></component>' +
+							'<stack v-else' +
+								' key="index"' +
+								' :isCurrent="isCurrent && currentChapterItem === index"' +
+								' :chapterIndex="chapterIndex"' +
+								' :stack="chapterItem"' +
+								' :stackIndex="chapterIndex"' +
+								' :chapterItemIndex="index"' +
+								' v-on:completed="goToNextItem"></stack>' +
 						'</template>' +
 					'</div>' +
 				'</section>',
 	data: function() {
 		return {
-			//currentItem: 0
+			//currentChapterItem: 0
 		};
 	},
 	computed: {
-		currentItem: function() {
-			return this.$store.state.current.item;
+		currentChapterItem: function() {
+			return this.$store.state.current.chapteritem;
 		},
 		classes: function() {
 			return {
@@ -30,17 +44,17 @@ Vue.component( 'chapter', {
 		},
 		style: function() {
 			return {
-				transform: this.isCurrent ? 'translateX(-' + ( this.currentItem * 100 ) + '%)' : 'none'
+				//transform: this.isCurrent ? 'translateX(-' + ( this.currentChapterItem * 100 ) + '%)' : 'none'
 			};
 		}
 	},
 	methods: {
 		goToNextItem: function() {
-			if( this.currentItem + 1 < this.chapter._items.length ) {
-				//this.currentItem++;
-				this.$store.commit( 'goTo', { item: this.currentItem + 1 } );
+			if( this.currentChapterItem + 1 < this.chapter._items.length ) {
+				//this.currentChapterItem++;
+				this.$store.commit( 'goTo', { chapteritem: this.currentChapterItem + 1, chapteritemindex: 0 } );
 			} else {
-				this.$emit( 'complete' );
+				this.$emit( 'completed' );
 			}
 		}
 	}

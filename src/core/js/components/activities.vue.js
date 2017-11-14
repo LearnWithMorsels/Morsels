@@ -4,7 +4,7 @@ import 'activity.vue';
 Vue.component( 'activities', {
 	props: ['activities'],
 	template: '<div :class="classes">' +
-					'<activity v-for="(activity, index) in activities._items" :key="index" ref="activities" :activity="activity" v-on:complete="completeActivity"></activity>' +
+					'<activity v-for="(activity, index) in activities._items" :key="index" ref="activities" :activity="activity" v-on:completed="completeActivity"></activity>' +
 				'</div>',
 	data: function() {
 		return {
@@ -31,7 +31,7 @@ Vue.component( 'activities', {
 			let completeCount = 0;
 			if( this.isMounted === true ) {
 				for( let activity of this.$refs.activities ) {
-					if( activity.isComplete ) {
+					if( activity.completed ) {
 						completeCount++;
 					}
 				}

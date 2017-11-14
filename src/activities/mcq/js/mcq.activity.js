@@ -13,7 +13,7 @@ Morsels.activity( 'mcq', {
 	},
 	methods: {
 		complete: function() {
-			this.$emit( 'complete' );
+			this.$emit( 'completed' );
 		}
 	}
 } );

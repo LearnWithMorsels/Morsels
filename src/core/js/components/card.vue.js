@@ -2,26 +2,26 @@ import Vue from 'resources/Vue';
 import 'activities.vue';
 
 Vue.component( 'card', {
-	props: ['chapterIndex', 'stackIndex', 'cardIndex', 'card', 'isCurrent', 'zIndex'],
+	props: ['chapterIndex', 'stackIndex', 'cardIndex', 'card', 'dismissed', 'isCurrent', 'zIndex'],
 	template: '<div :class="classes" :style="style" :data-card="card._card" :data-uid="_uid">' +
-					'<component :is="cardName" ref="card" :card="card" v-on:complete="complete"></component>' +
+					'<component :is="cardName" ref="card" :card="card" v-on:completed="complete"></component>' +
 					'<template v-if="card._activities">' +
 						'<button class="show-activities" :class="{ prompt: promptActivites }" v-on:click.prevent.stop="openActivities">' +
-							'<i v-if="allActivitiesCompleted" class="material-icons">check</i>' +
+							'<i v-if="activitiesCompleted" class="material-icons">check</i>' +
 							'<i v-else class="material-icons">more_horiz</i>' +
 						'</button>' +
 						'<button class="hide-activities" v-on:click.prevent.stop="closeActivities">' +
 							'<i class="material-icons">close</i>' +
 						'</button>' +
-						'<activities :activities="card._activities" ref="activities" v-on:complete="completeActivities"></activities>' +
+						'<activities :activities="card._activities" ref="activities" v-on:completed="activitiesComplete"></activities>' +
 						'<div v-if="card._activities._items.length > 1" class="card-activities-indicator">' +
 							'<div v-for="(activity, index) in card._activities._items" :class="{ current: index === activitiesCompleted }"></div>' +
 						'</div>' +
 					'</template>' +
-					'<button class="save-card" v-on:click.prevent.stop="toggleSave">' +
-						'<i v-if="saved" class="material-icons">bookmark</i>' +
-						'<i v-else class="material-icons">bookmark_border</i>' +
-					'</button>' +
+					//'<button class="save-card" v-on:click.prevent.stop="toggleSave">' +
+					//	'<i v-if="saved" class="material-icons">bookmark</i>' +
+					//	'<i v-else class="material-icons">bookmark_border</i>' +
+					//'</button>' +
 				'</div>',
 	data: function() {
 		return {
@@ -39,7 +39,7 @@ Vue.component( 'card', {
 				dragging: false
 			},
 			completed: this.card.completed || false,
-			dismissed: this.card.dismissed || false,
+			//dismissed: this.card.dismissed || false,
 			showActivites: false,
 			isMounted: false,
 			baseFontSize: 16
@@ -81,22 +81,10 @@ Vue.component( 'card', {
 			}
 			return style;
 		},
-		allActivitiesCompleted: function() {
-			if( this.card._activities &&
-					this.isMounted === true ) {
-				let completed = this.$refs.activities.isComplete;
-				if( completed ) {
-					this.closeActivities();
-				}
-				return completed;
-			} else {
-				return true;
-			}
-		},
 		activitiesCompleted: function() {
 			if( this.card._activities &&
 					this.isMounted === true ) {
-				return this.$refs.activities.activitiesComplete;
+				return this.$refs.activities.isComplete;
 			} else {
 				return 0;
 			}
@@ -107,10 +95,10 @@ Vue.component( 'card', {
 						( this.card._activities._options &&
 						this.card._activities._options._optional !== false ) ) );
 		},
-		isComplete: function() {
+		isAllComplete: function() {
 			let completed = false;
 			if( this.isMounted === true ) {
-				completed = this.completed && ( this.activitiesOptional || this.allActivitiesCompleted );
+				completed = this.completed && ( this.activitiesOptional || this.activitiesCompleted );
 			}
 			return completed;
 		},
@@ -140,18 +128,19 @@ Vue.component( 'card', {
 	},
 	methods: {
 		complete: function() {
-			if( !this.completed &&
-				( this.activitiesOptional ||
-						this.allActivitiesCompleted ) ) {
+			//if( !this.completed ) {
 				this.completed = true;
-				this.$emit( 'completed' );
-			}
+				//if( this.activitiesOptional ||
+				//		this.activitiesCompleted ) {
+				//	this.$emit( 'complete' );
+				//}
+			//}
 		},
-		completeActivities: function() {
+		activitiesComplete: function() {
 			if( this.isMounted === true ) {
-				//if( this.isComplete ) {
-					this.closeActivities();
-					//this.$emit( 'completed' );//TODO: HIDE "SHOW ACTIVITY" BUTTON
+				this.closeActivities();
+				//if( this.isAllComplete ) {
+				//	this.$emit( 'completed' );
 				//}
 			}
 		},
@@ -159,8 +148,8 @@ Vue.component( 'card', {
 			this.$store.commit( 'saveCard', {
 				uid: this._uid,
 				chapter: this.chapterIndex,
-				item: this.stackIndex,
-				index: this.cardIndex,
+				chapteritem: this.stackIndex,
+				chapteritemindex: this.cardIndex,
 				//title: this.title || this.card._content.title || 'Untitled'
 			} );
 		},
@@ -171,20 +160,16 @@ Vue.component( 'card', {
 			this.saved ? this.unsave() : this.save();
 		},
 		dismiss: function() {
-			this.closeActivities();
-			this.dismissed = true;
-			if( typeof this.$refs.card.onDismiss === 'function' ) {
-				this.$refs.card.onDismiss();
-			}
+			//this.closeActivities();
+			//this.dismissed = true;
+			//if( typeof this.$refs.card.onDismiss === 'function' ) {
+			//	this.$refs.card.onDismiss();
+			//}
 
 			this.$emit( 'dismiss' );
-
-			if( this.isComplete ) {
-				this.$emit( 'complete' );
-			}
 		},
 		openActivities: function() {
-			if( !this.allActivitiesCompleted ) {
+			if( !this.activitiesCompleted ) {
 				this.showActivites = true;
 			}
 		},
@@ -194,7 +179,7 @@ Vue.component( 'card', {
 		pointerDown: function( e ) {
 			this.view.pointerIsDown = true;
 			if( this.isCurrent &&
-				this.isComplete &&
+				this.isAllComplete &&
 					!this.showActivites ) {
 				if( e.touches ) {
 					//this.view.touchIndex = e.touches.length - 1;
@@ -251,6 +236,6 @@ Vue.component( 'card', {
 		}
 	},
 	updated: function() {
-		this.setFontSize();
+		//this.setFontSize();
 	}
 } );

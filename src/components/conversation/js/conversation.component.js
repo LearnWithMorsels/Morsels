@@ -1,5 +1,5 @@
 Morsels.component( 'conversation', {
-	props: ['component'],
+	props: ['chapterIndex', 'componentIndex', 'component', 'isCurrent'],
 	template: '<div class="component-contents">' +
 					'<div class="conversation-contents">' +
 						'<transition-group name="conversation-item-add" tag="div">' +
@@ -15,11 +15,12 @@ Morsels.component( 'conversation', {
 					'</div>' +
 				'</div>',
 	data: function() {
-		return {
-			conversationIndex: 1
-		};
+		return {};
 	},
 	computed: {
+		conversationIndex: function(  ) {
+			return ( this.isCurrent ) ? this.$store.state.current.chapteritemindex : this.component._items.length;
+		},
 		conversationSoFar: function() {
 			return this.component._items.slice( 0, this.conversationIndex );
 		}
@@ -30,13 +31,10 @@ Morsels.component( 'conversation', {
 	},
 	methods: {
 		nextItem: function() {
-			this.conversationIndex++;
-			//console.log( this.conversationIndex, this.component._items.length );
-			if( this.conversationIndex > this.component._items.length ) {
-				//console.log( 'DONE' );
-				this.$emit( 'complete' );
+			if( this.conversationIndex < this.component._items.length ) {
+				this.$store.commit( 'goTo', { chapteritemindex: this.conversationIndex + 1 } );
 			} else {
-				//console.log( 'Next' );
+				this.$emit( 'completed' );
 			}
 		}
 	}
