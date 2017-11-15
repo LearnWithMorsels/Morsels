@@ -8,10 +8,10 @@ Vue.component( 'stack', {
 					'<div class="cards">' +
 						'<template v-for="(card, index) in stack._cards">' +
 							'<card key="index"' +
+								' ref="cards"' +
 								' :card="card"' +
 								' :isCurrent="isCurrent && currentCard === index"' +
-								' ref="cards"' +
-								' :dismissed="index < currentCard"' +
+								//' :dismissed="index < currentCard"' +
 								' :chapterIndex="chapterIndex"' +
 								' :stackIndex="stackIndex"' +
 								' :cardIndex="index"' +
@@ -23,13 +23,35 @@ Vue.component( 'stack', {
 				'</div>',
 	data: function() {
 		return {
+			currentCard: 0,
 			isMounted: false
 		};
 	},
 	computed: {
-		currentCard: function() {
-			return ( this.isCurrent ) ? this.$store.state.current.chapteritemindex : this.stack._cards.length;
+		itemCount: function() {
+			return this.stack._cards.length;
 		},
+		itemCompletedCount: function() {
+			if( this.isMounted === true ) {
+				let completed = 0;
+				for( let card of this.$refs.cards ) {
+					if( card.isAllComplete &&
+							card.dismissed ) {
+						completed++;
+					}
+				}
+				return completed;
+			} else {
+				return 0;
+			}
+		},
+		isComplete: function() {
+			return this.itemCompletedCount === this.itemCount;
+		},
+
+
+
+
 		empty: function() {
 			return this.currentCard === this.stack._cards.length;
 		},
@@ -38,7 +60,7 @@ Vue.component( 'stack', {
 				'chapter-item': true,
 				stack: true,
 				empty: this.empty,
-				//complete: this.completed
+				complete: this.isComplete
 			};
 			classes[this.isCurrent ? 'current' : 'non-current'] = true;
 			return classes;
@@ -49,9 +71,8 @@ Vue.component( 'stack', {
 	},
 	methods: {
 		goToNextCard: function() {
-			if( this.currentCard + 1 < this.stack._cards.length ) {
-				this.$store.commit( 'goTo', { chapteritemindex: this.currentCard + 1 } ); // Creates a loop
-			} else {
+			this.currentCard++;
+			if( this.currentCard === this.stack._cards.length ) {
 				this.$emit( 'completed' );
 			}
 		}

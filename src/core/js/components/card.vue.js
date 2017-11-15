@@ -2,7 +2,7 @@ import Vue from 'resources/Vue';
 import 'activities.vue';
 
 Vue.component( 'card', {
-	props: ['chapterIndex', 'stackIndex', 'cardIndex', 'card', 'dismissed', 'isCurrent', 'zIndex'],
+	props: ['chapterIndex', 'stackIndex', 'cardIndex', 'card', 'isCurrent', 'zIndex'],
 	template: '<div :class="classes" :style="style" :data-card="card._card" :data-uid="_uid">' +
 					'<component :is="cardName" ref="card" :card="card" v-on:completed="complete"></component>' +
 					'<template v-if="card._activities">' +
@@ -39,7 +39,7 @@ Vue.component( 'card', {
 				dragging: false
 			},
 			completed: this.card.completed || false,
-			//dismissed: this.card.dismissed || false,
+			dismissed: this.card.dismissed || false,
 			showActivites: false,
 			isMounted: false,
 			baseFontSize: 16
@@ -148,7 +148,7 @@ Vue.component( 'card', {
 			this.$store.commit( 'saveCard', {
 				uid: this._uid,
 				chapter: this.chapterIndex,
-				chapteritem: this.stackIndex,
+				item: this.stackIndex,
 				chapteritemindex: this.cardIndex,
 				//title: this.title || this.card._content.title || 'Untitled'
 			} );
@@ -161,10 +161,10 @@ Vue.component( 'card', {
 		},
 		dismiss: function() {
 			//this.closeActivities();
-			//this.dismissed = true;
-			//if( typeof this.$refs.card.onDismiss === 'function' ) {
-			//	this.$refs.card.onDismiss();
-			//}
+			this.dismissed = true;
+			if( typeof this.$refs.card.onDismiss === 'function' ) {
+				this.$refs.card.onDismiss();
+			}
 
 			this.$emit( 'dismiss' );
 		},

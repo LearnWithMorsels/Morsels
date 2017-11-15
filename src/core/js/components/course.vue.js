@@ -7,15 +7,16 @@ Vue.component( 'course', {
 	props: ['course'],
 	template: '<div :class="classes">' +
 					'<menubar :content="content" v-on:toggleSidebar="toggleSidebar" v-on:navigateBack="navigateBack" v-on:overview="toggleOverview"></menubar>' +
-					'<sidebar ref="sidebar" :course="course" :language="language" v-on:close="closeSidebar"></sidebar>' +
+					'<sidebar ref="sidebar" :course="course" :language="language" :percentageComplete="percentageComplete" v-on:close="closeSidebar"></sidebar>' +
 					'<div class="chapters" :style="chaptersStyle" v-on:mousedown.capture="bodyClick" v-on:touchstart.capture="bodyClick">' +
 						'<div class="chapters-inner" :style="chaptersInnerStyle">' +
 							'<chapter v-for="(chapter, index) in content._chapters"' +
 								' key="index"' +
+								' ref="chapters"' +
 								' :chapterIndex="index"' +
 								' :chapter="chapter"' +
 								' :isCurrent="currentChapter === index"' +
-								' v-on:complete="goToNextChapter"></chapter>' +
+								' v-on:completed="goToNextChapter"></chapter>' +
 						'</div>' +
 					'</div>' +
 				'</div>',
@@ -35,7 +36,8 @@ Vue.component( 'course', {
 			},
 			showSidebar: false,
 			viewAll: false,
-			viewAllScale: 0.4
+			viewAllScale: 0.4,
+			isMounted: false
 		};
 	},
 	computed: {
@@ -46,7 +48,18 @@ Vue.component( 'course', {
 			return this.$store.state.current.chapter;
 		},
 		currentChapterItem: function(  ) {
-			return this.$store.state.current.chapteritem;
+			return this.$store.state.current.item;
+		},
+		percentageComplete: function() {
+			if( this.isMounted === true ) {
+				let items = 0,
+						completed = 0;
+				for( let chapter of this.$refs.chapters ) {
+					items += chapter.itemCount;
+					completed += chapter.itemCompletedCount;
+				}
+				return ( completed / items ) * 100;
+			}
 		},
 		content: function() {
 			return this.course.content[this.language] || {}
@@ -101,6 +114,7 @@ Vue.component( 'course', {
 		this.$el.addEventListener( 'mouseleave', this.pointerUp );
 		this.updateCourseTitle();
 		this.updateLanguageAttr();
+		this.isMounted = true;
 	},
 	methods: {
 		pointerDown: function( e ) {
@@ -190,10 +204,8 @@ Vue.component( 'course', {
 			}
 		},
 		navigateBack: function() {
-			if( this.$store.state.current.index > 0 ) {
-				this.$store.commit( 'goTo', { chapteritemindex: this.$store.state.current.chapteritemindex - 1 } );
-			} else if( this.$store.state.current.item > 0 ) {
-				this.$store.commit( 'goTo', { chapteritem: this.$store.state.current.chapteritem - 1 } );
+			if( this.$store.state.current.item > 0 ) {
+				this.$store.commit( 'goTo', { item: this.$store.state.current.item - 1 } );
 			} else if( this.$store.state.current.chapter > 0 ) {
 				this.$store.commit( 'goTo', { chapter: this.$store.state.current.chapter - 1 } );
 			}

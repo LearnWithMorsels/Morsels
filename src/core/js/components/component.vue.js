@@ -20,6 +20,19 @@ Vue.component( 'component', {
 		};
 	},
 	computed: {
+		itemCount: function() {
+			return 1;
+		},
+		itemCompletedCount: function() {
+			return this.completed ? 1 : 0;
+		},
+		isComplete: function() {
+			return this.completed;
+		},
+
+
+
+
 		componentName: function() {
 			return 'component-' + this.component._component;
 		},
@@ -27,7 +40,7 @@ Vue.component( 'component', {
 			let classes = {
 				'chapter-item': true,
 				component: true,
-				complete: this.completed,
+				complete: this.isComplete,
 				current: this.isCurrent
 			};
 			classes[this.componentName] = true;
@@ -36,7 +49,7 @@ Vue.component( 'component', {
 	},
 	methods: {
 		complete: function() {
-			if( !this.completed ) {
+			if( !this.isComplete ) {
 				this.completed = true;
 				this.$emit( 'completed' );
 			}

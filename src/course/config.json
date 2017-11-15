@@ -17,7 +17,7 @@
     "saveItems": false,
     "search": false,
     "progress": {
-      "visible": false,
+      "visible": true,
       "percentage": true
     }
   },

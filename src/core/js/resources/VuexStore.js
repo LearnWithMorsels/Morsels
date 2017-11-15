@@ -8,8 +8,7 @@ export default class MorselsVuexStore {
 				language: language,
 				current: {
 					chapter: 0,
-					chapteritem: 3,
-					chapteritemindex: 0
+					item: 0
 				},
 				saved: []
 			},
@@ -25,11 +24,8 @@ export default class MorselsVuexStore {
 					state.language = language;
 				},
 				goTo( state, location ) {
-					if( location.hasOwnProperty( 'chapteritemindex' ) ) {
-						state.current.chapteritemindex = location.chapteritemindex;
-					}
-					if( location.hasOwnProperty( 'chapteritem' ) ) {
-						state.current.chapteritem = location.chapteritem;
+					if( location.hasOwnProperty( 'item' ) ) {
+						state.current.item = location.item;
 					}
 					if( location.hasOwnProperty( 'chapter' ) ) {
 						state.current.chapter = location.chapter;
@@ -38,16 +34,12 @@ export default class MorselsVuexStore {
 					//console.log( 'PUSH', JSON.stringify( state.current ) );
 					//window.history.pushState( {
 					//	chapter: state.current.chapter,
-					//	chapteritem: state.current.chapteritem,
-					//	chapteritemindex: state.current.chapteritemindex
+					//	item: state.current.item
 					//}, 'test' );
 				},
 				goToPassive( state, location ) {
-					if( location.hasOwnProperty( 'chapteritemindex' ) ) {
-						state.current.chapteritemindex = location.chapteritemindex;
-					}
-					if( location.hasOwnProperty( 'chapteritem' ) ) {
-						state.current.chapteritem = location.chapteritem;
+					if( location.hasOwnProperty( 'item' ) ) {
+						state.current.item = location.item;
 					}
 					if( location.hasOwnProperty( 'chapter' ) ) {
 						state.current.chapter = location.chapter;
@@ -94,8 +86,7 @@ export default class MorselsVuexStore {
 
 		//window.history.replaceState( {
 		//	chapter: store.state.current.chapter,
-		//	chapteritem: store.state.current.chapteritem,
-		//	chapteritemindex: store.state.current.chapteritemindex
+		//	item: store.state.current.item
 		//}, 'test' );
 
 		return store;

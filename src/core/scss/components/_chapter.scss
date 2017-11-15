@@ -13,7 +13,7 @@
 
   .chapter-title {
     width: 100%;
-    height: 100%;
+    height: 0;
     margin-left: -100%;
 
     @include inline-flexbox;
@@ -27,7 +27,7 @@
 
     //background-color: $primary-text-colour;
 
-    transition: margin-left $course-overview-transition;
+    transition: height $course-overview-transition, margin-left $course-overview-transition;
 
     &::before {
       content: counter(chapter) ". ";

@@ -15,12 +15,11 @@ Morsels.component( 'conversation', {
 					'</div>' +
 				'</div>',
 	data: function() {
-		return {};
+		return {
+			conversationIndex: 0
+		};
 	},
 	computed: {
-		conversationIndex: function(  ) {
-			return ( this.isCurrent ) ? this.$store.state.current.chapteritemindex : this.component._items.length;
-		},
 		conversationSoFar: function() {
 			return this.component._items.slice( 0, this.conversationIndex );
 		}
@@ -31,9 +30,8 @@ Morsels.component( 'conversation', {
 	},
 	methods: {
 		nextItem: function() {
-			if( this.conversationIndex < this.component._items.length ) {
-				this.$store.commit( 'goTo', { chapteritemindex: this.conversationIndex + 1 } );
-			} else {
+			this.conversationIndex++;
+			if( this.conversationIndex === this.component._items.length ) {
 				this.$emit( 'completed' );
 			}
 		}

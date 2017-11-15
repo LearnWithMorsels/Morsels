@@ -1,7 +1,7 @@
 import Vue from '../resources/Vue';
 
 Vue.component( 'sidebar', {
-	props: ['course', 'language'],
+	props: ['course', 'language', 'percentageComplete'],
 	template: '<nav class="sidebar">' +
 					'<header class="sidebar-header">' +
 						'<button class="toggle-sidebar" v-on:click.prevent="close">' +
@@ -10,8 +10,8 @@ Vue.component( 'sidebar', {
 						'<h3>{{ content._content.title }}</h3>' +
 						'<p>{{ content._content.description }}</p>' +
 						'<div v-if="course.config.features && course.config.features.progress && course.config.features.progress.visible" class="course-progress">' +
-							'<progress max="100" value="29"></progress>' +
-							'<span v-if="course.config.features.progress.percentage" class="course-progress-percentage">29%</span>' +
+							'<progress max="100" :value="percentageComplete"></progress>' +
+							'<span v-if="course.config.features.progress.percentage" class="course-progress-percentage">{{ percentageCompleteRounded }}%</span>' +
 						'</div>' +
 					'</header>' +
 					'<div class="sidebar-nav">' +
@@ -83,6 +83,9 @@ Vue.component( 'sidebar', {
 		},
 		languages: function() {
 			return Object.keys( this.course.content );
+		},
+		percentageCompleteRounded: function() {
+			return parseInt( this.percentageComplete );
 		},
 		savedItems: function() {
 			return this.$store.state.saved;
