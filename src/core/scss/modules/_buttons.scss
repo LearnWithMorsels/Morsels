@@ -14,14 +14,14 @@ button {
   border: none;
   outline: none;
 
-  transition: color 300ms, background-color 300ms;
+  transition: color $button-transition-out, background-color $button-transition-out;
 
   cursor: pointer;
 
   &:hover {
     background-color: $primary-colour-dark;
 
-    transition: color 120ms, background-color 120ms;
+    transition: color $button-transition-in, background-color $button-transition-in;
   }
 
   .dark-theme & {

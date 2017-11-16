@@ -1,557 +1,556 @@
 {
-  "title": "Morsels in 5 minutes",
-  "_content": {
-    "title": "An introduction to Morsels",
-    "description": "Come in. Take your shoes off."
-  },
-  "_chapters": [
-    {
-      "title": "Introduction",
-      "_items": [
-        {
-          "title": "About the framework",
-          "_cards": [
-            {
-              "_card": "title",
-              "_classes": "",
-              "_content": {
-                "title": "Morsels",
-                "subtitle": "A new responsive elearning framework",
-                "image": {
-                  "src": "core/icons/morsels-256.png"
-                },
-                "body": "<p><i class=\"material-icons\">access_time</i> 2 minutes</p>",
-                "footer": "Swipe this card away to get started&hellip;"
-              }
-            },
-            {
-              "_card": "text",
-              "_content": {
-                "title": "Morsels in a nutshell",
-                "body": "<ul><li>Responsive HTML5 framework</li><li>Touch-first methodologies</li><li>PWA (Progressive Web App)</li><li>Lightweight (fast)</li><li>SCORM compliant</li><li>Offline support (Chrome only)</li><li>Quick to build new interactions</li></ul>"
-              }
-            },
-            {
-              "_card": "text",
-              "_content": {
-                "title": "Morsels vs. Adapt",
-                "body": "<p>Morsels is not designed as a replacement for Adapt.</p><p>In fact, it is designed to work in parallel with Adapt as a takeaway and support tool.</p><p>Adapt is still better if you need:</p><ul><li>IE8&ndash;10 support</li><li>Full accessibility</li><li>Larger images and videos</li><li>More &quot;themeable&quot;</li></ul>"
-              }
-            },
-            {
-              "_card": "text",
-              "_content": {
-                "title": "Future roadmap",
-                "body": "<ul><li>Offline support for all modern browsers</li><li>Full authoring tool</li><li>Native apps for Android and iOS</li><li>SCORM 1.2 and 2004 support</li></ul>"
-              }
-            }
-          ]
-        },
-        {
-          "title": "Cards and stacks",
-          "_cards": [
-            {
-              "_card": "text",
-              "_content": {
-                "image": {
-                  "src": "https://4.bp.blogspot.com/-gCE-gBljBOk/Vt0Wc-l-F8I/AAAAAAAABsA/vTJh_lfSx3U/s1600/cover.jpg",
-                  "alt": "Morsel cards"
-                },
-                "title": "Cards",
-                "body": "<p>Inspired by Google's Material Design, Morsels uses cards to show short snippets of content.</p><p>This keeps the content brief and relevant. It also makes finding the right content easier.</p>"
-              }
-            },
-            {
-              "_card": "text",
-              "_content": {
-                "title": "Card types",
-                "body": "<p>Cards can come in many layouts, such as:</p><ul><li>Title</li><li>Text (and image)</li><li>Video</li><li>MCQ</li><li>&hellip;and many more!</li></ul>"
-              }
-            },
-            {
-              "_card": "text",
-              "_content": {
-                "title": "Activities",
-                "body": "<p>Each card can have activities attached to it.</p><p>Activities can be optional or mandatory. If they are mandatory, you must complete them before you can dismiss the card.</p>",
-                "instruction": "Complete all the activities by clicking on the blue button and then swipe this card"
-              },
-              "_activities": {
-                "_options": {
-                  "_optional": false
-                },
-                "_items": [
-                  {
-                    "_type": "mcq",
-                    "_content": {
-                      "title": "Thoughts",
-                      "body": "<p>Do you like the sound of Morsels so far?</p>",
-                      "instruction": "Select from the list below"
-                    },
-                    "_items": [
-                      {
-                        "title": "Yes",
-                        "_shouldBeSelected": true
-                      },
-                      {
-                        "title": "No",
-                        "_shouldBeSelected": false
-                      }
-                    ],
-                    "_feedback": {
-                      "_correct": {
-                        "title": "Well done!",
-                        "body": "<p>Nice one</p>"
-                      },
-                      "_incorrect": {
-                        "title": "Incorrect",
-                        "body": "<p>It's actually pretty sweet&hellip;</p>",
-                        "_notes": [
-                          "morsels_info"
-                        ]
-                      },
-                      "_common": {
-                        "body": "<p>Morsels is awesome.</p>"
-                      }
-                    }
-                  },
-                  {
-                    "_type": "mcq",
-                    "_content": {
-                      "title": "Thoughts",
-                      "body": "<p>Will you use it for your next project?</p>",
-                      "instruction": "Select from the list below"
-                    },
-                    "_items": [
-                      {
-                        "title": "Of course!",
-                        "_shouldBeSelected": true
-                      },
-                      {
-                        "title": "Maybe not",
-                        "_shouldBeSelected": false
-                      }
-                    ],
-                    "_feedback": {
-                      "_correct": {
-                        "title": "Well done!",
-                        "body": "<p>Nice one</p>"
-                      },
-                      "_incorrect": {
-                        "title": "Incorrect",
-                        "body": "<p>It's actually pretty sweet&hellip;</p>",
-                        "_notes": [
-                          "morsels_info"
-                        ]
-                      },
-                      "_common": {
-                        "body": "<p>Morsels is awesome.</p>"
-                      }
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "_card": "text",
-              "_content": {
-                "image": {
-                  "src": "https://camo.envatousercontent.com/40365fec24858cdbdb7ddae12a889c09c2155bbf/687474703a2f2f692e696d6775722e636f6d2f4c754157334b542e6a7067"
-                },
-                "title": "Stacks",
-                "body": "<p>Cards are arranged in a stack - just like cards in real life.</p><p>Once you dismiss the last card in the stack, it is complete and you will move on to the next stack.</p>"
-              }
-            }
-          ]
-        },
-        {
-          "title": "Components",
-          "_cards": [
-            {
-              "_card": "text",
-              "_content": {
-                "image": {
-                  "src": "https://imageog.flaticon.com/icons/png/512/9/9915.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF"
-                },
-                "title": "Components",
-                "body": "<p>Cards can be restrictive.</p><p>To get around this, you can use a component in place of a stack of cards.</p><p>The next example is a conversation component.</p>"
-              }
-            }
-          ]
-        },
-        {
-          "title": "Conversation example",
-          "_component": "conversation",
-          "_items": [
-            {
-              "body": "<p>Do you want to get together or something?</p>"
-            },
-            {
-              "name": "Sarah",
-              "body": "<p>How about going to see a movie? Cinemax 26 on Carson Boulevard is showing Enchanted.</p>"
-            },
-            {
-              "name": "Laurie",
-              "body": "<p>That sounds like a good idea. Maybe we should go out to eat beforehand.</p>"
-            },
-            {
-              "name": "Sarah",
-              "body": "<p>It is fine with me. Where do you want to meet?</p>"
-            },
-            {
-              "body": "<p>Let’s meet at Summer Pizza House. I have not gone there for a long time.</p>"
-            },
-            {
-              "name": "Laurie",
-              "body": "<p>Good idea again. I heard they just came up with a new pizza. It should be good because Summer Pizza House always has the best pizza in town.</p>"
-            },
-            {
-              "name": "Sarah",
-              "body": "<p>When should we meet?</p>"
-            },
-            {
-              "name": "Christie",
-              "body": "<p>Well, the movie is shown at 2:00PM, 4:00PM, 6:00PM and 8:00PM.</p>"
-            },
-            {
-              "name": "Laurie",
-              "body": "<p>Why don’t we go to the 2:00PM show? We can meet at Summer Pizza House at noon. That will give us plenty of time to enjoy our pizza.</p>"
-            }
-          ]
-        },
-        {
-          "title": "Chapters",
-          "_cards": [
-            {
-              "_card": "text",
-              "_content": {
-                "title": "Chapters",
-                "body": "<p>The stacks of cards and components can be grouped into chapters.</p><p>This is the last card in the chapter.</p><p>Once you dismiss it, you will be taken to the next chapter.</p>"
-              }
-            }
-          ]
-        }
-      ]
+    "title": "Morsels in 5 minutes",
+    "_content": {
+        "title": "An introduction to Morsels",
+        "description": "Come in. Take your shoes off."
     },
-    {
-      "title": "Formula 1",
-      "_content": {
-        "title": "Formula 1"
-      },
-      "_items": [
+    "_chapters": [
         {
-          "title": "Tests",
-          "_cards": [
-            {
-              "_card": "mcq",
-              "_content": {
-                "title": "Maths",
-                "body": "<p>What is 5 x 3?</p>"
-              },
-              "_items": [
+            "title": "Introduction",
+            "_items": [
                 {
-                  "title": "2",
-                  "_shouldBeSelected": false
+                    "title": "About the framework",
+                    "_cards": [
+                        {
+                            "_card": "title",
+                            "_classes": "",
+                            "_content": {
+                                "title": "Morsels",
+                                "subtitle": "A new responsive elearning framework",
+                                "image": {
+                                    "src": "core/icons/morsels-256.png"
+                                },
+                                "footer": "Swipe this card away to get started&hellip;"
+                            }
+                        },
+                        {
+                            "_card": "text",
+                            "_content": {
+                                "title": "Morsels in a nutshell",
+                                "body": "<ul><li>Responsive HTML5 framework</li><li>Touch-first methodologies</li><li>PWA (Progressive Web App)</li><li>Lightweight (fast)</li><li>SCORM compliant</li><li>Offline support (Chrome only)</li><li>Quick to build new interactions</li></ul>"
+                            }
+                        },
+                        {
+                            "_card": "text",
+                            "_content": {
+                                "title": "Morsels vs. Adapt",
+                                "body": "<p>Morsels is not designed as a replacement for Adapt.</p><p>In fact, it is designed to work in parallel with Adapt as a takeaway and support tool.</p><p>Adapt is still better if you need:</p><ul><li>IE8&ndash;10 support</li><li>Full accessibility</li><li>Larger images and videos</li><li>More &quot;themeable&quot;</li></ul>"
+                            }
+                        },
+                        {
+                            "_card": "text",
+                            "_content": {
+                                "title": "Future roadmap",
+                                "body": "<ul><li>Offline support for all modern browsers</li><li>Full authoring tool</li><li>Native apps for Android and iOS</li><li>SCORM 1.2 and 2004 support</li></ul>"
+                            }
+                        }
+                    ]
                 },
                 {
-                  "title": "5",
-                  "_shouldBeSelected": false
+                    "title": "Cards and stacks",
+                    "_cards": [
+                        {
+                            "_card": "text",
+                            "_content": {
+                                "image": {
+                                    "src": "https://4.bp.blogspot.com/-gCE-gBljBOk/Vt0Wc-l-F8I/AAAAAAAABsA/vTJh_lfSx3U/s1600/cover.jpg",
+                                    "alt": "Morsel cards"
+                                },
+                                "title": "Cards",
+                                "body": "<p>Inspired by Google's Material Design, Morsels uses cards to show short snippets of content.</p><p>This keeps the content brief and relevant. It also makes finding the right content easier.</p>"
+                            }
+                        },
+                        {
+                            "_card": "text",
+                            "_content": {
+                                "title": "Card types",
+                                "body": "<p>Cards can come in many layouts, such as:</p><ul><li>Title</li><li>Text (and image)</li><li>Video</li><li>MCQ</li><li>&hellip;and many more!</li></ul>"
+                            }
+                        },
+                        {
+                            "_card": "text",
+                            "_content": {
+                                "title": "Activities",
+                                "body": "<p>Each card can have activities attached to it.</p><p>Activities can be optional or mandatory. If they are mandatory, you must complete them before you can dismiss the card.</p>",
+                                "instruction": "Complete all the activities by clicking on the blue button and then swipe this card"
+                            },
+                            "_activities": {
+                                "_options": {
+                                    "_optional": false
+                                },
+                                "_items": [
+                                    {
+                                        "_type": "mcq",
+                                        "_content": {
+                                            "title": "Thoughts",
+                                            "body": "<p>Do you like the sound of Morsels so far?</p>",
+                                            "instruction": "Select from the list below"
+                                        },
+                                        "_items": [
+                                            {
+                                                "title": "Yes",
+                                                "_shouldBeSelected": true
+                                            },
+                                            {
+                                                "title": "No",
+                                                "_shouldBeSelected": false
+                                            }
+                                        ],
+                                        "_feedback": {
+                                            "_correct": {
+                                                "title": "Well done!",
+                                                "body": "<p>Nice one</p>"
+                                            },
+                                            "_incorrect": {
+                                                "title": "Incorrect",
+                                                "body": "<p>It's actually pretty sweet&hellip;</p>",
+                                                "_notes": [
+                                                    "morsels_info"
+                                                ]
+                                            },
+                                            "_common": {
+                                                "body": "<p>Morsels is awesome.</p>"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "_type": "mcq",
+                                        "_content": {
+                                            "title": "Thoughts",
+                                            "body": "<p>Will you use it for your next project?</p>",
+                                            "instruction": "Select from the list below"
+                                        },
+                                        "_items": [
+                                            {
+                                                "title": "Of course!",
+                                                "_shouldBeSelected": true
+                                            },
+                                            {
+                                                "title": "Maybe not",
+                                                "_shouldBeSelected": false
+                                            }
+                                        ],
+                                        "_feedback": {
+                                            "_correct": {
+                                                "title": "Well done!",
+                                                "body": "<p>Nice one</p>"
+                                            },
+                                            "_incorrect": {
+                                                "title": "Incorrect",
+                                                "body": "<p>It's actually pretty sweet&hellip;</p>",
+                                                "_notes": [
+                                                    "morsels_info"
+                                                ]
+                                            },
+                                            "_common": {
+                                                "body": "<p>Morsels is awesome.</p>"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "_card": "text",
+                            "_content": {
+                                "image": {
+                                    "src": "https://camo.envatousercontent.com/40365fec24858cdbdb7ddae12a889c09c2155bbf/687474703a2f2f692e696d6775722e636f6d2f4c754157334b542e6a7067"
+                                },
+                                "title": "Stacks",
+                                "body": "<p>Cards are arranged in a stack - just like cards in real life.</p><p>Once you dismiss the last card in the stack, it is complete and you will move on to the next stack.</p>"
+                            }
+                        }
+                    ]
                 },
                 {
-                  "title": "15",
-                  "_shouldBeSelected": true
+                    "title": "Components",
+                    "_cards": [
+                        {
+                            "_card": "text",
+                            "_content": {
+                                "image": {
+                                    "src": "https://imageog.flaticon.com/icons/png/512/9/9915.png?size=1200x630f&pad=10,10,10,10&ext=png&bg=FFFFFFFF"
+                                },
+                                "title": "Components",
+                                "body": "<p>Cards can be restrictive.</p><p>To get around this, you can use a component in place of a stack of cards.</p><p>The next example is a conversation component.</p>"
+                            }
+                        }
+                    ]
                 },
                 {
-                  "title": "25",
-                  "_shouldBeSelected": false
+                    "title": "Conversation example",
+                    "_component": "conversation",
+                    "_items": [
+                        {
+                            "body": "<p>Do you want to get together or something?</p>"
+                        },
+                        {
+                            "name": "Sarah",
+                            "body": "<p>How about going to see a movie? Cinemax 26 on Carson Boulevard is showing Enchanted.</p>"
+                        },
+                        {
+                            "name": "Laurie",
+                            "body": "<p>That sounds like a good idea. Maybe we should go out to eat beforehand.</p>"
+                        },
+                        {
+                            "name": "Sarah",
+                            "body": "<p>It is fine with me. Where do you want to meet?</p>"
+                        },
+                        {
+                            "body": "<p>Let’s meet at Summer Pizza House. I have not gone there for a long time.</p>"
+                        },
+                        {
+                            "name": "Laurie",
+                            "body": "<p>Good idea again. I heard they just came up with a new pizza. It should be good because Summer Pizza House always has the best pizza in town.</p>"
+                        },
+                        {
+                            "name": "Sarah",
+                            "body": "<p>When should we meet?</p>"
+                        },
+                        {
+                            "name": "Christie",
+                            "body": "<p>Well, the movie is shown at 2:00PM, 4:00PM, 6:00PM and 8:00PM.</p>"
+                        },
+                        {
+                            "name": "Laurie",
+                            "body": "<p>Why don’t we go to the 2:00PM show? We can meet at Summer Pizza House at noon. That will give us plenty of time to enjoy our pizza.</p>"
+                        }
+                    ]
+                },
+                {
+                    "title": "Chapters",
+                    "_cards": [
+                        {
+                            "_card": "text",
+                            "_content": {
+                                "title": "Chapters",
+                                "body": "<p>The stacks of cards and components can be grouped into chapters.</p><p>This is the last card in the chapter.</p><p>Once you dismiss it, you will be taken to the next chapter.</p>"
+                            }
+                        }
+                    ]
                 }
-              ],
-              "_feedback": {
-                "_correct": {
-                  "title": "Well done!",
-                  "body": "<p>It is</p>"
-                },
-                "_incorrect": {
-                  "title": "Incorrect",
-                  "body": "<p>Not quite</p>"
-                },
-                "_common": {
-                  "body": "<p>You can also do 5 + 5 + 5</p>"
-                }
-              },
-              "_options": {
-                "_selectable": 1,
-                "_attempts": 2
-              }
-            },
-            {
-              "_card": "mcq",
-              "_content": {
-                "title": "Find the animals",
-                "body": "<p>Select all the animals</p>"
-              },
-              "_items": [
-                {
-                  "title": "Dog",
-                  "_shouldBeSelected": true
-                },
-                {
-                  "title": "Microwave",
-                  "_shouldBeSelected": false
-                },
-                {
-                  "title": "Playstation",
-                  "_shouldBeSelected": false
-                },
-                {
-                  "title": "Cat",
-                  "_shouldBeSelected": true
-                },
-                {
-                  "title": "Cow",
-                  "_shouldBeSelected": true
-                }
-              ],
-              "_feedback": {
-                "_correct": {
-                  "title": "Well done!",
-                  "body": "<p>Those are animals</p>"
-                },
-                "_incorrect": {
-                  "title": "Incorrect",
-                  "body": "<p>Go back to primary school</p>"
-                }
-              },
-              "_options": {
-                "_selectable": 3,
-                "_attempts": 5
-              }
-            }
-          ]
+            ]
         },
         {
-          "title": "Introduction",
-          "_classes": "",
-          "_content": {
-            "title": "Introduction"
-          },
-          "_cards": [
-            {
-              "_card": "title",
-              "_content": {
-                "image": "//upload.wikimedia.org/wikipedia/en/4/45/F1_logo.svg",
-                "title": "The best F1 drivers",
-                "body": "<p>Explore the top 5 F1 drivers of all time.</p>"
-              }
-            }
-          ]
+            "title": "Formula 1",
+            "_content": {
+                "title": "Formula 1"
+            },
+            "_items": [
+                {
+                    "title": "Tests",
+                    "_cards": [
+                        {
+                            "_card": "mcq",
+                            "_content": {
+                                "title": "Maths",
+                                "body": "<p>What is 5 x 3?</p>"
+                            },
+                            "_items": [
+                                {
+                                    "title": "2",
+                                    "_shouldBeSelected": false
+                                },
+                                {
+                                    "title": "5",
+                                    "_shouldBeSelected": false
+                                },
+                                {
+                                    "title": "15",
+                                    "_shouldBeSelected": true
+                                },
+                                {
+                                    "title": "25",
+                                    "_shouldBeSelected": false
+                                }
+                            ],
+                            "_feedback": {
+                                "_correct": {
+                                    "title": "Well done!",
+                                    "body": "<p>It is</p>"
+                                },
+                                "_incorrect": {
+                                    "title": "Incorrect",
+                                    "body": "<p>Not quite</p>"
+                                },
+                                "_common": {
+                                    "body": "<p>You can also do 5 + 5 + 5</p>"
+                                }
+                            },
+                            "_options": {
+                                "_selectable": 1,
+                                "_attempts": 2
+                            }
+                        },
+                        {
+                            "_card": "mcq",
+                            "_content": {
+                                "title": "Find the animals",
+                                "body": "<p>Select all the animals</p>"
+                            },
+                            "_items": [
+                                {
+                                    "title": "Dog",
+                                    "_shouldBeSelected": true
+                                },
+                                {
+                                    "title": "Microwave",
+                                    "_shouldBeSelected": false
+                                },
+                                {
+                                    "title": "Playstation",
+                                    "_shouldBeSelected": false
+                                },
+                                {
+                                    "title": "Cat",
+                                    "_shouldBeSelected": true
+                                },
+                                {
+                                    "title": "Cow",
+                                    "_shouldBeSelected": true
+                                }
+                            ],
+                            "_feedback": {
+                                "_correct": {
+                                    "title": "Well done!",
+                                    "body": "<p>Those are animals</p>"
+                                },
+                                "_incorrect": {
+                                    "title": "Incorrect",
+                                    "body": "<p>Go back to primary school</p>"
+                                }
+                            },
+                            "_options": {
+                                "_selectable": 3,
+                                "_attempts": 5
+                            }
+                        }
+                    ]
+                },
+                {
+                    "title": "Introduction",
+                    "_classes": "",
+                    "_content": {
+                        "title": "Introduction"
+                    },
+                    "_cards": [
+                        {
+                            "_card": "title",
+                            "_content": {
+                                "image": "//upload.wikimedia.org/wikipedia/en/4/45/F1_logo.svg",
+                                "title": "The best F1 drivers",
+                                "body": "<p>Explore the top 5 F1 drivers of all time.</p>"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "title": "Top 5",
+                    "_classes": "",
+                    "_content": {
+                        "title": "Top 5"
+                    },
+                    "_cards": [
+                        {
+                            "_card": "text",
+                            "title": "Number 5",
+                            "_content": {
+                                "headerImage": "images/lauda.jpg",
+                                "title": "5. Niki Lauda",
+                                "subtitle": "Active: 1971&ndash;1979, 1982&ndash;1985",
+                                "body": "<p>Perhaps not the most \"raw talented\" driver of all time but his intellect, determination, technical understanding and and smooth driving style could have won him 2 or 3 more titles. He did not always pick the best teams after leaving Ferrari after 77.</p><p>Schumacher, Prost, Vettel always drove in first rate winning cars, Lauda did not.</p>"
+                            }
+                        },
+                        {
+                            "_card": "text",
+                            "title": "Number 4",
+                            "_content": {
+                                "headerImage": "images/alonso.jpg",
+                                "title": "4. Fernando Alonso",
+                                "subtitle": "Active: 2001&ndash;",
+                                "body": "<p>Up there with Ayrton Senna in terms of talent and race-craft, probably not as fast as Senna on a single lap, but I would say he is the most complete race driver ever because he knows how to handle pressure, he know how to get the most out of the shopping trolleys that they build him of late and he is utterly relentless!</p><p>Similarly to Ayrton Senna, he has spent most of his career if not all of it without sitting in the best car. In a nutshell: Give him the second best package on the grid and he'll win you the championship.</p>"
+                            }
+                        },
+                        {
+                            "_card": "text",
+                            "title": "Number 3",
+                            "_content": {
+                                "headerImage": "images/fangio.jpg",
+                                "title": "3. Juan Manuel Fangio",
+                                "subtitle": "Active: 1950&ndash;1951, 1953&ndash;1958",
+                                "body": "<p>He should be higher up if overall performance is the rating. But consider that the era these racers were in can not really be fairly compared to other eras with such different equipment, rules, etc. To me anyone of them that were top runners is the best in their era.</p><p>There are so many good pilots, but Fangio is simply the best. When you read about what he did, you understand no one else can do that. And the most important he was a gentleman.</p>"
+                            }
+                        },
+                        {
+                            "_card": "text",
+                            "title": "Number 2",
+                            "_content": {
+                                "headerImage": "images/schumacher.jpg",
+                                "title": "2. Michael Schumacher",
+                                "subtitle": "Active: 1991&ndash;2006, 2010&ndash;2012",
+                                "body": "<p>Simply the best and fastest. Surely faster than anybody after him, in his prime. Still in his fourties could come back to have some fun and have decent races, which is pretty spectacular demonstration of his talent and consistency. Especially when you think that many other drivers in their later 30s are called \"non-prime anymore\".</p>"
+                            },
+                            "_____________activities": {
+                                "title": "Already know MSC?",
+                                "_icon": "question_answer",
+                                "_items": [
+                                    {
+                                        "_type": "mcq",
+                                        "_content": {
+                                            "title": "WDC",
+                                            "body": "<p>How many World Drivers Championships has Michael Schumacher won?</p>",
+                                            "instruction": "Select from the list below"
+                                        },
+                                        "_items": [
+                                            {
+                                                "title": "1",
+                                                "_shouldBeSelected": false
+                                            },
+                                            {
+                                                "title": "3",
+                                                "_shouldBeSelected": false
+                                            },
+                                            {
+                                                "title": "5",
+                                                "_shouldBeSelected": false
+                                            },
+                                            {
+                                                "title": "7",
+                                                "_shouldBeSelected": true
+                                            }
+                                        ],
+                                        "_options": {
+                                            "_selectable": 1,
+                                            "_attempts": 3
+                                        },
+                                        "_feedback": {
+                                            "_correct": {
+                                                "title": "Well done!",
+                                                "body": "<p>You clearly know MSC.</p>"
+                                            },
+                                            "_incorrect": {
+                                                "title": "Incorrect",
+                                                "body": "<p>Michael won 7 World Drivers Championships.</p>",
+                                                "_notes": [
+                                                    "wdc"
+                                                ]
+                                            },
+                                            "_common": {
+                                                "body": "<p>He won two titles with Benetton in 1994 and 1995 before moving to Ferrari where he drove for eleven years.</p><p>His time with Ferrari yielded five consecutive titles between 2000 and 2004.</p>"
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "_card": "text",
+                            "title": "Number 1",
+                            "_content": {
+                                "headerImage": "images/senna.jpg",
+                                "title": "1. Ayrton Senna",
+                                "subtitle": "Active: 1984&ndash;1994",
+                                "body": "<p>Brilliant, ruthless, determined, fast and charismatic. Just some of the superlatives that some up the greatest driver Formula 1 has ever seen.</p><p>Ayrton ushered in a more professional approach to fittness and absolute dedication to the sport. He had to win and be the best&hellip; as Jo Ramirez said in the documentary \"Right to Win\", \"For him it was nothing but winning - to him him coming second was to be the first of the losers\".</p>"
+                            }
+                        },
+                        {
+                            "_card": "text",
+                            "title": "Question",
+                            "_content": {
+                                "title": "Question Time",
+                                "body": "<p>OK, so who do you think was the best?</p>"
+                            },
+                            "_____________activities": {
+                                "title": "Let's find out",
+                                "_icon": "chevron_right",
+                                "_required": true,
+                                "_items": [
+                                    {
+                                        "_type": "mcq",
+                                        "_content": {
+                                            "title": "The first winner",
+                                            "body": "<p>Who won the first Formula 1 WDC in 1950?</p>",
+                                            "instruction": "Select from the list below"
+                                        },
+                                        "_items": [
+                                            {
+                                                "title": "Senna",
+                                                "_shouldBeSelected": false
+                                            },
+                                            {
+                                                "title": "Fangio",
+                                                "_shouldBeSelected": true
+                                            },
+                                            {
+                                                "title": "Alonso",
+                                                "_shouldBeSelected": false
+                                            }
+                                        ],
+                                        "_feedback": {
+                                            "_correct": {
+                                                "title": "Well done!"
+                                            },
+                                            "_incorrect": {
+                                                "title": "Incorrect",
+                                                "body": "<p>It was Juan Manuel Fangio.</p>",
+                                                "_notes": [
+                                                    "wdc"
+                                                ]
+                                            },
+                                            "_common": {
+                                                "body": "Adding up can be really easy if you just remember to add up."
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
         },
         {
-          "title": "Top 5",
-          "_classes": "",
-          "_content": {
-            "title": "Top 5"
-          },
-          "_cards": [
-            {
-              "_card": "text",
-              "title": "Number 5",
-              "_content": {
-                "headerImage": "images/lauda.jpg",
-                "title": "5. Niki Lauda",
-                "subtitle": "Active: 1971&ndash;1979, 1982&ndash;1985",
-                "body": "<p>Perhaps not the most \"raw talented\" driver of all time but his intellect, determination, technical understanding and and smooth driving style could have won him 2 or 3 more titles. He did not always pick the best teams after leaving Ferrari after 77.</p><p>Schumacher, Prost, Vettel always drove in first rate winning cars, Lauda did not.</p>"
-              }
+            "title": "Examples",
+            "_content": {
+                "title": "Examples"
             },
-            {
-              "_card": "text",
-              "title": "Number 4",
-              "_content": {
-                "headerImage": "images/alonso.jpg",
-                "title": "4. Fernando Alonso",
-                "subtitle": "Active: 2001&ndash;",
-                "body": "<p>Up there with Ayrton Senna in terms of talent and race-craft, probably not as fast as Senna on a single lap, but I would say he is the most complete race driver ever because he knows how to handle pressure, he know how to get the most out of the shopping trolleys that they build him of late and he is utterly relentless!</p><p>Similarly to Ayrton Senna, he has spent most of his career if not all of it without sitting in the best car. In a nutshell: Give him the second best package on the grid and he'll win you the championship.</p>"
-              }
-            },
-            {
-              "_card": "text",
-              "title": "Number 3",
-              "_content": {
-                "headerImage": "images/fangio.jpg",
-                "title": "3. Juan Manuel Fangio",
-                "subtitle": "Active: 1950&ndash;1951, 1953&ndash;1958",
-                "body": "<p>He should be higher up if overall performance is the rating. But consider that the era these racers were in can not really be fairly compared to other eras with such different equipment, rules, etc. To me anyone of them that were top runners is the best in their era.</p><p>There are so many good pilots, but Fangio is simply the best. When you read about what he did, you understand no one else can do that. And the most important he was a gentleman.</p>"
-              }
-            },
-            {
-              "_card": "text",
-              "title": "Number 2",
-              "_content": {
-                "headerImage": "images/schumacher.jpg",
-                "title": "2. Michael Schumacher",
-                "subtitle": "Active: 1991&ndash;2006, 2010&ndash;2012",
-                "body": "<p>Simply the best and fastest. Surely faster than anybody after him, in his prime. Still in his fourties could come back to have some fun and have decent races, which is pretty spectacular demonstration of his talent and consistency. Especially when you think that many other drivers in their later 30s are called \"non-prime anymore\".</p>"
-              },
-              "_____________activities": {
-                "title": "Already know MSC?",
-                "_icon": "question_answer",
-                "_items": [
-                  {
-                    "_type": "mcq",
+            "_items": [
+                {
+                    "title": "Example cards",
+                    "_classes": "",
                     "_content": {
-                      "title": "WDC",
-                      "body": "<p>How many World Drivers Championships has Michael Schumacher won?</p>",
-                      "instruction": "Select from the list below"
+                        "title": "Example cards"
                     },
-                    "_items": [
-                      {
-                        "title": "1",
-                        "_shouldBeSelected": false
-                      },
-                      {
-                        "title": "3",
-                        "_shouldBeSelected": false
-                      },
-                      {
-                        "title": "5",
-                        "_shouldBeSelected": false
-                      },
-                      {
-                        "title": "7",
-                        "_shouldBeSelected": true
-                      }
-                    ],
-                    "_options": {
-                      "_selectable": 1,
-                      "_attempts": 3
-                    },
-                    "_feedback": {
-                      "_correct": {
-                        "title": "Well done!",
-                        "body": "<p>You clearly know MSC.</p>"
-                      },
-                      "_incorrect": {
-                        "title": "Incorrect",
-                        "body": "<p>Michael won 7 World Drivers Championships.</p>",
-                        "_notes": [
-                          "wdc"
-                        ]
-                      },
-                      "_common": {
-                        "body": "<p>He won two titles with Benetton in 1994 and 1995 before moving to Ferrari where he drove for eleven years.</p><p>His time with Ferrari yielded five consecutive titles between 2000 and 2004.</p>"
-                      }
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "_card": "text",
-              "title": "Number 1",
-              "_content": {
-                "headerImage": "images/senna.jpg",
-                "title": "1. Ayrton Senna",
-                "subtitle": "Active: 1984&ndash;1994",
-                "body": "<p>Brilliant, ruthless, determined, fast and charismatic. Just some of the superlatives that some up the greatest driver Formula 1 has ever seen.</p><p>Ayrton ushered in a more professional approach to fittness and absolute dedication to the sport. He had to win and be the best&hellip; as Jo Ramirez said in the documentary \"Right to Win\", \"For him it was nothing but winning - to him him coming second was to be the first of the losers\".</p>"
-              }
-            },
-            {
-              "_card": "text",
-              "title": "Question",
-              "_content": {
-                "title": "Question Time",
-                "body": "<p>OK, so who do you think was the best?</p>"
-              },
-              "_____________activities": {
-                "title": "Let's find out",
-                "_icon": "chevron_right",
-                "_required": true,
-                "_items": [
-                  {
-                    "_type": "mcq",
-                    "_content": {
-                      "title": "The first winner",
-                      "body": "<p>Who won the first Formula 1 WDC in 1950?</p>",
-                      "instruction": "Select from the list below"
-                    },
-                    "_items": [
-                      {
-                        "title": "Senna",
-                        "_shouldBeSelected": false
-                      },
-                      {
-                        "title": "Fangio",
-                        "_shouldBeSelected": true
-                      },
-                      {
-                        "title": "Alonso",
-                        "_shouldBeSelected": false
-                      }
-                    ],
-                    "_feedback": {
-                      "_correct": {
-                        "title": "Well done!"
-                      },
-                      "_incorrect": {
-                        "title": "Incorrect",
-                        "body": "<p>It was Juan Manuel Fangio.</p>",
-                        "_notes": [
-                          "wdc"
-                        ]
-                      },
-                      "_common": {
-                        "body": "Adding up can be really easy if you just remember to add up."
-                      }
-                    }
-                  }
-                ]
-              }
-            }
-          ]
+                    "_cards": [
+                        {
+                            "_card": "title",
+                            "_content": {
+                                "image": "//static.twistphp.com/logo/square/256.png",
+                                "title": "Title card",
+                                "body": "<p>This can be used as a &quot;scene setter&quot; for the stack</p>"
+                            }
+                        },
+                        {
+                            "_card": "text",
+                            "_content": {
+                                "headerImage": "//static.twistphp.com/logo/social/twitter.jpg",
+                                "title": "Text card",
+                                "body": "<p>A basic card for displaying text.</p>"
+                            }
+                        }
+                    ]
+                }
+            ]
         }
-      ]
-    },
-    {
-      "title": "Examples",
-      "_content": {
-        "title": "Examples"
-      },
-      "_items": [
-        {
-          "title": "Example cards",
-          "_classes": "",
-          "_content": {
-            "title": "Example cards"
-          },
-          "_cards": [
-            {
-              "_card": "title",
-              "_content": {
-                "image": "//static.twistphp.com/logo/square/256.png",
-                "title": "Title card",
-                "body": "<p>This can be used as a &quot;scene setter&quot; for the stack</p>"
-              }
-            },
-            {
-              "_card": "text",
-              "_content": {
-                "headerImage": "//static.twistphp.com/logo/social/twitter.jpg",
-                "title": "Text card",
-                "body": "<p>A basic card for displaying text.</p>"
-              }
-            }
-          ]
+    ],
+    "_flashcards": {
+        "wdc": {
+            "title": "World Drivers Championships",
+            "body": "<p>The Formula One World Drivers' Championship (WDC) is the most successful Formula One race car driver of the year. The award is given by the Fédération Internationale de l'Automobile (FIA) to the driver who scores the most points during a season. The WDC was first awarded in 1950, to Giuseppe &quot;Nino&quot; Farina.</p>"
+        },
+        "morsels_info": {
+            "title": "What are Morsels",
+            "body": "<p>Small cards of elearning</p>"
         }
-      ]
     }
-  ],
-  "_notes": {
-    "wdc": {
-      "title": "World Drivers Championships",
-      "body": "<p>The Formula One World Drivers' Championship (WDC) is the most successful Formula One race car driver of the year. The award is given by the Fédération Internationale de l'Automobile (FIA) to the driver who scores the most points during a season. The WDC was first awarded in 1950, to Giuseppe &quot;Nino&quot; Farina.</p>"
-    },
-    "morsels_info": {
-      "title": "What are Morsels",
-      "body": "<p>Small cards of elearning</p>"
-    }
-  }
 }

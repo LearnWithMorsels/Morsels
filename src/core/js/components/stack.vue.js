@@ -7,7 +7,7 @@ Vue.component( 'stack', {
 					'<div class="chapter-item-title">{{ stack.title }}</div>' +
 					'<div class="cards">' +
 						'<template v-for="(card, index) in stack._cards">' +
-							'<card key="index"' +
+							'<card :key="index"' +
 								' ref="cards"' +
 								' :card="card"' +
 								' :isCurrent="isCurrent && currentCard === index"' +

@@ -2,16 +2,26 @@ import Vue from 'resources/Vue';
 import 'chapter.vue';
 import 'menubar.vue';
 import 'sidebar.vue';
+import 'flashcards.vue';
 
 Vue.component( 'course', {
 	props: ['course'],
 	template: '<div :class="classes">' +
-					'<menubar :content="content" v-on:toggleSidebar="toggleSidebar" v-on:navigateBack="navigateBack" v-on:overview="toggleOverview"></menubar>' +
-					'<sidebar ref="sidebar" :course="course" :language="language" :percentageComplete="percentageComplete" v-on:close="closeSidebar"></sidebar>' +
+					'<menubar :content="content"' +
+						' v-on:toggleSidebar="toggleSidebar"' +
+						' v-on:navigateBack="navigateBack"' +
+						' v-on:overview="toggleOverview"></menubar>' +
+					'<sidebar ref="sidebar"' +
+						' :course="course"' +
+						' :content="content"' +
+						' :language="language"' +
+						' :flashcards="flashcards"' +
+						' :percentageComplete="percentageComplete"' +
+						' v-on:close="closeSidebar"></sidebar>' +
 					'<div class="chapters" :style="chaptersStyle" v-on:mousedown.capture="bodyClick" v-on:touchstart.capture="bodyClick">' +
 						'<div class="chapters-inner" :style="chaptersInnerStyle">' +
 							'<chapter v-for="(chapter, index) in content._chapters"' +
-								' key="index"' +
+								' :key="index"' +
 								' ref="chapters"' +
 								' :chapterIndex="index"' +
 								' :chapter="chapter"' +
@@ -19,6 +29,7 @@ Vue.component( 'course', {
 								' v-on:completed="goToNextChapter"></chapter>' +
 						'</div>' +
 					'</div>' +
+					//'<flashcards :flashcards="flashcards"></flashcards>' +
 				'</div>',
 	data: function() {
 		return {
@@ -62,10 +73,13 @@ Vue.component( 'course', {
 			}
 		},
 		content: function() {
-			return this.course.content[this.language] || {}
+			return this.course.content[this.language];
+		},
+		flashcards: function() {
+			return this.content._flashcards || {};
 		},
 		courseTitle: function() {
-			return this.course.content[this.language].title;
+			return this.content.title || 'Untitled';
 		},
 		classes: function() {
 			return {
@@ -76,10 +90,7 @@ Vue.component( 'course', {
 			};
 		},
 		chaptersStyle: function() {
-			let style = {
-				fontSize: this.baseFontSize + 'px',
-				zIndex: this.zIndex
-			};
+			let style = {};
 			if( this.viewAll ) {
 				style.transform = 'translate(' + this.view.offset.x + 'px, ' + this.view.offset.y + 'px) scale(' + this.viewAllScale + ')';
 				if( this.view.dragging ) {
@@ -188,12 +199,8 @@ Vue.component( 'course', {
 		closeSidebar: function() {
 			this.showSidebar = false;
 		},
-		closeMenubarSubmenu: function() {
-			//this.$refs.sidebar.hideSubmenu();
-		},
 		bodyClick: function() {
 			this.closeSidebar();
-			this.closeMenubarSubmenu();
 		},
 		toggleOverview: function() {
 			this.viewAll = !this.viewAll;

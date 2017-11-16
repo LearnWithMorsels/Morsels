@@ -1,7 +1,7 @@
-import Vue from '../resources/Vue';
+import Vue from 'resources/Vue';
 
 Vue.component( 'sidebar', {
-	props: ['course', 'language', 'percentageComplete'],
+	props: ['course', 'content', 'language', 'flashcards', 'percentageComplete'],
 	template: '<nav class="sidebar">' +
 					'<header class="sidebar-header">' +
 						'<button class="toggle-sidebar" v-on:click.prevent="close">' +
@@ -21,9 +21,9 @@ Vue.component( 'sidebar', {
 						'<button v-if="course.config.features && course.config.features.saveItems" :class="{ current: selectedTab === 1 }" v-on:click.prevent="selectedTab = 1">' +
 							'<i class="material-icons">bookmark_border</i>' +
 						'</button>' +
-						'<button :class="{ current: selectedTab === 2 }" v-on:click.prevent="selectedTab = 2">' +
-							'<i class="material-icons">info_outline</i>' +
-						'</button>' +
+						//'<button :class="{ current: selectedTab === 2 }" v-on:click.prevent="selectedTab = 2">' +
+						//	'<i class="material-icons">flash_on</i>' +
+						//'</button>' +
 						'<button v-if="languages.length > 1" :class="{ current: selectedTab === 3 }" v-on:click.prevent="selectedTab = 3">' +
 							'<i class="material-icons">language</i>' +
 						'</button>' +
@@ -35,7 +35,7 @@ Vue.component( 'sidebar', {
 						'</button>' +
 					'</div>' +
 					//'<transition-group name="fade" tag="div" mode="out-in">' +
-						'<div v-show="selectedTab === 0" key="0" class="sidebar-content">' +
+						'<div v-show="selectedTab === 0" :key="0" class="sidebar-content">' +
 							'<ul>' +
 								'<li v-for="chapter in content._chapters">{{ chapter.title }}' +
 									'<ul>' +
@@ -46,7 +46,7 @@ Vue.component( 'sidebar', {
 								'</li>' +
 							'</ul>' +
 						'</div>' +
-						'<div v-show="selectedTab === 1" key="1" class="sidebar-content">' +
+						'<div v-show="selectedTab === 1" :key="1" class="sidebar-content">' +
 							'<h3>Saved items</h3>' +
 							'<div class="saved-items">' +
 								'<div v-for="(saved, index) in savedItems" :key="index">' +
@@ -54,19 +54,20 @@ Vue.component( 'sidebar', {
 								'</div>' +
 							'</div>' +
 						'</div>' +
-						'<div v-show="selectedTab === 2" key="2" class="sidebar-content">' +
-							'<p>INFO CARDS</p>' +
+						'<div v-show="selectedTab === 2" :key="2" class="sidebar-content">' +
+							'<p>FLASH CARDS</p>' +
+							'<button v-for="(flashcard, index) in flashcards">{{ flashcard.title }}</button>' +
 						'</div>' +
-						'<div v-show="selectedTab === 3" key="3" class="sidebar-content">' +
-							'<template v-for="eachLanguage in languages">' +
+						'<div v-show="selectedTab === 3" :key="3" class="sidebar-content">' +
+							'<template v-for="languageCode in languages">' +
 								'<label>' +
-									'<input type="radio" :value="eachLanguage" v-model="selectedLanguage">' +
-									'{{ course.languages[eachLanguage].name || eachLanguage }}' +
+									'<input type="radio" :value="languageCode" v-model="selectedLanguage">' +
+									'{{ course.languages[languageCode].endonym || course.languages[languageCode].name || languageCode }}' +
 								'</label>' +
 								'<br>' +
 							'</template>' +
 						'</div>' +
-						'<div v-show="selectedTab === 4" key="4" class="sidebar-content">' +
+						'<div v-show="selectedTab === 4" :key="4" class="sidebar-content">' +
 							'<p>SEARCH</p>' +
 						'</div>' +
 					//'</transition-group>' +
@@ -78,9 +79,6 @@ Vue.component( 'sidebar', {
 		};
 	},
 	computed: {
-		content: function() {
-			return this.course.content[this.selectedLanguage] || {}
-		},
 		languages: function() {
 			return Object.keys( this.course.content );
 		},

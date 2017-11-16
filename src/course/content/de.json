@@ -1,23 +1,23 @@
 {
-	"title": "Willkommen bei Morsels",
-	"_content": {
-		"title": "Mein erster Kurs",
-		"description": "Komm rein. Zieh deine Schuhe aus."
-	},
-	"_chapters": [
-		{
-			"_stacks": [
-				{
-					"_cards": [
-						{
-							"_content": {
-								"title": "Stückchen",
-								"subtitle": "Eine kurze Erklärung..."
-							}
-						}
-					]
-				}
-			]
-		}
-	]
+    "title": "Willkommen bei Morsels",
+    "_content": {
+        "title": "Mein erster Kurs",
+        "description": "Komm rein. Zieh deine Schuhe aus."
+    },
+    "_chapters": [
+        {
+            "_items": [
+                {
+                    "_cards": [
+                        {
+                            "_content": {
+                                "title": "Stückchen",
+                                "subtitle": "Eine kurze Erklärung..."
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
 }

@@ -1,43 +1,43 @@
 {
-  "appThemeColour": "#004D40",
-  "appBackgroundColour": "#FAFAFA",
-  "appName": "Morsels",
-  "appShortName": "Morsels",
-  "appIcons": {
-    "48": "./core/icons/morsels-48.png",
-    "72": "./core/icons/morsels-72.png",
-    "96": "./core/icons/morsels-96.png",
-    "144": "./core/icons/morsels-144.png",
-    "192": "./core/icons/morsels-192.png",
-    "256": "./core/icons/morsels-256.png",
-    "384": "./core/icons/morsels-384.png",
-    "512": "./core/icons/morsels-512.png"
-  },
-  "features": {
-    "saveItems": false,
-    "search": false,
-    "progress": {
-      "visible": true,
-      "percentage": true
-    }
-  },
-  "onlineResources": [
-    "https://fonts.googleapis.com/css?family=Lato:300,700,900"
-  ],
-  "lms": {
-    "scorm": {
-      "enable": false,
-      "version": "1.2"
+    "appThemeColour": "#004D40",
+    "appBackgroundColour": "#FAFAFA",
+    "appName": "Morsels",
+    "appShortName": "Morsels",
+    "appIcons": {
+        "48": "./core/icons/morsels-48.png",
+        "72": "./core/icons/morsels-72.png",
+        "96": "./core/icons/morsels-96.png",
+        "144": "./core/icons/morsels-144.png",
+        "192": "./core/icons/morsels-192.png",
+        "256": "./core/icons/morsels-256.png",
+        "384": "./core/icons/morsels-384.png",
+        "512": "./core/icons/morsels-512.png"
     },
-    "xapi": {
-      "enable": false,
-      "endpoint": "https://cloud.scorm.com/tc/public/",
-      "username": "<Test User>",
-      "password": "<Test Password>"
+    "features": {
+        "saveItems": false,
+        "search": false,
+        "progress": {
+            "visible": true,
+            "percentage": true
+        }
+    },
+    "onlineResources": [
+        "https://fonts.googleapis.com/css?family=Lato:300,700,900"
+    ],
+    "lms": {
+        "scorm": {
+            "enable": false,
+            "version": "1.2"
+        },
+        "xapi": {
+            "enable": false,
+            "endpoint": "https://cloud.scorm.com/tc/public/",
+            "username": "<Test User>",
+            "password": "<Test Password>"
+        }
+    },
+    "languages": {
+        "primary": "en",
+        "default": "en"
     }
-  },
-  "languages": {
-    "primary": "en",
-    "default": "en"
-  }
 }

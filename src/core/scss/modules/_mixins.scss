@@ -71,3 +71,35 @@
 @mixin shadow-24() {
   box-shadow: 0 9px 46px 8px rgba(0, 0, 0, .14), 0 24px 38px 3px rgba(0, 0, 0, .12), 0 11px 15px -7px rgba(0, 0, 0, .4);
 }
+
+@mixin card() {
+  padding: $card-padding-y $card-padding-x;
+
+  @include flexbox-vertical;
+  align-items: center;
+  justify-content: center;
+
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  position: relative;
+
+  overflow: hidden;
+
+  color: $primary-text-colour;
+  font-weight: 900;
+  text-align: center;
+
+  background-color: #FFF;
+
+  border-radius: $card-border-radius;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  @include shadow-2;
+}

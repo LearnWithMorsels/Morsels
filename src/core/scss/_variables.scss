@@ -22,7 +22,10 @@ $active-icon-colour-inverted: $primary-text-colour-inverted;
 $inactive-icon-colour-inverted: $disabled-text-colour-inverted;
 
 $menubar-height: 56px;
+
 $button-height: 56px;
+$button-transition-in: 120ms;
+$button-transition-out: 300ms;
 
 $course-overview-transition: 600ms;
 

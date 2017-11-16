@@ -9,7 +9,7 @@ Vue.component( 'chapter', {
 					'<div class="chapter-content">' +
 						'<template v-for="(item, index) in chapter._items">' +
 							'<component v-if="item._component"' +
-								' key="index"' +
+								' :key="index"' +
 								' ref="items"' +
 								' :isCurrent="isCurrent && currentChapterItem === index"' +
 								' :chapterIndex="chapterIndex"' +
@@ -17,7 +17,7 @@ Vue.component( 'chapter', {
 								' :componentIndex="chapterIndex"' +
 								' v-on:completed="goToNextItem"></component>' +
 							'<stack v-else' +
-								' key="index"' +
+								' :key="index"' +
 								' ref="items"' +
 								' :isCurrent="isCurrent && currentChapterItem === index"' +
 								' :chapterIndex="chapterIndex"' +

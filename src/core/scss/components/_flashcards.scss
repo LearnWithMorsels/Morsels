@@ -1,0 +1,63 @@
+.flashcards {
+  //padding: 24px 16px;
+  padding: 0 16px;
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  @include flexbox;
+  justify-content: center;
+  align-items: center;
+
+  overflow: auto;
+
+  background-color: rgba(0, 0, 0, 0.85);
+
+  z-index: 4;
+
+  .close-flashcards {
+    width: $button-height;
+
+    position: absolute;
+    top: 16px;
+    right: 16px;
+
+    background-color: transparent;
+
+    transition: opacity $button-transition-out;
+
+    opacity: 0.5;
+
+    z-index: 2;
+
+    &:hover {
+      transition: opacity $button-transition-in;
+
+      opacity: 1;
+    }
+  }
+
+  .flashcard {
+    max-width: $card-width;
+    width: 100%;
+    max-height: calc(100% - 48px);
+    height: $card-height;
+
+    @include card;
+
+    overflow: auto;
+
+    z-index: 1;
+
+    + .flashcard {
+      display: none;
+    }
+
+    .flashcard-title {
+      font-size: 3em;
+    }
+  }
+}

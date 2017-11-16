@@ -29,6 +29,7 @@
   },
   "ar": {
     "name": "Arabic",
+    "endonym": "العَرَبِيَّة",
     "rtl": true
   },
   "as": {
@@ -129,6 +130,7 @@
   },
   "de": {
     "name": "German",
+    "endonym": "Deutsch",
     "rtl": false
   },
   "dv": {
@@ -199,6 +201,7 @@
   },
   "fr": {
     "name": "French",
+    "endonym": "Français",
     "rtl": false
   },
   "fy": {
@@ -307,6 +310,7 @@
   },
   "ja": {
     "name": "Japanese",
+    "endonym": "日本語",
     "rtl": false
   },
   "jv": {
