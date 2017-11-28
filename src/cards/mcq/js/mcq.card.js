@@ -1,5 +1,3 @@
-//import '../../../core/js/partials/question-response.vue';
-
 Morsels.card( 'mcq', {
 	props: ['card'],
 	template: '<div class="card-contents">' +
@@ -22,7 +20,7 @@ Morsels.card( 'mcq', {
 										'<span class="mcq-option-title">{{ item.title }}</span>' +
 									'</label>' +
 								'</div>' +
-								'<button v-on:click="submitAnswer" :disabled="canSubmit === false">Submit</button>' +
+								'<button v-on:click="submitAnswer" :disabled="canSubmit === false">{{ buttonText }}</button>' +
 							'</template>' +
 						'</div>' +
 						'<question-response v-else key="response" :correct="correct" :feedback="card._feedback" :attemptsRemaining="attemptsRemaining" v-on:retry="retry"></question-response>' +
@@ -40,15 +38,25 @@ Morsels.card( 'mcq', {
 		multipleSelect: function() {
 			return ( this.card._options &&
 					this.card._options._selectable &&
-					this.card._options._selectable > 1 );
+                    parseInt( this.card._options._selectable ) > 1 );
 		},
+		buttonText: function() {
+			if( this.multipleSelect ) {
+                return this.canSubmit ? 'Submit' : 'Maximum ' + this.card._options._selectable + ' selectable answers'
+            } else {
+                return this.canSubmit ? 'Submit' : 'Please select an answer'
+            }
+        },
 		canSubmit: function() {
 			if( this.multipleSelect &&
 					this.card._options &&
 					this.card._options._selectable ) {
+				//console.log( this.selectedItems.length, parseInt( this.card._options._selectable ) );
 				return ( this.selectedItems.length <= parseInt( this.card._options._selectable ) );
 			} else {
-				return true;
+                //console.log( this.selectedItems );
+                //console.log( JSON.stringify( this.selectedItems ) );
+				return JSON.stringify( this.selectedItems ) !== '[]';
 			}
 		},
 		attemptsRemaining: function() {

@@ -7,7 +7,7 @@ export default class MorselsVuexStore {
 				version: '',
 				language: language,
 				current: {
-					chapter: 0,
+					chapter: 1,
 					item: 0
 				},
 				saved: []

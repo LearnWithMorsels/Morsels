@@ -1,5 +1,15 @@
 import Vue from 'resources/Vue';
 
+/**
+ * ==========================================
+ * core -> components -> menubar
+ * ==========================================
+ * @constructor menubar
+ * @summary Displays icons for navigation
+ * @description
+ * Menu bar at the top of the screen
+ * @param {object} content Course content
+ */
 Vue.component( 'menubar', {
 	props: ['content'],
 	template: '<nav class="menubar">' +

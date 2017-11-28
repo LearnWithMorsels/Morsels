@@ -1,9 +1,23 @@
 import Vue from 'resources/Vue';
-import 'chapter.vue';
 import 'menubar.vue';
 import 'sidebar.vue';
+import 'chapter.vue';
 import 'flashcards.vue';
 
+/**
+ * ==========================================
+ * core -> components -> course
+ * ==========================================
+ * @constructor course
+ * @summary Handles course content
+ * @description
+ * This is the root of a Morsels module which
+ * handles the overview functionality as well
+ * as any and all of the page's functionality
+ * such as the document title and the loading
+ * of different languages for the course.
+ * @param {object} course JSON of the course
+ */
 Vue.component( 'course', {
 	props: ['course'],
 	template: '<div :class="classes">' +
@@ -33,6 +47,16 @@ Vue.component( 'course', {
 				'</div>',
 	data: function() {
 		return {
+            /**
+             * @memberOf course
+             * @name #view
+             * @type {object}
+             * @property {object} view The variables used for the dragging of the course overview
+             * @property {{x: !number, y: !number}} view.offset How far offset from 0, 0
+             * @property {object} view.pointerStart Where the pointer was first recorded as down
+             * @property {!number} view.touchIndex The index of the listened touch
+             * @property {boolean} view.dragging Is the course overview being dragged?
+             */
 			view: {
 				offset: {
 					x: 0,
@@ -45,6 +69,12 @@ Vue.component( 'course', {
 				touchIndex: 0,
 				dragging: false
 			},
+            /**
+             * @memberOf course
+             * @name #showSidebar
+             * @type {boolean}
+             * @description The main sidebar show/hide variable
+             */
 			showSidebar: false,
 			viewAll: false,
 			viewAllScale: 0.4,
@@ -52,6 +82,12 @@ Vue.component( 'course', {
 		};
 	},
 	computed: {
+        /**
+         * @memberOf course
+         * @name #language
+         * @type {string}
+         * @description The current language
+         */
 		language: function() {
 			return this.$store.state.language;
 		},
@@ -128,6 +164,11 @@ Vue.component( 'course', {
 		this.isMounted = true;
 	},
 	methods: {
+        /**
+         * @memberOf course
+         * @instance
+         * @description The action on pointer down
+         */
 		pointerDown: function( e ) {
 			if( this.viewAll ) {
 				let x, y;
@@ -193,6 +234,11 @@ Vue.component( 'course', {
 				//alert( 'EVERYTHING DONE' );
 			}
 		},
+        /**
+         * @memberOf course
+         * @instance
+         * @description Toggle the sidebar
+         */
 		toggleSidebar: function() {
 			this.showSidebar = !this.showSidebar;
 		},

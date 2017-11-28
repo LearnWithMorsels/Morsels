@@ -24,6 +24,10 @@ button {
     transition: color $button-transition-in, background-color $button-transition-in;
   }
 
+  &:disabled {
+    opacity: 0.35;
+  }
+
   .dark-theme & {
     background-color: #303030;
 
