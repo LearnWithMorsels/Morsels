@@ -11,7 +11,8 @@ Morsels.card( 'mcq', {
 								'<div class="mcq-options">' +
 									'<label v-for="(item, index) in card._items">' +
 										'<span class="mcq-state">' +
-											'<input :type="inputType" :value="index" v-model="selectedItems">' +
+											'<input v-if="multipleSelect" type="checkbox" :value="index" v-model="selectedItems">' +
+											'<input v-else type="radio" :value="index" v-model="selectedItems">' +
 											'<i class="mcq-radio-state mcq-unselected-state material-icons">radio_button_unchecked</i>' +
 											'<i class="mcq-radio-state mcq-selected-state material-icons">radio_button_checked</i>' +
 											'<i class="mcq-checkbox-state mcq-unselected-state material-icons">check_box_outline_blank</i>' +
@@ -66,9 +67,6 @@ Morsels.card( 'mcq', {
 			} else {
 				return 1 - this.attempts;
 			}
-		},
-		inputType: function() {
-			return this.multipleSelect ? 'checkbox' : 'radio';
 		}
 	},
 	methods: {
