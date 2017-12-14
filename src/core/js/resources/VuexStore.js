@@ -1,4 +1,5 @@
 import Vuex from 'resources/Vuex';
+import State from 'utils/state';
 
 export default class MorselsVuexStore {
   constructor( language ) {
@@ -7,15 +8,20 @@ export default class MorselsVuexStore {
         version: '',
         language: language,
         current: {
-          chapter: 1,
+          chapter: 0,
           item: 0
         },
+        completion: [],
         flashcard: null,
         saved: []
       },
       mutations: {
         initialiseStore( state ) {
-          if( localStorage.getItem( 'store' ) ) {
+          let scormSuspend = State.getSuspend( 'state' );
+
+          if( scormSuspend ) {
+            this.replaceState( scormSuspend );
+          } else if( localStorage.getItem( 'store' ) ) {
             this.replaceState(
                 //Object.assign( state, JSON.parse( localStorage.getItem( 'store' ) ) );
             );
@@ -26,6 +32,7 @@ export default class MorselsVuexStore {
         },
         openFlashcard( state, id ) {
           state.flashcard = id;
+          State.complete();
         },
         closeFlashcard( state ) {
           state.flashcard = null;
@@ -49,6 +56,15 @@ export default class MorselsVuexStore {
           }
           if( location.hasOwnProperty( 'chapter' ) ) {
             state.current.chapter = location.chapter;
+          }
+        },
+        setComplete( state, location ) {
+          if( location.hasOwnProperty( 'chapter' ) &&
+              location.hasOwnProperty( 'item' ) ) {
+            if( !state.completion[location.chapter] ) {
+              state.completion[location.chapter] = [];
+            }
+            state.completion[location.chapter][location.item] = true;
           }
         },
         saveCard( state, save ) {
@@ -78,11 +94,16 @@ export default class MorselsVuexStore {
           }
         }
       },
-      actions: {}
+      actions: {
+        setComplete( { commit, state }, location ) {
+          commit( 'setComplete', location );
+        }
+      }
     } );
 
     store.subscribe( ( mutation, state ) => {
       //localStorage.setItem( 'store', JSON.stringify( state ) );
+      State.setSuspend( 'state', state );
     } );
 
     window.onpopstate = ( e ) => {

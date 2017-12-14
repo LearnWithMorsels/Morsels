@@ -18,7 +18,7 @@
 
 import Vue from 'resources/Vue';
 import MorselsVuexStore from 'resources/VuexStore';
-import 'resources/RegisterServiceWorker';
+//import 'utils/RegisterServiceWorker';
 import 'components/course.vue';
 import 'partials/question-response.vue';
 
@@ -63,17 +63,17 @@ let Morsels = {
 addCSS( './css/morsels.min.css' );
 
 let fetchFile = file => {
-      return fetch( file )
+      return fetch( file, {credentials: 'include'} )
           .then( response => response.text() )
           .catch( e => {
             console.error( e );
           } );
     },
     fetchJSONFile = file => {
-      return fetch( file )
+      return fetch( file, {credentials: 'include'} )
           .then( response => response.json() )
           .catch( e => {
-            console.error( e );
+            console.error( e, file );
           } );
     };
 

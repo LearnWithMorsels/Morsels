@@ -7,7 +7,7 @@ button {
   justify-content: center;
 
   color: $primary-text-colour-inverted;
-  font-weight: 900;
+  font-weight: $font-weight-3;
 
   background-color: $primary-colour;
 
@@ -25,7 +25,9 @@ button {
   }
 
   &:disabled {
-    opacity: 0.35;
+    color: $disabled-text-colour-inverted;
+
+    background-color: $primary-colour-light;
 
     cursor: not-allowed;
   }

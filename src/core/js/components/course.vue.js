@@ -1,4 +1,5 @@
 import Vue from 'resources/Vue';
+import State from 'utils/state';
 import 'menubar.vue';
 import 'sidebar.vue';
 import 'chapter.vue';
@@ -21,7 +22,8 @@ import 'flashcards.vue';
 Vue.component( 'course', {
   props: ['course'],
   template: '<div :class="classes">' +
-              '<menubar :content="content"' +
+              '<menubar ref="menubar"' +
+                ' :content="content"' +
                 ' v-on:toggleSidebar="toggleSidebar"' +
                 ' v-on:navigateBack="navigateBack"' +
                 ' v-on:overview="toggleOverview"></menubar>' +
@@ -32,7 +34,9 @@ Vue.component( 'course', {
                 ' :flashcards="flashcards"' +
                 ' :percentageComplete="percentageComplete"' +
                 ' v-on:close="closeSidebar"></sidebar>' +
-              '<div class="chapters" :style="chaptersStyle" v-on:mousedown.capture="bodyClick" v-on:touchstart.capture="bodyClick">' +
+              '<div class="chapters" :style="chaptersStyle"' +
+                ' v-on:mousedown.capture="bodyClick"' +
+                ' v-on:touchstart.capture="bodyClick">' +
                 '<div class="chapters-inner" :style="chaptersInnerStyle">' +
                   '<chapter v-for="(chapter, index) in content._chapters"' +
                     ' :key="index"' +
@@ -106,7 +110,10 @@ Vue.component( 'course', {
           items += chapter.itemCount;
           completed += chapter.itemCompletedCount;
         }
-        return (completed / items) * 100;
+        let score = (completed / items) * 100;
+        //State.set( 'cmi.core.score.max', items );
+        State.score( score );
+        return score;
       }
     },
     content: function() {
@@ -231,9 +238,9 @@ Vue.component( 'course', {
     },
     goToNextChapter: function() {
       if( this.currentChapter + 1 < this.content._chapters.length ) {
-        //this.currentChapter++;
         this.$store.commit( 'goTo', { chapter: this.currentChapter + 1, item: 0 } );
       } else {
+        State.complete();
         //alert( 'EVERYTHING DONE' );
       }
     },
@@ -245,12 +252,14 @@ Vue.component( 'course', {
      */
     toggleSidebar: function() {
       this.showSidebar = !this.showSidebar;
+      this.$refs.menubar.hideSubmenu();
     },
     closeSidebar: function() {
       this.showSidebar = false;
     },
     bodyClick: function() {
       this.closeSidebar();
+      this.$refs.menubar.hideSubmenu();
     },
     toggleOverview: function() {
       this.viewAll = !this.viewAll;

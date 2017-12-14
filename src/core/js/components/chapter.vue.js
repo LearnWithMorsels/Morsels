@@ -14,7 +14,7 @@ Vue.component( 'chapter', {
                     ' :isCurrent="isCurrent && currentChapterItem === index"' +
                     ' :chapterIndex="chapterIndex"' +
                     ' :component="item"' +
-                    ' :componentIndex="chapterIndex"' +
+                    ' :componentIndex="index"' +
                     ' v-on:completed="goToNextItem"></component>' +
                   '<stack v-else' +
                     ' :key="index"' +
@@ -22,7 +22,7 @@ Vue.component( 'chapter', {
                     ' :isCurrent="isCurrent && currentChapterItem === index"' +
                     ' :chapterIndex="chapterIndex"' +
                     ' :stack="item"' +
-                    ' :stackIndex="chapterIndex"' +
+                    ' :stackIndex="index"' +
                     ' v-on:completed="goToNextItem"></stack>' +
                 '</template>' +
               '</div>' +
@@ -45,6 +45,24 @@ Vue.component( 'chapter', {
       }
     },
     itemCompletedCount: function() {
+
+      //TODO: Count VUEX
+
+      //let completed = 0;
+      //console.log( 'A', this.chapterIndex, this.$store.state.completion );
+      //if( this.$store.state.completion[this.chapterIndex] ) {
+      //  console.log( 'B' );
+      //  for( let item of this.$store.state.completion[this.chapterIndex] ) {
+      //    console.log( 'C', item );
+      //    if( item === true ) {
+      //      console.log( 'D' );
+      //      completed++;
+      //    }
+      //  }
+      //}
+      //return completed;
+
+
       if( this.isMounted === true ) {
         let completed = 0;
         for( let item of this.$refs.items ) {
@@ -58,8 +76,6 @@ Vue.component( 'chapter', {
     isComplete: function() {
       return this.itemCompletedCount === this.itemCount;
     },
-
-
     currentChapterItem: function() {
       return this.$store.state.current.item;
     },
@@ -79,7 +95,14 @@ Vue.component( 'chapter', {
     this.isMounted = true;
   },
   methods: {
+    markCurrentItemComplete() {
+      //this.$store.dispatch( 'setComplete', {
+      //  chapter: this.chapterIndex,
+      //  item: this.currentChapterItem
+      //} );
+    },
     goToNextItem: function() {
+      //this.markCurrentItemComplete();
       if( this.currentChapterItem + 1 < this.chapter._items.length ) {
         this.$store.commit( 'goTo', { item: this.currentChapterItem + 1 } );
       } else {

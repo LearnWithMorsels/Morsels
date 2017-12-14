@@ -29,8 +29,6 @@ Vue.component( 'component', {
     isComplete: function() {
       return this.completed;
     },
-
-
     componentName: function() {
       return 'component-' + this.component._component;
     },
@@ -47,8 +45,12 @@ Vue.component( 'component', {
   },
   methods: {
     complete: function() {
-      if( !this.isComplete ) {
+      if( !this.completed ) {
         this.completed = true;
+        this.$store.dispatch( 'setComplete', {
+          chapter: this.chapterIndex,
+          item: this.componentIndex
+        } );
         this.$emit( 'completed' );
       }
     }

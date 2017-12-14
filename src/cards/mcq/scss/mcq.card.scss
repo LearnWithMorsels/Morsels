@@ -1,6 +1,6 @@
-@import "../../../core/scss/modules/functions";
-@import "../../../core/scss/modules/mixins";
-@import "../../../core/scss/variables";
+@import "../../../core/scss/utils/functions";
+@import "../../../core/scss/utils/mixins";
+@import "../../../core/scss/vars/all";
 
 
 .card[data-card="mcq"] {
@@ -40,9 +40,7 @@
 
           &[type="radio"] ~ i.mcq-checkbox-state,
           &[type="checkbox"] ~ i.mcq-radio-state,
-          ~ .mcq-selected-state/*,
-          &[type="radio"]:checked ~ .mcq-unselected-state,
-          &[type="checkbox"]:checked ~ .mcq-unselected-state*/ {
+          ~ .mcq-selected-state {
             opacity: 0;
           }
 
@@ -80,7 +78,7 @@
       .mcq-option-title {
         @include flex(1 0);
 
-        font-weight: 700;
+        font-weight: $font-weight-2;
       }
     }
   }

@@ -44,7 +44,7 @@
     max-width: $card-width;
     width: 100%;
     max-height: calc(100% - 48px);
-    height: $card-height;
+    //height: $card-height;
 
     @include card;
 

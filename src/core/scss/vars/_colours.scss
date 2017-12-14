@@ -1,0 +1,22 @@
+$primary-colour: #009688;
+$primary-colour-light: #4DB6AC;
+$primary-colour-dark: #00796B;
+$secondary-colour: #F44336;
+$secondary-colour-light: #E57373;
+$secondary-colour-dark: #D32F2F;
+
+$primary-text-colour: rgba(0, 0, 0, 0.87);
+$secondary-text-colour: rgba(0, 0, 0, 0.54);
+$disabled-text-colour: rgba(0, 0, 0, 0.38);
+$divider-colour: rgba(0, 0, 0, 0.12);
+
+$primary-text-colour-inverted: rgba(255, 255, 255, 1);
+$secondary-text-colour-inverted: rgba(255, 255, 255, 0.7);
+$disabled-text-colour-inverted: rgba(255, 255, 255, 0.5);
+$divider-colour-inverted: rgba(255, 255, 255, 0.12);
+
+$active-icon-colour: $secondary-text-colour;
+$inactive-icon-colour: $disabled-text-colour;
+
+$active-icon-colour-inverted: $primary-text-colour-inverted;
+$inactive-icon-colour-inverted: $disabled-text-colour-inverted;

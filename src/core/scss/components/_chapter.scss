@@ -22,7 +22,7 @@
 
     color: $primary-colour;
     font-size: 2rem;
-    font-weight: 900;
+    font-weight: $font-weight-3;
     white-space: normal;
 
     //background-color: $primary-text-colour;
@@ -81,7 +81,7 @@
 
         //color: $primary-text-colour;
         font-size: 3rem;
-        font-weight: 900;
+        font-weight: $font-weight-3;
         text-align: center;
 
         background-color: #FFF;

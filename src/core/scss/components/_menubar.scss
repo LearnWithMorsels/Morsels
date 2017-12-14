@@ -22,7 +22,7 @@
     @include flex(1 0);
   }
 
-  button {
+  > button {
     min-width: $menubar-height;
 
     @include flex(0 1);
@@ -35,17 +35,63 @@
   .menubar-submenu-wrapper {
     position: relative;
 
+    button {
+      min-width: $menubar-height;
+
+      color: $active-icon-colour-inverted;
+
+      background: none;
+    }
+
     .menubar-submenu {
+      width: 168px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+
       position: absolute;
-      top: 8px;
-      right: 8px;
+      top: 16px;
+      right: 16px;
 
       background-color: #FFF;
 
+      border-radius: $card-border-radius;
+
       @include shadow-8;
 
-      button {
-        color: $active-icon-colour;
+      .menubar-submenu-item {
+        min-height: 24px;
+        padding: 12px 16px;
+
+        @include flexbox;
+        align-items: center;
+
+        background-color: transparent;
+
+        .menubar-submenu-item-icon {
+          width: 24px;
+          height: 24px;
+
+          position: relative;
+
+          @include flex(0 0 56px);
+
+          color: $active-icon-colour;
+
+          .dark-theme & {
+            color: $active-icon-colour-inverted;
+          }
+        }
+
+        .menubar-submenu-item-title {
+          @include flex(1);
+
+          color: $primary-text-colour;
+          font-weight: $font-weight-1;
+
+          .dark-theme & {
+            color: $primary-text-colour-inverted;
+          }
+        }
       }
     }
   }

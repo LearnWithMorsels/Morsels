@@ -8,11 +8,13 @@
         {
             "_items": [
                 {
+                    "title": "À propos du cadre",
                     "_cards": [
                         {
                             "_content": {
                                 "title": "Morceaux",
-                                "subtitle": "Une explication rapide..."
+                                "subtitle": "Une explication rapide...",
+                                "footer": "Glissez cette carte pour commencer"
                             }
                         }
                     ]

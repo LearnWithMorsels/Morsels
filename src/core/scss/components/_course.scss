@@ -110,8 +110,8 @@
       width: 100%;
       height: 100%;
 
-      //transition: all $chapter-item-advance-transition $stack-complete;
-      transition: all $chapter-item-advance-transition;
+      transition: all $chapter-item-advance-transition $stack-complete;
+      //transition: all $chapter-item-advance-transition;
 
       .chapter {
         //@include inline-flexbox;
@@ -120,6 +120,13 @@
         vertical-align: top;
         //white-space: normal;
       }
+    }
+  }
+
+  &.show-sidebar {
+    .chapters {
+      .chapters-inner {
+        transition: all $chapter-item-advance-transition;}
     }
   }
 }

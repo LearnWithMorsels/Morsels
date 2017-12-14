@@ -6,13 +6,16 @@
     },
     "_chapters": [
         {
+            "title": "Einführung",
             "_items": [
                 {
+                    "title": "Über den Rahmen",
                     "_cards": [
                         {
                             "_content": {
                                 "title": "Stückchen",
-                                "subtitle": "Eine kurze Erklärung..."
+                                "subtitle": "Eine kurze Erklärung...",
+                                "footer": "Wischen Sie diese Karte weg, um loszulegen"
                             }
                         }
                     ]

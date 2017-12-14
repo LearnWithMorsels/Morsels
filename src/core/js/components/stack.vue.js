@@ -11,7 +11,6 @@ Vue.component( 'stack', {
                     ' ref="cards"' +
                     ' :card="card"' +
                     ' :isCurrent="isCurrent && currentCard === index"' +
-                    //' :dismissed="index < currentCard"' +
                     ' :chapterIndex="chapterIndex"' +
                     ' :stackIndex="stackIndex"' +
                     ' :cardIndex="index"' +
@@ -48,8 +47,6 @@ Vue.component( 'stack', {
     isComplete: function() {
       return this.itemCompletedCount === this.itemCount;
     },
-
-
     empty: function() {
       return this.currentCard === this.stack._cards.length;
     },
@@ -68,10 +65,17 @@ Vue.component( 'stack', {
     this.isMounted = true;
   },
   methods: {
+    complete: function() {
+      this.$store.dispatch( 'setComplete', {
+        chapter: this.chapterIndex,
+        item: this.stackIndex
+      } );
+      this.$emit( 'completed' );
+    },
     goToNextCard: function() {
       this.currentCard++;
       if( this.currentCard === this.stack._cards.length ) {
-        this.$emit( 'completed' );
+        this.complete();
       }
     }
   }

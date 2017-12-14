@@ -14,6 +14,7 @@
         "512": "./core/icons/morsels-512.png"
     },
     "features": {
+        "locked": false,
         "saveItems": false,
         "search": false,
         "progress": {
@@ -25,6 +26,7 @@
         "https://fonts.googleapis.com/css?family=Lato:300,700,900"
     ],
     "lms": {
+        "fallback": true,
         "scorm": {
             "enable": false,
             "version": "1.2"

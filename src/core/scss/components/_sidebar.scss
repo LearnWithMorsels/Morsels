@@ -1,7 +1,5 @@
-//https://material.io/guidelines/components/lists-controls.html#lists-controls-types-of-list-controls
-
 .sidebar {
-  max-width: 480px;
+  max-width: $sidebar-max-width;
   width: calc(100% - 56px);
 
   position: fixed;
@@ -177,161 +175,164 @@
     //padding: 16px;
   }
 
-  .sidebar-list {
-    font-size: 1em;
+  .sidebar-list-group {
+    padding-top: 8px;
+    padding-bottom: 8px;
 
-    .sidebar-list-item {
-      padding-top: 8px;
-      padding-bottom: 8px;
+    .sidebar-list-group-title {
+      min-height: 24px;
+      padding: 4px 16px 12px;
 
-      .sidebar-list-item-button {
-        min-height: 24px;
-        padding: 12px 16px;
+      @include flexbox;
+      align-items: center;
+      flex-wrap: wrap;
 
-        @include flexbox;
-        align-items: center;
-        flex-wrap: wrap;
+      color: $secondary-text-colour;
+      font-weight: $font-weight-2;
 
-        background-color: transparent;
+      background-color: transparent;
 
-        .sidebar-listb-item-icon,
-        .sidebar-list-item-title {
-          transition: color $button-transition-out;
-        }
-
-        .sidebar-list-item-icon {
-          @include flex(0 0 56px);
-
-          color: $active-icon-colour;
-
-          .dark-theme & {
-            color: $active-icon-colour-inverted;
-          }
-        }
-
-        .sidebar-list-item-title {
-          @include flex(1);
-
-          color: $secondary-text-colour;
-          font-weight: 700;
-
-          .dark-theme & {
-            color: $secondary-text-colour-inverted;
-          }
-        }
-
-        //&:hover {
-        //  background-color: $primary-colour;
-        //
-        //  .sidebar-list-item-icon,
-        //  .sidebar-list-item-title {
-        //    transition: color $button-transition-in;
-        //  }
-        //
-        //  .sidebar-list-item-icon {
-        //    color: $active-icon-colour-inverted;
-        //  }
-        //
-        //  .sidebar-list-item-title {
-        //    color: $primary-text-colour-inverted;
-        //  }
-        //}
+      .dark-theme & {
+        color: $secondary-text-colour-inverted;
       }
+    }
 
-      .sidebar-list-sub {
-        width: 100%;
+    .sidebar-list-group-items {
+      .sidebar-list-item {
+        .sidebar-list-item-button {
+          min-height: 24px;
+          padding: 12px 16px;
 
-        //display: none;
+          @include flexbox;
+          align-items: center;
+          flex-wrap: wrap;
 
-        .sidebar-list-sub-item {
-          .sidebar-list-sub-item-button {
-            min-height: 24px;
-            padding: 12px 16px;
+          background-color: transparent;
 
-            @include flexbox;
-            align-items: center;
-            flex-wrap: wrap;
+          .sidebar-list-item-icon,
+          .sidebar-list-item-title {
+            transition: color $button-transition-out;
+          }
 
-            background-color: transparent;
+          .sidebar-list-item-icon {
+            width: 24px;
+            height: 24px;
 
-            .sidebar-list-sub-item-icon,
-            .sidebar-list-sub-item-title {
-              transition: color $button-transition-out;
+            position: relative;
+
+            @include flex(0 0 56px);
+
+            color: $active-icon-colour;
+
+            .dark-theme & {
+              color: $active-icon-colour-inverted;
             }
 
-            .sidebar-list-sub-item-icon {
-              @include flex(0 0 56px);
+            input {
+              display: none;
 
-              color: $active-icon-colour;
+              ~ .selected-state {
+                opacity: 0;
+              }
+
+              &:checked {
+                ~ .selected-state {
+                  opacity: 1;
+                }
+
+                ~ .unselected-state {
+                  opacity: 0;
+                }
+              }
+            }
+
+
+            .selected-state,
+            .unselected-state {
+              position: absolute;
+              top: 0;
+              left: 0;
+
+              transition: opacity 150ms;
+            }
+
+            .selected-state {
+              color: $primary-colour;
 
               .dark-theme & {
                 color: $active-icon-colour-inverted;
               }
             }
+          }
 
-            .sidebar-list-sub-item-title {
-              @include flex(1);
+          .sidebar-list-item-title {
+            @include flex(1);
 
-              color: $primary-text-colour;
-              font-weight: 700;
+            color: $primary-text-colour;
+            font-weight: $font-weight-2;
+
+            .dark-theme & {
+              color: $primary-text-colour-inverted;
+            }
+
+            div {
+              + div {
+                font-weight: $font-weight-1;
+              }
+            }
+          }
+
+          .sidebar-list-item-status {
+            @include flex(0 0 56px);
+
+            color: $active-icon-colour;
+            text-align: right;
+
+            .dark-theme & {
+              color: $active-icon-colour-inverted;
+            }
+          }
+
+          &:hover {
+            //background-color: $primary-colour;
+
+            .sidebar-list-item-icon,
+            .sidebar-list-item-title {
+              transition: color $button-transition-in;
+            }
+
+            .sidebar-list-item-icon {
+              //color: $active-icon-colour-inverted;
+            }
+
+            .sidebar-list-item-title {
+              //color: $primary-text-colour-inverted;
+            }
+          }
+
+          &:disabled {
+            .sidebar-list-item-icon {
+              color: $inactive-icon-colour;
 
               .dark-theme & {
-                color: $primary-text-colour-inverted;
+                color: $inactive-icon-colour-inverted;
               }
             }
 
-            .sidebar-list-sub-item-status {
-              @include flex(0 0 56px);
-
-              color: $active-icon-colour;
-              text-align: right;
+            .sidebar-list-item-title {
+              color: $disabled-text-colour;
 
               .dark-theme & {
-                color: $active-icon-colour-inverted;
-              }
-            }
-
-            &:hover {
-              //background-color: $primary-colour;
-
-              .sidebar-list-sub-item-icon,
-              .sidebar-list-sub-item-title {
-                transition: color $button-transition-in;
-              }
-
-              .sidebar-list-sub-item-icon {
-                //color: $active-icon-colour-inverted;
-              }
-
-              .sidebar-list-sub-item-title {
-                //color: $primary-text-colour-inverted;
-              }
-            }
-
-            &:disabled {
-              .sidebar-list-sub-item-icon {
-                color: $inactive-icon-colour;
-
-                .dark-theme & {
-                  color: $inactive-icon-colour-inverted;
-                }
-              }
-
-              .sidebar-list-sub-item-title {
-                color: $disabled-text-colour;
-
-                .dark-theme & {
-                  color: $disabled-text-colour-inverted;
-                }
+                color: $disabled-text-colour-inverted;
               }
             }
           }
         }
       }
+    }
 
-      + .sidebar-list-item {
-        border-top: 1px $divider-colour solid;
-      }
+    + .sidebar-list-group {
+      border-top: 1px $divider-colour solid;
     }
   }
 }

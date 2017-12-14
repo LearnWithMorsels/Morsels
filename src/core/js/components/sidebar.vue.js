@@ -1,4 +1,5 @@
 import Vue from 'resources/Vue';
+import Ellipsis from 'utils/Ellipsis';
 
 Vue.component( 'sidebar', {
   props: ['course', 'content', 'language', 'flashcards', 'percentageComplete'],
@@ -30,58 +31,94 @@ Vue.component( 'sidebar', {
                 '<button v-if="course.config.features && course.config.features.search" :class="{ current: selectedTab === 4 }" v-on:click.prevent="selectedTab = 4">' +
                   '<i class="material-icons">search</i>' +
                 '</button>' +
-                '<button v-on:click.prevent="toggleTheme">' +
-                  '<i class="material-icons">invert_colors</i>' +
-                '</button>' +
+                //'<button v-on:click.prevent="toggleTheme">' +
+                //  '<i class="material-icons">invert_colors</i>' +
+                //'</button>' +
               '</div>' +
               //'<transition-group name="fade" tag="div" mode="out-in">' +
               '<div v-show="selectedTab === 0" :key="0" class="sidebar-content">' +
-                '<div class="sidebar-list">' +
-                  '<div v-for="(chapter, chapterIndex) in content._chapters" class="sidebar-list-item">' +
-                    '<button class="sidebar-list-item-button">' +
-                      '<div class="sidebar-list-item-title">{{ chapter.title }}</div>' +
-                    '</button>' +
-                    '<div class="sidebar-list-sub">' +
-                      '<div v-for="(item, chapterItemIndex) in chapter._items" class="sidebar-list-sub-item">' +
-                        '<button class="sidebar-list-sub-item-button"' +
-                            //' :disabled="Math.random() > 0.5"' +
-                            ' v-on:click="goTo(chapterIndex, chapterItemIndex)">' +
-                          //'<i v-if="Math.random() > 0.5" class="material-icons sidebar-list-sub-item-icon">lock</i>' +
-                          '<i class="material-icons sidebar-list-sub-item-icon">{{ item._component ? "widgets" : "filter_none" }}</i>' +
-                          //'<i class="material-icons sidebar-list-sub-item-icon">flip_to_front</i>' +
-                          //'<i class="material-icons sidebar-list-sub-item-icon">panorama_fish_eye</i>' +
-                          //'<i class="material-icons sidebar-list-sub-item-icon">brightness_1</i>' +
-                          '<div class="sidebar-list-sub-item-title">{{ item.title }}</div>' +
-                          //'<i v-if="Math.random() > 0.5" class="material-icons sidebar-list-sub-item-status">check_circle</i>' +
-                        '</button>' +
-                      '</div>' +
+                '<div v-for="(chapter, chapterIndex) in content._chapters" class="sidebar-list-group">' +
+                  '<div class="sidebar-list-group-title">{{ chapter.title }}</div>' +
+                  '<div class="sidebar-list-group-items">' +
+                    '<div v-for="(item, chapterItemIndex) in chapter._items" class="sidebar-list-item">' +
+                      '<button class="sidebar-list-item-button"' +
+                          ' :disabled="isItemLocked(chapterIndex, chapterItemIndex)"' +
+                          ' v-on:click="goTo(chapterIndex, chapterItemIndex)">' +
+                        '<i class="material-icons sidebar-list-item-icon">{{ itemIcon(chapterIndex, chapterItemIndex) }}</i>' +
+                        '<div class="sidebar-list-item-title">{{ item.title }}</div>' +
+                        '<i v-if="isItemComplete(chapterIndex, chapterItemIndex)" class="material-icons sidebar-list-item-status">check</i>' +
+                      '</button>' +
                     '</div>' +
                   '</div>' +
                 '</div>' +
               '</div>' +
               '<div v-show="selectedTab === 1" :key="1" class="sidebar-content">' +
-                '<h3>Saved items</h3>' +
-                '<div class="saved-items">' +
-                  '<div v-for="(saved, index) in savedItems" :key="index">' +
-                    '<button v-on:click.prevent="goTo(saved.chapter, saved.item, saved.index)">{{ saved.title }}</button>' +
+                '<div class="sidebar-list-group">' +
+                  '<div class="sidebar-list-group-title">Saved items</div>' +
+                  '<div class="sidebar-list-group-items">' +
+                    '<div v-for="(saved, index) in savedItems" class="sidebar-list-item">' +
+                      '<button v-on:click.prevent="goTo(saved.chapter, saved.item, saved.index)" class="sidebar-list-item-button">' +
+                        '<i class="material-icons sidebar-list-item-icon">bookmark</i>' +
+                        '<div class="sidebar-list-item-title">' +
+                          '<div>{{ saved.title }}</div>' +
+                          '<div v-html="ellipsis(flashcard.body, 42)"></div>' +
+                        '</div>' +
+                      '</button>' +
+                    '</div>' +
                   '</div>' +
                 '</div>' +
               '</div>' +
               '<div v-show="selectedTab === 2" :key="2" class="sidebar-content">' +
-                '<p>FLASH CARDS</p>' +
-                '<button v-for="(flashcard, index) in flashcards" v-on:click.prevent="openFlashcard( index )">{{ flashcard.title }}</button>' +
+                '<div class="sidebar-list-group">' +
+                  '<div class="sidebar-list-group-title">Flashcards</div>' +
+                  '<div class="sidebar-list-group-items">' +
+                    '<div v-for="(flashcard, index) in flashcards" class="sidebar-list-item">' +
+                      '<button v-on:click.prevent="openFlashcard(index)" class="sidebar-list-item-button">' +
+                        '<i class="material-icons sidebar-list-item-icon">brightness_1</i>' +
+                        '<div class="sidebar-list-item-title">' +
+                          '<div>{{ flashcard.title }}</div>' +
+                          '<div v-html="ellipsis(flashcard.body, 42)"></div>' +
+                        '</div>' +
+                      '</button>' +
+                    '</div>' +
+                  '</div>' +
+                '</div>' +
               '</div>' +
               '<div v-show="selectedTab === 3" :key="3" class="sidebar-content">' +
-                '<template v-for="languageCode in languages">' +
-                  '<label>' +
-                    '<input type="radio" :value="languageCode" v-model="selectedLanguage">' +
-                    '{{ course.languages[languageCode].endonym || course.languages[languageCode].name || languageCode }}' +
-                  '</label>' +
-                  '<br>' +
-                '</template>' +
+                '<div class="sidebar-list-group">' +
+                  //'<div class="sidebar-list-group-title">Language</div>' +
+                  '<div class="sidebar-list-group-items">' +
+                    '<div v-for="languageCode in languages" class="sidebar-list-item">' +
+                      '<label class="sidebar-list-item-button">' +
+                        '<div class="sidebar-list-item-icon">' +
+                          '<input type="radio" :value="languageCode" v-model="selectedLanguage">' +
+                          '<i class="material-icons selected-state">radio_button_checked</i>' +
+                          '<i class="material-icons unselected-state">radio_button_unchecked</i>' +
+                        '</div>' +
+                        '<div class="sidebar-list-item-title">{{ course.languages[languageCode].endonym || course.languages[languageCode].name || languageCode }}</div>' +
+                      '</label>' +
+                    '</div>' +
+                  '</div>' +
+                '</div>' +
               '</div>' +
               '<div v-show="selectedTab === 4" :key="4" class="sidebar-content">' +
-                '<p>SEARCH</p>' +
+                '<div class="sidebar-list-group">' +
+                  '<input type="search" v-model="searchTerm" placeholder="Search...">' +
+                '</div>' +
+                '<div class="sidebar-list-group">' +
+                  '<div class="sidebar-list-group-title">{{ filteredSearchResults.length }} results found</div>' +
+                  '<div class="sidebar-list-group-items">' +
+                    '<div v-for="result in filteredSearchResults" class="sidebar-list-item">' +
+                      '<button class="sidebar-list-item-button">' +
+                        '<i class="material-icons sidebar-list-item-icon">brightness_1</i>' +
+                        '<div class="sidebar-list-item-title">' +
+                          '<div>Result 1</div>' +
+                          '<div>Lorem ipsum</div>' +
+                        '</div>' +
+                      '</button>' +
+                    '</div>' +
+                  '</div>' +
+                '</div>' +
               '</div>' +
               //'</transition-group>' +
             '</nav>',
@@ -89,7 +126,7 @@ Vue.component( 'sidebar', {
     return {
       selectedLanguage: this.$store.state.language,
       selectedTab: 0,
-      openItems: []
+      searchTerm: ''
     };
   },
   computed: {
@@ -101,6 +138,9 @@ Vue.component( 'sidebar', {
     },
     savedItems: function() {
       return this.$store.state.saved;
+    },
+    filteredSearchResults: function() {
+      return Array(29);
     }
   },
   watch: {
@@ -112,6 +152,52 @@ Vue.component( 'sidebar', {
     //console.log( this.$root );
   },
   methods: {
+    ellipsis: Ellipsis,
+    isItemComplete: function( chapter, item ) {
+      return ( this.$store.state.completion[chapter] &&
+          this.$store.state.completion[chapter][item] &&
+          this.$store.state.completion[chapter][item].complete === true );
+    },
+    isChapterComplete: function( chapter ) {
+      if( this.$store.state.completion[chapter] ) {
+        let complete = true;
+
+        for( let itemIndex in this.content._chapters[chapter]._items ) {
+          if( !this.$store.state.completion[chapter][itemIndex] ||
+              this.$store.state.completion[chapter][itemIndex] !== true ) {
+            complete = false;
+            break;
+          }
+        }
+
+        return complete;
+      } else {
+        return false;
+      }
+    },
+    isItemLocked: function( chapter, item ) {
+      if( this.course.config.features &&
+          this.course.config.features.locked ) {
+        if( item === 0 ) {
+          if( chapter === 0 ) {
+            return false;
+          } else {
+            return !this.isChapterComplete( chapter - 1 );
+          }
+        } else {
+          return !this.isItemComplete( chapter, item - 1 );
+        }
+      } else {
+        return false;
+      }
+    },
+    itemIcon: function( chapter, item ) {
+      if( this.isItemLocked( chapter, item ) ) {
+        return 'lock';
+      } else {
+        return this.content._chapters[chapter]._items[item]._component ? 'widgets' : 'filter_none';
+      }
+    },
     close: function() {
       this.$emit( 'close' );
     },

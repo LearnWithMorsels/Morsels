@@ -48,10 +48,6 @@ h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd, a, span, em, strong, pre {
   line-height: inherit;
 }
 
-h1, h2, h3, h4, h5, h6, strong {
-  font-weight: 700;
-}
-
 ul,
 ol {
   margin-left: 1em;
@@ -78,12 +74,16 @@ small {
   font-size: smaller;
 }
 
-img {
+img,
+svg {
   display: block;
 }
 
-a img {
-  border: none;
+a {
+  img,
+  svg {
+    border: none;
+  }
 }
 
 button {

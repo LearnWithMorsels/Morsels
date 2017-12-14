@@ -13,8 +13,8 @@ html {
 }
 
 body {
-  font-family: 'Lato', sans-serif;
-  font-weight: 300;
+  font-family: $primary-font-family;
+  font-weight: $default-font-weight;
 }
 
 h1,
@@ -23,7 +23,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 900;
+  font-weight: $font-weight-3;
 }
 
 h1 {
@@ -68,7 +68,7 @@ th {
 }
 
 strong {
-  font-weight: 700;
+  font-weight: $font-weight-2;
 }
 
 img {
