@@ -17,7 +17,7 @@
                             "_content": {
                                 "title": "Morsels",
                                 "subtitle": "A new responsive elearning framework",
-                                "image": {
+                                "_image": {
                                     "src": "core/icons/morsels-256.png"
                                 },
                                 "footer": "Swipe this card away to get started&hellip;"

@@ -580,7 +580,7 @@ gulp.task( 'scorm:manifest', () => {
 
 gulp.task( 'scorm', ['build', 'scorm:manifest'], () => {
   return gulp.src( './build/**/*' )
-      .pipe( zip( ( slug( CONFIG.appShortName ) || slug( CONFIG.appName ) || 'untitled-course' ) + '_' + date( 'Y-m-d_H-i-s' ) + '.zip' ) )
+      .pipe( zip( ( slug( CONFIG.appShortName ) || slug( CONFIG.appName ) || 'morsels-course' ) + date( '_Y-m-d_H-i-s' ) + '.zip' ) )
       .pipe( gulp.dest( './exports' ) );
 } );
 

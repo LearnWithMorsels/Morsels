@@ -1,5 +1,6 @@
 import Vue from 'resources/Vue';
 import Ellipsis from 'utils/Ellipsis';
+import 'sidebar-navigation.vue';
 
 Vue.component( 'sidebar', {
   props: ['course', 'content', 'language', 'flashcards', 'percentageComplete'],
@@ -37,20 +38,7 @@ Vue.component( 'sidebar', {
               '</div>' +
               //'<transition-group name="fade" tag="div" mode="out-in">' +
               '<div v-show="selectedTab === 0" :key="0" class="sidebar-content">' +
-                '<div v-for="(chapter, chapterIndex) in content._chapters" class="sidebar-list-group">' +
-                  '<div class="sidebar-list-group-title">{{ chapter.title }}</div>' +
-                  '<div class="sidebar-list-group-items">' +
-                    '<div v-for="(item, chapterItemIndex) in chapter._items" class="sidebar-list-item">' +
-                      '<button class="sidebar-list-item-button"' +
-                          ' :disabled="isItemLocked(chapterIndex, chapterItemIndex)"' +
-                          ' v-on:click="goTo(chapterIndex, chapterItemIndex)">' +
-                        '<i class="material-icons sidebar-list-item-icon">{{ itemIcon(chapterIndex, chapterItemIndex) }}</i>' +
-                        '<div class="sidebar-list-item-title">{{ item.title }}</div>' +
-                        '<i v-if="isItemComplete(chapterIndex, chapterItemIndex)" class="material-icons sidebar-list-item-status">check</i>' +
-                      '</button>' +
-                    '</div>' +
-                  '</div>' +
-                '</div>' +
+                '<sidebar-navigation :config="course.config" :chapters="content._chapters"></sidebar-navigation>' +
               '</div>' +
               '<div v-show="selectedTab === 1" :key="1" class="sidebar-content">' +
                 '<div class="sidebar-list-group">' +
@@ -153,51 +141,6 @@ Vue.component( 'sidebar', {
   },
   methods: {
     ellipsis: Ellipsis,
-    isItemComplete: function( chapter, item ) {
-      return ( this.$store.state.completion[chapter] &&
-          this.$store.state.completion[chapter][item] &&
-          this.$store.state.completion[chapter][item].complete === true );
-    },
-    isChapterComplete: function( chapter ) {
-      if( this.$store.state.completion[chapter] ) {
-        let complete = true;
-
-        for( let itemIndex in this.content._chapters[chapter]._items ) {
-          if( !this.$store.state.completion[chapter][itemIndex] ||
-              this.$store.state.completion[chapter][itemIndex] !== true ) {
-            complete = false;
-            break;
-          }
-        }
-
-        return complete;
-      } else {
-        return false;
-      }
-    },
-    isItemLocked: function( chapter, item ) {
-      if( this.course.config.features &&
-          this.course.config.features.locked ) {
-        if( item === 0 ) {
-          if( chapter === 0 ) {
-            return false;
-          } else {
-            return !this.isChapterComplete( chapter - 1 );
-          }
-        } else {
-          return !this.isItemComplete( chapter, item - 1 );
-        }
-      } else {
-        return false;
-      }
-    },
-    itemIcon: function( chapter, item ) {
-      if( this.isItemLocked( chapter, item ) ) {
-        return 'lock';
-      } else {
-        return this.content._chapters[chapter]._items[item]._component ? 'widgets' : 'filter_none';
-      }
-    },
     close: function() {
       this.$emit( 'close' );
     },
